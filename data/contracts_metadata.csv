@@ -1,0 +1,4 @@
+﻿contract_id,source_id,original_name,file_name,contract_type,file_format,page_count,similarity_group,notes
+HDLD001,SRC001,,HDLD001.doc,unspecified_template,DOC,4,SIM_A,Mẫu HĐLĐ chung; trường loại hợp đồng để trống. Nội dung/cấu trúc rất gần HDLD002.
+HDLD002,SRC001,,HDLD002.doc,fixed_term,DOC,4,SIM_A,Mẫu HĐLĐ xác định thời hạn; trường loại hợp đồng ghi theo số tháng. Nội dung/cấu trúc rất gần HDLD001.
+HDLD003,SRC001,,HDLD003.doc,indefinite_term,DOC,7,SIM_B,Tiêu đề ghi rõ HĐLĐ không xác định thời hạn; có phần đơn phương chấm dứt hợp đồng riêng.

@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model / large generated artifacts
+models/
+checkpoints/
+outputs/
+
+# Local cache
+.cache/
