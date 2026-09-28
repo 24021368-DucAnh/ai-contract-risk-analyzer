@@ -18,7 +18,6 @@ Thumbs.db
 
 # Secrets
 .env
-.env.*
 *.key
 *.pem
 
@@ -34,7 +33,7 @@ Thumbs.db
 .ipynb_checkpoints/
 
 # Model / large generated artifacts
-models/
+# models/
 checkpoints/
 outputs/
 
