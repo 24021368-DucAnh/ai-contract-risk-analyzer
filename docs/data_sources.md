@@ -64,4 +64,4 @@ Mỗi nguồn/hợp đồng cần kiểm tra:
 - Contracts đã annotate: **4** (`HDLD001`–`HDLD004`)
 - Contract tiếp theo: **`HDLD005`**
 - Contract hold near-duplicate: **`HDLD006`**
-- Dataset processed hiện tại: **`data/processed/clauses_v03.csv` — 183 clauses**
+- Dataset processed hiện tại: **`data/processed/clauses_v05.csv` — 183 clauses** (174 offset `EXACT`, 9 offset `CONTEXT`).
