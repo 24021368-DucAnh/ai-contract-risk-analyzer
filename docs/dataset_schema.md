@@ -14,6 +14,7 @@ data/
 │   ├── clauses_v02.csv
 │   ├── clauses_v03.csv
 │   ├── clauses_v04.csv
+│   ├── clauses_v05.csv
 │   └── raw_text/
 │       ├── HDLD001.txt
 │       └── ... HDLD006.txt
@@ -49,13 +50,20 @@ Column	Type	Required	Ý nghĩa
 start_offset	integer/string rỗng	No	Vị trí ký tự bắt đầu (bao gồm) trong raw_text/<contract_id>.txt
 end_offset	integer/string rỗng	No	Vị trí ký tự kết thúc (không bao gồm) trong cùng raw text
 
-Offset dùng chỉ số ký tự Python, không phải chỉ số byte UTF-8. Nếu cả hai cột
+Offset dùng chỉ số ký tự Python, không phải chỉ số byte UTF-8. Trong v04, nếu cả hai cột
 có giá trị, `raw_text[start_offset:end_offset]` phải khớp `clause_text` sau khi
 chuẩn hóa duy nhất các chuỗi khoảng trắng thành một dấu cách. Vị trí vẫn chỉ
 đến đúng đoạn gốc, kể cả khi gốc chứa xuống dòng hoặc non-breaking space.
 Nếu annotation tách một câu và lặp ngữ cảnh làm văn bản không còn là một đoạn
 liên tục trong nguồn, để trống cả hai cột và ghi `OFFSET_UNVERIFIED` trong
 notes. Không suy đoán offset hoặc ghép văn bản không có trong nguồn.
+
+Trong `clauses_v05.csv`, thêm cột `offset_quality` (10 cột tổng cộng). Mỗi row
+có `start_offset,end_offset`:
+- `EXACT` (174 row): span khớp `clause_text` sau chuẩn hóa khoảng trắng;
+- `CONTEXT` (9 row): span là câu/bullet gốc chung cho annotation đã tách hoặc
+  chuẩn hóa; dùng để điều hướng/highlight ngữ cảnh, không dùng làm ground truth
+  exact-span hay câu trích nguyên văn. Các row này có `OFFSET_CONTEXT` trong notes.
 
 
 clause_id
@@ -157,6 +165,7 @@ Tên:
 - clauses_v02.csv
 - clauses_v03.csv
 - clauses_v04.csv
+- clauses_v05.csv
 Quy tắc:
 - version cũ đã archived không chỉnh lại;
 - append/relabel đáng kể tạo version mới;
@@ -196,9 +205,10 @@ Dataset QC
 - exact duplicate count;
 - near-duplicate/template groups;
 - leakage theo similarity_group.
-9. Snapshot hiện tại — v04
-data/processed/clauses_v04.csv giữ nguyên 183 annotation và 12 nhãn của v03,
-thêm raw text và offset. Các thống kê phân phối bên dưới vẫn là thống kê v03/v04.
+9. Snapshot hiện tại — v05
+data/processed/clauses_v05.csv giữ nguyên 183 annotation và 12 nhãn của v03,
+thêm raw text, offset và cờ chất lượng. Các thống kê phân phối bên dưới vẫn là
+thống kê v03/v04/v05.
 Contract	Clauses	Similarity group
 HDLD001	39	SIM_A
 HDLD002	40	SIM_A
@@ -230,8 +240,9 @@ Current structural checks:
 - invalid clause labels: 0
 - non-REVIEWED: 0
 Offset QC:
-- 174/183 clause có span đã xác minh theo quy tắc khoảng trắng ở trên.
-- 9 clause để trống offset và có `OFFSET_UNVERIFIED` trong notes:
+- 174/183 clause có span `EXACT` đã xác minh theo quy tắc khoảng trắng ở trên.
+- 9 clause có span `CONTEXT` trỏ đến câu/bullet nguồn chung, không trùng nguyên
+  văn `clause_text` và không được tính vào golden exact-span:
   HDLD001_C014 (nguồn có ký tự `S` sau `hàng tuần`),
   HDLD003_C018, HDLD003_C018A (tách câu đa chủ đề),
   HDLD004_C023–C027 (tách bullet đa chủ đề và lặp ngữ cảnh),
