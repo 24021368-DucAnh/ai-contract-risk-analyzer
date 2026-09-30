@@ -1,0 +1,2 @@
+# Offsets are character positions into committed text. Keep LF on every platform.
+data/processed/raw_text/*.txt text eol=lf

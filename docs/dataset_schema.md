@@ -12,7 +12,11 @@ data/
 ├── processed/
 │   ├── clauses_v01.csv
 │   ├── clauses_v02.csv
-│   └── clauses_v03.csv
+│   ├── clauses_v03.csv
+│   ├── clauses_v04.csv
+│   └── raw_text/
+│       ├── HDLD001.txt
+│       └── ... HDLD006.txt
 └── contracts_metadata.csv
 data/raw/contracts/
 Chứa file nguồn gốc.
@@ -26,6 +30,9 @@ Hiện tại không bắt buộc sử dụng vì ground-truth structured đã n�
 Không copy clauses_vXX.csv vào thư mục này.
 data/processed/
 Chứa dataset clause đã xử lý/annotate. Mỗi version là một snapshot độc lập.
+`raw_text/` chứa bản trích UTF-8 từ đúng file gốc trong `data/raw/contracts/`;
+xem `data/processed/raw_text/README.md` để biết cách tái tạo. Không thêm
+annotation vào raw text nhằm tạo ra một span giả.
 3. Schema clauses_vXX.csv
 Thứ tự cột bắt buộc:
 Column	Type	Required	Ý nghĩa
@@ -36,6 +43,19 @@ clause_text	string	Yes	Text dùng làm input/ground truth
 clause_type	enum	Yes	Nhãn clause taxonomy
 annotation_status	enum	Yes	Trạng thái review
 notes	string	No	Giải thích case đặc biệt
+
+Từ `clauses_v04.csv`, thêm hai cột cuối:
+Column	Type	Required	Ý nghĩa
+start_offset	integer/string rỗng	No	Vị trí ký tự bắt đầu (bao gồm) trong raw_text/<contract_id>.txt
+end_offset	integer/string rỗng	No	Vị trí ký tự kết thúc (không bao gồm) trong cùng raw text
+
+Offset dùng chỉ số ký tự Python, không phải chỉ số byte UTF-8. Nếu cả hai cột
+có giá trị, `raw_text[start_offset:end_offset]` phải khớp `clause_text` sau khi
+chuẩn hóa duy nhất các chuỗi khoảng trắng thành một dấu cách. Vị trí vẫn chỉ
+đến đúng đoạn gốc, kể cả khi gốc chứa xuống dòng hoặc non-breaking space.
+Nếu annotation tách một câu và lặp ngữ cảnh làm văn bản không còn là một đoạn
+liên tục trong nguồn, để trống cả hai cột và ghi `OFFSET_UNVERIFIED` trong
+notes. Không suy đoán offset hoặc ghép văn bản không có trong nguồn.
 
 
 clause_id
@@ -136,6 +156,7 @@ Tên:
 - clauses_v01.csv
 - clauses_v02.csv
 - clauses_v03.csv
+- clauses_v04.csv
 Quy tắc:
 - version cũ đã archived không chỉnh lại;
 - append/relabel đáng kể tạo version mới;
@@ -175,8 +196,9 @@ Dataset QC
 - exact duplicate count;
 - near-duplicate/template groups;
 - leakage theo similarity_group.
-9. Snapshot hiện tại — v03
-data/processed/clauses_v03.csv
+9. Snapshot hiện tại — v04
+data/processed/clauses_v04.csv giữ nguyên 183 annotation và 12 nhãn của v03,
+thêm raw text và offset. Các thống kê phân phối bên dưới vẫn là thống kê v03/v04.
 Contract	Clauses	Similarity group
 HDLD001	39	SIM_A
 HDLD002	40	SIM_A
@@ -207,4 +229,12 @@ Current structural checks:
 - missing required fields: 0
 - invalid clause labels: 0
 - non-REVIEWED: 0
+Offset QC:
+- 174/183 clause có span đã xác minh theo quy tắc khoảng trắng ở trên.
+- 9 clause để trống offset và có `OFFSET_UNVERIFIED` trong notes:
+  HDLD001_C014 (nguồn có ký tự `S` sau `hàng tuần`),
+  HDLD003_C018, HDLD003_C018A (tách câu đa chủ đề),
+  HDLD004_C023–C027 (tách bullet đa chủ đề và lặp ngữ cảnh),
+  HDLD004_C043 (lặp chủ ngữ khi tách câu).
+- HDLD005–HDLD006 đã có raw text, nhưng chưa được annotate trong snapshot này.
 Exact duplicate clause texts có thể vẫn tồn tại giữa các template và được xử lý bằng similarity_group/split policy, không tự động xóa.

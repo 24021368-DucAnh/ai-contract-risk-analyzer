@@ -11,6 +11,10 @@ Các clause đã annotate trong:
 data/processed/clauses_vXX.csv
 Schema clause chuẩn:
 clause_id, contract_id, section_title, clause_text, clause_type, annotation_status, notes
+Từ snapshot v04, có thêm `start_offset,end_offset` ở cuối mỗi row. Chỉ điền
+khi đoạn trong raw text khớp `clause_text` sau chuẩn hóa khoảng trắng; xem
+`docs/dataset_schema.md`. Clause được tách hoặc lặp ngữ cảnh mà không có
+đoạn nguồn liên tục phải để trống offset và ghi `OFFSET_UNVERIFIED`.
 3. Quy trình annotation chuẩn
 1. Đọc toàn bộ file gốc trước khi tách clause.
 2. Xác định phần hành chính cần bỏ.
@@ -204,7 +208,7 @@ Khi tạo train/dev/test:
 Mục tiêu: tránh một câu/template xuất hiện ở train và gần như y hệt ở test, làm F1 bị inflate.
 12. QC checklist trước khi merge dataset
 Mỗi batch mới phải đạt:
-- [ ] đúng schema 7 cột;
+- [ ] đúng schema của version (v01–v03: 7 cột; từ v04: 9 cột);
 - [ ] không duplicate clause_id;
 - [ ] không thiếu contract_id;
 - [ ] không thiếu section_title;
