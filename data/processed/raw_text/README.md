@@ -10,8 +10,10 @@ No clause annotation was inserted into these files.
 Offsets in `clauses_v04.csv` and `clauses_v05.csv` refer to these exact committed text files. They
 are Python character indices and use half-open ranges `[start_offset, end_offset)`.
 In v05, `offset_quality=EXACT` means the span matches `clause_text` after whitespace
-normalization; `CONTEXT` means the span highlights a larger original sentence or
-bullet shared by split annotations. Do not use CONTEXT rows as exact quote labels.
+normalization. `CONTEXT` means the span highlights the relevant source phrase
+behind a split or normalized annotation; its text may differ from `clause_text`.
+Do not use CONTEXT rows as exact quote labels. See `docs/HIGHLIGHT_HANDOFF.md`
+for the frontend/pipeline handoff contract.
 The raw contract files remain unchanged. The extraction inputs have these
 SHA-256 digests:
 

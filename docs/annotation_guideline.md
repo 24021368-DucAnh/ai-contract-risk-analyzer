@@ -14,7 +14,8 @@ khi đoạn trong raw text khớp `clause_text` sau chuẩn hóa khoảng trắn
 `docs/dataset_schema.md`. Clause được tách hoặc lặp ngữ cảnh mà không có
 đoạn nguồn liên tục phải để trống offset và ghi `OFFSET_UNVERIFIED`.
 Snapshot v05 có thêm `offset_quality`: các row này dùng span `CONTEXT` của
-câu/bullet gốc và ghi `OFFSET_CONTEXT`; chỉ `EXACT` dùng cho đánh giá span chuẩn.
+cụm từ nguồn liên quan và ghi `OFFSET_CONTEXT`; chỉ `EXACT` dùng cho đánh giá
+span chuẩn. Xem `docs/HIGHLIGHT_HANDOFF.md` khi đưa dữ liệu cho frontend.
 3. Quy trình annotation chuẩn
 1. Đọc toàn bộ file gốc trước khi tách clause.
 2. Xác định phần hành chính cần bỏ.

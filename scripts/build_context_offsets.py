@@ -1,8 +1,8 @@
 """Add auditable parent-context spans for split or normalized v04 clauses.
 
-EXACT spans remain clause-text matches. CONTEXT spans identify a larger source
-sentence or bullet shared by several annotations; consumers must not treat them
-as exact quotations or use them for exact-span evaluation.
+EXACT spans remain clause-text matches. CONTEXT spans identify the relevant
+source phrase for a split or normalized annotation; consumers must not treat
+them as exact clause quotations or use them for exact-span evaluation.
 """
 
 import csv
@@ -16,8 +16,8 @@ OUTPUT_CSV = PROCESSED / "clauses_v05.csv"
 RAW_TEXT_DIR = PROCESSED / "raw_text"
 
 # start anchor and optional inclusive end anchor in the original extracted text.
-# None means the remainder of the source line. Repeated annotations may share
-# one original sentence/bullet; that is precisely why their span is CONTEXT.
+# None means the remainder of the source line. These anchors identify the
+# parent sentence or bullet before selecting the relevant highlight phrase.
 CONTEXT_ANCHORS = {
     "HDLD001_C014": ("- Từ ngày Thứ 2 đến ngày Thứ 7", "+ Buổi chiều: 13h00 - 17h00."),
     "HDLD003_C018": ("g) Đóng các loại bảo hiểm, các khoản thuế", None),
@@ -28,6 +28,19 @@ CONTEXT_ANCHORS = {
     "HDLD004_C026": ("- Về bố trí chỗ ăn, ở; trang bị", None),
     "HDLD004_C027": ("- Về bố trí chỗ ăn, ở; trang bị", None),
     "HDLD004_C043": ("Hợp đồng này được lập thành 02 bản", None),
+}
+
+# For shared source bullets, highlight the unique phrase behind each semantic
+# annotation. The annotation may repeat surrounding grammar that is absent here.
+HIGHLIGHT_PHRASES = {
+    "HDLD003_C018": "các loại bảo hiểm",
+    "HDLD003_C018A": "các khoản thuế",
+    "HDLD004_C023": "nghỉ ngơi",
+    "HDLD004_C024": "hỗ trợ học nghề, học văn hóa",
+    "HDLD004_C025": "bố trí chỗ ăn, ở",
+    "HDLD004_C026": "trang bị bảo hộ lao động",
+    "HDLD004_C027": "bồi thường thiệt hại",
+    "HDLD004_C043": "có hiệu lực từ ngày ......... tháng ........... năm ..........",
 }
 
 
@@ -62,16 +75,23 @@ def fill_context_offsets(
             clause_id = updated["clause_id"]
             if clause_id not in CONTEXT_ANCHORS:
                 raise ValueError(f"missing reviewed context anchor: {clause_id}")
-            start, end = _context_span(
-                raw_text_by_contract[updated["contract_id"]], *CONTEXT_ANCHORS[clause_id]
-            )
+            raw_text = raw_text_by_contract[updated["contract_id"]]
+            start, end = _context_span(raw_text, *CONTEXT_ANCHORS[clause_id])
+            phrase = HIGHLIGHT_PHRASES.get(clause_id)
+            if phrase is not None:
+                parent = raw_text[start:end]
+                relative = parent.find(phrase)
+                if relative < 0 or parent.find(phrase, relative + 1) >= 0:
+                    raise ValueError(f"highlight phrase missing or ambiguous: {clause_id}")
+                start += relative
+                end = start + len(phrase)
             updated["start_offset"] = str(start)
             updated["end_offset"] = str(end)
             updated["offset_quality"] = "CONTEXT"
             updated["notes"] = (
                 updated.get("notes", "").split("; OFFSET_UNVERIFIED:")[0]
-                + "; OFFSET_CONTEXT: highlights the shared original sentence/bullet, "
-                "not exact normalized clause text"
+                + "; OFFSET_CONTEXT: highlights relevant original source text, "
+                "not the full normalized clause text"
             ).lstrip("; ")
             seen_context.add(clause_id)
         result.append(updated)

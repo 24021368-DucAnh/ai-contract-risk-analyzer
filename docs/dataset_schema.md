@@ -61,9 +61,11 @@ notes. Không suy đoán offset hoặc ghép văn bản không có trong nguồn
 Trong `clauses_v05.csv`, thêm cột `offset_quality` (10 cột tổng cộng). Mỗi row
 có `start_offset,end_offset`:
 - `EXACT` (174 row): span khớp `clause_text` sau chuẩn hóa khoảng trắng;
-- `CONTEXT` (9 row): span là câu/bullet gốc chung cho annotation đã tách hoặc
-  chuẩn hóa; dùng để điều hướng/highlight ngữ cảnh, không dùng làm ground truth
-  exact-span hay câu trích nguyên văn. Các row này có `OFFSET_CONTEXT` trong notes.
+- `CONTEXT` (9 row): span là cụm từ nguồn liên quan đến annotation đã tách hoặc
+  chuẩn hóa. Các clause tách từ cùng bullet được bôi ở những cụm từ riêng;
+  riêng `HDLD001_C014` bôi cả bullet vì nguồn có lỗi ký tự. Không dùng span này
+  làm ground truth exact-span hay câu trích nguyên văn của `clause_text`.
+  Các row này có `OFFSET_CONTEXT` trong notes.
 
 
 clause_id
@@ -241,7 +243,7 @@ Current structural checks:
 - non-REVIEWED: 0
 Offset QC:
 - 174/183 clause có span `EXACT` đã xác minh theo quy tắc khoảng trắng ở trên.
-- 9 clause có span `CONTEXT` trỏ đến câu/bullet nguồn chung, không trùng nguyên
+- 9 clause có span `CONTEXT` trỏ đến cụm từ nguồn liên quan, không trùng nguyên
   văn `clause_text` và không được tính vào golden exact-span:
   HDLD001_C014 (nguồn có ký tự `S` sau `hàng tuần`),
   HDLD003_C018, HDLD003_C018A (tách câu đa chủ đề),
@@ -249,3 +251,4 @@ Offset QC:
   HDLD004_C043 (lặp chủ ngữ khi tách câu).
 - HDLD005–HDLD006 đã có raw text, nhưng chưa được annotate trong snapshot này.
 Exact duplicate clause texts có thể vẫn tồn tại giữa các template và được xử lý bằng similarity_group/split policy, không tự động xóa.
+Trong v05 có 31 nhóm `clause_text` trùng nguyên văn; 2 nhóm xuất hiện ở cả `SIM_A` và `SIM_B`. Khi tạo split, kiểm tra trùng lặp xuyên split và loại khỏi tập đánh giá hoặc điều chỉnh split trước khi tính F1.

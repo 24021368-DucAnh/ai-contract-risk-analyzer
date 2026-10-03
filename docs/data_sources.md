@@ -21,6 +21,17 @@ Danh sách các nguồn hợp đồng lao động tiếng Việt được khảo
 | `HDLD005` | `SRC001` | `data/raw/contracts/HDLD005.docx` | HĐLĐ thực hiện công việc hỗ trợ, phục vụ | Chờ annotate | `SIM_D` | Mẫu ghi rõ Phụ lục II Thông tư 05/2023/TT-BNV; trang tải/tham khảo: https://thuvienphapluat.vn/banan/tin-tuc/tai-mau-hop-dong-lao-dong-theo-nghi-dinh-111-2022-nd-cp-moi-nhat-2026-mau-hop-dong-theo-nghi-dinh-11-20855.html |
 | `HDLD006` | `SRC001` | `data/raw/contracts/HDLD006.docx` | HĐLĐ thực hiện công việc chuyên môn, nghiệp vụ | Giữ raw / chưa annotate full | `SIM_D` | Near-duplicate/template-family với `HDLD005`; giữ để kiểm thử duplicate và truy vết nguồn |
 
+## 2.1. Lưu ý QC pháp lý của tài liệu nguồn
+
+`HDLD003.doc` là mẫu hợp đồng dùng làm **dữ liệu đầu vào**, không phải nguồn luật.
+Phần Điều 5 của mẫu ghi quyền đơn phương chấm dứt của NSDLĐ theo “Điều 38 Bộ luật
+lao động 2019” và row `HDLD003_C044` dẫn chiếu Điều 33 cho trường hợp NLĐ không
+quay lại nơi làm việc. Trong [Bộ luật Lao động số 45/2019/QH14 trên Công báo](https://congbao.chinhphu.vn/van-ban/nghi-quyet-so-45-2019-qh14-30232.htm),
+quyền này nằm tại Điều 36; điểm d khoản 1 Điều 36 dẫn đến Điều 31. Giữ nguyên
+DOC/raw text/annotation để pipeline có thể phát hiện hợp đồng chứa dẫn chiếu
+sai. `annotation_status=REVIEWED` chỉ xác nhận việc tách và gán nhãn clause,
+không phải kết luận điều khoản hợp pháp hay trích dẫn luật đúng.
+
 ## 3. Quy ước ID
 
 - `SRCxxx`: định danh **nguồn/publisher** dữ liệu.
