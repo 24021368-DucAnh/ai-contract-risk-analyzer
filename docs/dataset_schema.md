@@ -7,7 +7,7 @@ data/
 │   ├── contracts/
 │   │   ├── HDLD001.doc
 │   │   ├── ...
-│   │   └── HDLD006.docx
+│   │   └── HDLD007.docx
 │   └── annotated/
 ├── processed/
 │   ├── clauses_v01.csv
@@ -15,10 +15,14 @@ data/
 │   ├── clauses_v03.csv
 │   ├── clauses_v04.csv
 │   ├── clauses_v05.csv
+│   ├── clauses_v06.csv
 │   └── raw_text/
 │       ├── HDLD001.txt
-│       └── ... HDLD006.txt
+│       └── ... HDLD007.txt
 └── contracts_metadata.csv
+HDLD007.docx và HDLD007.txt chỉ có ở local, được Git ignore trong khi chờ
+xác nhận quyền tái phân phối. Clone repo có raw contracts HDLD001–HDLD006;
+metadata, URL và hash HDLD007 vẫn được giữ để truy vết.
 data/raw/contracts/
 Chứa file nguồn gốc.
 - không sửa nội dung;
@@ -66,6 +70,10 @@ có `start_offset,end_offset`:
   riêng `HDLD001_C014` bôi cả bullet vì nguồn có lỗi ký tự. Không dùng span này
   làm ground truth exact-span hay câu trích nguyên văn của `clause_text`.
   Các row này có `OFFSET_CONTEXT` trong notes.
+
+`clauses_v06.csv` giữ nguyên 10 cột. Toàn bộ row v05 được giữ nguyên; 51 row
+HDLD005 được thêm với span `EXACT` vào cùng file raw text. Snapshot v06 có
+234 row: 225 `EXACT`, 9 `CONTEXT`.
 
 
 clause_id
@@ -168,6 +176,7 @@ Tên:
 - clauses_v03.csv
 - clauses_v04.csv
 - clauses_v05.csv
+- clauses_v06.csv
 Quy tắc:
 - version cũ đã archived không chỉnh lại;
 - append/relabel đáng kể tạo version mới;
@@ -188,6 +197,20 @@ Quy trình:
 3. Không để cùng template family xuất hiện ở nhiều split.
 4. Sau split, kiểm exact duplicate/near-duplicate giữa train/dev/test.
 5. Nếu có leakage, sửa split trước evaluation.
+
+Snapshot v05 có bản chia tạm `data/splits/provisional_v05.json`, tái tạo bằng
+`scripts/build_provisional_split.py --dataset-version v05`. Bản chia giữ nguyên 183 row; các row
+trùng/gần trùng xuyên tập được ghi trong `exclusions` và không dùng để chấm
+điểm dev/test. Xem `docs/WEEK2_DATA_HANDOFF.md` để biết số liệu và giới hạn.
+Bản chia hiện tại là `data/splits/provisional_v06.json`, tái tạo bằng
+`scripts/build_provisional_split.py --dataset-version v06`. Cả `SIM_B` và
+`SIM_D` nằm trong train; `SIM_A` trong dev; `SIM_C` trong test. 39 row đánh
+giá trùng/gần trùng với tập trước bị loại khỏi điểm số (30 dev, 9 test),
+nhưng vẫn tồn tại trong dataset. Bốn similarity group đã annotate chưa đủ để
+cố định test set cuối kỳ.
+Ngưỡng near-duplicate v06 là 0.85 sau review các biến thể template lọt qua
+ngưỡng 0.90; v05 giữ ngưỡng lịch sử 0.90. Bộ lọc ký tự này vẫn cần review
+ngữ nghĩa trước benchmark chính thức.
 8. QC bắt buộc
 Structural QC
 - tên/thứ tự cột đúng;
@@ -207,7 +230,7 @@ Dataset QC
 - exact duplicate count;
 - near-duplicate/template groups;
 - leakage theo similarity_group.
-9. Snapshot hiện tại — v05
+9. Snapshot lịch sử — v05
 data/processed/clauses_v05.csv giữ nguyên 183 annotation và 12 nhãn của v03,
 thêm raw text, offset và cờ chất lượng. Các thống kê phân phối bên dưới vẫn là
 thống kê v03/v04/v05.
@@ -252,3 +275,21 @@ Offset QC:
 - HDLD005–HDLD006 đã có raw text, nhưng chưa được annotate trong snapshot này.
 Exact duplicate clause texts có thể vẫn tồn tại giữa các template và được xử lý bằng similarity_group/split policy, không tự động xóa.
 Trong v05 có 31 nhóm `clause_text` trùng nguyên văn; 2 nhóm xuất hiện ở cả `SIM_A` và `SIM_B`. Khi tạo split, kiểm tra trùng lặp xuyên split và loại khỏi tập đánh giá hoặc điều chỉnh split trước khi tính F1.
+
+10. Snapshot hiện tại — v06
+`data/processed/clauses_v06.csv` có 234 clause REVIEWED / 5 contract. HDLD005
+thêm 51 clause (SIM_D); HDLD006 vẫn giữ raw vì gần trùng HDLD005. HDLD007
+đã nhận raw từ nguồn mới nhưng chưa annotate, nên chưa có trong v06/split.
+
+| Contract | Clauses | Similarity group |
+|---|---:|---|
+| HDLD001 | 39 | SIM_A |
+| HDLD002 | 40 | SIM_A |
+| HDLD003 | 61 | SIM_B |
+| HDLD004 | 43 | SIM_C |
+| HDLD005 | 51 | SIM_D |
+| **Total** | **234** | |
+
+V06 có 225 span `EXACT`, 9 span `CONTEXT`. `WORKING_CONDITIONS` còn 7 mẫu,
+là nhãn ưu tiên cần tìm thêm ở các hợp đồng khác họ mẫu. Xem
+`docs/CONTRACT_INTAKE_QC_2026-10-05.md` để biết quyết định nhận nguồn.

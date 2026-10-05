@@ -18,7 +18,7 @@ def build_payload(contract_id: str, processed: Path = PROCESSED) -> dict:
         raise ValueError(f"raw text not found for {contract_id}")
     raw_text = raw_path.read_text(encoding="utf-8")
     clauses = []
-    with (processed / "clauses_v05.csv").open(encoding="utf-8-sig", newline="") as handle:
+    with (processed / "clauses_v06.csv").open(encoding="utf-8-sig", newline="") as handle:
         for row in csv.DictReader(handle):
             if row["contract_id"] != contract_id:
                 continue

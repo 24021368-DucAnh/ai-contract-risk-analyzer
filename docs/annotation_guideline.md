@@ -232,7 +232,7 @@ Khi tạo train/dev/test:
 Mục tiêu: tránh một câu/template xuất hiện ở train và gần như y hệt ở test, làm F1 bị inflate.
 #### 12. QC checklist trước khi merge dataset
 Mỗi batch mới phải đạt:
-- [ ] đúng schema của version (v01–v03: 7 cột; v04: 9 cột; v05: 10 cột);
+- [ ] đúng schema của version (v01–v03: 7 cột; v04: 9 cột; v05–v06: 10 cột);
 - [ ] không duplicate clause_id;
 - [ ] không thiếu contract_id;
 - [ ] không thiếu section_title;
@@ -255,5 +255,6 @@ Ví dụ:
 - clauses_v02.csv → archived
 - clauses_v03.csv → archived
 - clauses_v04.csv → archived
-- clauses_v05.csv → current
+- clauses_v05.csv → archived
+- clauses_v06.csv → current
 Khi append một batch contract mới đã QC xong, tạo version processed mới (v04, v05, ...), sau đó cập nhật metadata/docs tương ứng.
