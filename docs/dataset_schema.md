@@ -186,7 +186,22 @@ Quy trình:
 3. Không để cùng template family xuất hiện ở nhiều split.
 4. Sau split, kiểm exact duplicate/near-duplicate giữa train/dev/test.
 5. Nếu có leakage, sửa split trước evaluation.
+
 8. QC bắt buộc
+
+Chạy kiểm tra tự động trên snapshot hiện hành từ thư mục gốc repo:
+
+```bash
+python -m scripts.validate_dataset
+```
+
+Lệnh trả exit code 1 nếu có lỗi cấu trúc, metadata, nhãn hoặc offset. Nó in
+số contract/clause, phân bố 12 nhãn, trạng thái review, số text trùng nguyên
+văn và danh sách `CONTEXT` cần review. `EXACT` được đối chiếu sau chuẩn hóa khoảng trắng;
+`CONTEXT` chỉ được kiểm vị trí, đoạn nguồn không rỗng và ghi chú
+`OFFSET_CONTEXT`. Không dùng các span `CONTEXT` làm nhãn exact-span.
+Trùng text được thống kê để kiểm leakage, không tự động xem là lỗi hay xóa row.
+
 Structural QC
 - tên/thứ tự cột đúng;
 - không duplicate clause_id;
