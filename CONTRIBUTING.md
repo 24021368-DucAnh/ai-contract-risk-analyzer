@@ -60,6 +60,16 @@ clauses_v01.csv
 clauses_v02.csv
 
 Không sửa trực tiếp data/raw/.
+Trước khi tạo PR thay đổi dataset, chạy:
+
+```bash
+python -m scripts.validate_dataset
+python -m unittest discover -s tests -v
+```
+
+Review thủ công các `CONTEXT` mà validator liệt kê theo
+`docs/dataset_schema.md`; các span này không phải trích dẫn exact.
+
 8. Không commit secrets
 Không commit:
 .env
