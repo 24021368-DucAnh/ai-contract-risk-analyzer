@@ -1,2 +1,15 @@
 # Offsets are character positions into committed text. Keep LF on every platform.
 data/processed/raw_text/*.txt text eol=lf
+
+# Release fingerprints must be identical across Windows and Linux checkouts.
+data/processed/clauses_v06.csv text eol=lf
+data/contracts_metadata.csv text eol=lf
+data/splits/provisional_v06.json text eol=lf
+data/evaluation/*.jsonl text eol=lf
+data/releases/** text eol=lf
+data/processed/raw_text/README.md text eol=lf
+reports/week5/** text eol=lf
+notebooks/*.ipynb text eol=lf
+docs/*.md text eol=lf
+scripts/*.py text eol=lf
+tests/*.py text eol=lf

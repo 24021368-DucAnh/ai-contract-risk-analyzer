@@ -295,6 +295,12 @@ Trong v05 có 31 nhóm `clause_text` trùng nguyên văn; 2 nhóm xuất hiện 
 thêm 51 clause (SIM_D); HDLD006 vẫn giữ raw vì gần trùng HDLD005. HDLD007
 đã nhận raw từ nguồn mới nhưng chưa annotate, nên chưa có trong v06/split.
 
+Ở v06 RC1 ngày 12/10/2026, HDLD007 chỉ được giữ trong hồ sơ intake; raw chưa
+chia sẻ trong Git nên không nằm trong metadata release. Xem
+`WEEK5_DATA_QC_REPORT.md` và `WEEK5_AI_EVALUATION_HANDOFF.md` cho gates,
+warnings, masks và hard test candidate. Chạy validator mặc định trên v06;
+muốn kiểm snapshot lịch sử cần metadata tương ứng với snapshot đó.
+
 | Contract | Clauses | Similarity group |
 |---|---:|---|
 | HDLD001 | 39 | SIM_A |

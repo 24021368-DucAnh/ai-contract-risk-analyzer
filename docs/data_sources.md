@@ -21,7 +21,7 @@ Danh sách các nguồn hợp đồng lao động tiếng Việt được khảo
 | `HDLD004` | `SRC001` | `data/raw/contracts/HDLD004.docx` | HĐLĐ giúp việc gia đình | Đã annotate | `SIM_C` | Trang tham khảo: https://thuvienphapluat.vn/hoi-dap-phap-luat/mau-hop-dong-lao-dong-giup-viec-gia-dinh-moi-nhat-338634.html |
 | `HDLD005` | `SRC001` | `data/raw/contracts/HDLD005.docx` | HĐLĐ thực hiện công việc hỗ trợ, phục vụ | Đã annotate, 51 clause trong v06 | `SIM_D` | Mẫu ghi rõ Phụ lục II Thông tư 05/2023/TT-BNV; trang tải/tham khảo: https://thuvienphapluat.vn/banan/tin-tuc/tai-mau-hop-dong-lao-dong-theo-nghi-dinh-111-2022-nd-cp-moi-nhat-2026-mau-hop-dong-theo-nghi-dinh-11-20855.html |
 | `HDLD006` | `SRC001` | `data/raw/contracts/HDLD006.docx` | HĐLĐ thực hiện công việc chuyên môn, nghiệp vụ | Giữ raw / chưa annotate full | `SIM_D` | Near-duplicate/template-family với `HDLD005`; giữ để kiểm thử duplicate và truy vết nguồn |
-| `HDLD007` | `SRC002` | `data/raw/contracts/HDLD007.docx` | Mẫu HĐLĐ chung 2026 | Chờ annotate | `SIM_E` | [Trang công bố và tải mẫu](https://hronline.vn/mau-hop-dong-lao-dong-2026-chuan-bo-luat-lao-dong-tai-mien-phi-wordpdf); [file Word công khai](https://docs.google.com/document/d/11B6vwNm9BiPURKvpxtySNNa6NAJawRi2/edit?usp=sharing); QC chi tiết tại `docs/CONTRACT_INTAKE_QC_2026-10-05.md` |
+| `HDLD007` | `SRC002` | Intake queue; raw chưa chia sẻ trong Git | Mẫu HĐLĐ chung 2026 | Chờ quyền chia sẻ và annotate; chưa vào metadata release | `SIM_E` dự kiến | [Trang công bố và tải mẫu](https://hronline.vn/mau-hop-dong-lao-dong-2026-chuan-bo-luat-lao-dong-tai-mien-phi-wordpdf); [file Word công khai](https://docs.google.com/document/d/11B6vwNm9BiPURKvpxtySNNa6NAJawRi2/edit?usp=sharing); QC chi tiết tại `docs/CONTRACT_INTAKE_QC_2026-10-05.md` |
 
 ## 2.1. Lưu ý QC pháp lý của tài liệu nguồn
 
@@ -73,7 +73,7 @@ Mỗi nguồn/hợp đồng cần kiểm tra:
 
 ## 7. Trạng thái hiện tại
 
-- Raw contracts: **7 ở local**, **6 trong Git**; DOCX và raw text HDLD007 giữ local cho đến khi xác nhận quyền tái phân phối. URL và hash nguồn được lưu trong hồ sơ QC.
+- Raw contracts: **6 trong Git**, đã kiểm hash ngày 12/10/2026. Hồ sơ intake ngày 05/10 ghi nhận thêm HDLD007 ở local; checkout release không chứa file đó và không kiểm chứng lại nội dung HDLD007 trong tuần 5. URL/hash được giữ trong hồ sơ QC, chờ quyền tái phân phối.
 - Contracts đã annotate: **5** (`HDLD001`–`HDLD005`)
 - Contract tiếp theo: **`HDLD007`**
 - Contract hold near-duplicate: **`HDLD006`**

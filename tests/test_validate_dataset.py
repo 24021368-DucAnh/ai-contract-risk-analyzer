@@ -7,7 +7,7 @@ from scripts.validate_dataset import validate_dataset
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CLAUSES = ROOT / "data" / "processed" / "clauses_v05.csv"
+CLAUSES = ROOT / "data" / "processed" / "clauses_v06.csv"
 METADATA = ROOT / "data" / "contracts_metadata.csv"
 RAW_TEXT = ROOT / "data" / "processed" / "raw_text"
 
@@ -30,12 +30,12 @@ class DatasetValidationTests(unittest.TestCase):
         report = validate_dataset(CLAUSES, METADATA, RAW_TEXT)
 
         self.assertEqual(report.errors, [])
-        self.assertEqual(report.contract_count, 4)
-        self.assertEqual(report.clause_count, 183)
-        self.assertEqual(report.offset_quality_counts, {"EXACT": 174, "CONTEXT": 9})
-        self.assertEqual(report.annotation_status_counts, {"REVIEWED": 183})
+        self.assertEqual(report.contract_count, 5)
+        self.assertEqual(report.clause_count, 234)
+        self.assertEqual(report.offset_quality_counts, {"EXACT": 225, "CONTEXT": 9})
+        self.assertEqual(report.annotation_status_counts, {"REVIEWED": 234})
         self.assertEqual(len(report.context_clause_ids), 9)
-        self.assertEqual(report.class_counts["WORKING_CONDITIONS"], 6)
+        self.assertEqual(report.class_counts["WORKING_CONDITIONS"], 7)
 
     def test_bad_clause_fields_and_offsets_are_reported_together(self):
         fields, rows = read_csv(CLAUSES)
@@ -47,7 +47,7 @@ class DatasetValidationTests(unittest.TestCase):
         rows[5]["start_offset"] = "nope"
         rows[6]["annotation_status"] = "NOT_REVIEWED"
         with tempfile.TemporaryDirectory() as directory:
-            clauses = Path(directory) / "clauses_v05.csv"
+            clauses = Path(directory) / "clauses_v06.csv"
             write_csv(clauses, fields, rows)
             report = validate_dataset(clauses, METADATA, RAW_TEXT)
 
@@ -66,7 +66,7 @@ class DatasetValidationTests(unittest.TestCase):
         exact["clause_text"] = "This differs from the source"
         context["notes"] = ""
         with tempfile.TemporaryDirectory() as directory:
-            clauses = Path(directory) / "clauses_v05.csv"
+            clauses = Path(directory) / "clauses_v06.csv"
             write_csv(clauses, fields, rows)
             report = validate_dataset(clauses, METADATA, RAW_TEXT)
 
@@ -86,7 +86,7 @@ class DatasetValidationTests(unittest.TestCase):
     def test_empty_clause_file_is_not_accepted_as_clean(self):
         fields, _ = read_csv(CLAUSES)
         with tempfile.TemporaryDirectory() as directory:
-            clauses = Path(directory) / "clauses_v05.csv"
+            clauses = Path(directory) / "clauses_v06.csv"
             write_csv(clauses, fields, [])
             report = validate_dataset(clauses, METADATA, RAW_TEXT)
 
@@ -100,7 +100,7 @@ class DatasetValidationTests(unittest.TestCase):
         context["start_offset"] = str(blank_position)
         context["end_offset"] = str(blank_position + 1)
         with tempfile.TemporaryDirectory() as directory:
-            clauses = Path(directory) / "clauses_v05.csv"
+            clauses = Path(directory) / "clauses_v06.csv"
             write_csv(clauses, fields, rows)
             report = validate_dataset(clauses, METADATA, RAW_TEXT)
 

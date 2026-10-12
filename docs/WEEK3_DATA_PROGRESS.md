@@ -1,5 +1,9 @@
 # Tiến độ Data Lead sau mốc tuần 2 — 05/10/2026
 
+Ghi chú tuần 5 (12/10): hash v06 bên dưới tính từ bytes CRLF ở Windows.
+Release v06 RC1 cố định LF, hash `c5318ebb59195536eac2a83fd223044b33a6ba3d086891d737dd5c2edc49667d`.
+Nội dung/nhãn không đổi; dùng manifest RC1 để nhận bàn giao đa nền tảng.
+
 ## Đã làm ở local
 
 - Annotate `HDLD005` (mẫu hỗ trợ, phục vụ theo Phụ lục II Thông tư

@@ -190,7 +190,7 @@ def validate_dataset(clauses_path: Path, metadata_path: Path, raw_text_dir: Path
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--clauses", type=Path, default=ROOT / "data/processed/clauses_v05.csv")
+    parser.add_argument("--clauses", type=Path, default=ROOT / "data/processed/clauses_v06.csv")
     parser.add_argument("--metadata", type=Path, default=ROOT / "data/contracts_metadata.csv")
     parser.add_argument("--raw-text-dir", type=Path, default=ROOT / "data/processed/raw_text")
     args = parser.parse_args()
