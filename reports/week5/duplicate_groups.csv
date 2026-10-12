@@ -1,0 +1,32 @@
+clause_ids,count,labels,similarity_groups,normalized_text
+HDLD001_C004|HDLD002_C004|HDLD003_C004,3,JOB_INFO,SIM_A|SIM_B,"thực hiện công việc theo đúng chức danh chuyên môn của mình dưới sự quản lý, điều hành của ban giám đốc (và các cá nhân được bổ nhiệm hoặc ủy quyền phụ trách)."
+HDLD001_C005|HDLD002_C005,2,JOB_INFO,SIM_A,"phối hợp cùng với các bộ phận, phòng ban khác trong người sử dụng lao động để phát huy tối đa hiệu quả công việc."
+HDLD001_C006|HDLD002_C006,2,JOB_INFO,SIM_A,hoàn thành những công việc khác tùy thuộc theo yêu cầu kinh doanh của người sử dụng lao động và theo quyết định của ban giám đốc (và các cá nhân được bổ nhiệm hoặc ủy quyền phụ trách).
+HDLD001_C009|HDLD002_C010,2,COMPENSATION_BENEFITS,SIM_A,hình thức trả lương: tiền mặt hoặc chuyển khoản.
+HDLD001_C010|HDLD002_C011,2,COMPENSATION_BENEFITS,SIM_A,thời hạn trả lương: được trả lương vào ngày … của tháng.
+HDLD001_C011|HDLD002_C012,2,COMPENSATION_BENEFITS,SIM_A,"chế độ nâng bậc, nâng lương: người lao động được xét nâng bậc, nâng lương theo kết quả làm việc và theo quy định của người sử dụng lao động."
+HDLD001_C012|HDLD002_C013,2,WORKING_TIME,SIM_A,"thời giờ làm việc: … giờ/ngày, … giờ/tuần"
+HDLD001_C016|HDLD002_C017,2,LEAVE,SIM_A,"người lao động đã ký hđlđ chính thức và có thâm niên công tác 12 tháng thì sẽ được nghỉ phép năm có hưởng lương (01 ngày phép/01 tháng, 12 ngày phép/01 năm); trường hợp có thâm niên làm việc dưới 12 tháng thì thời gian nghỉ hằng năm được tính theo tỷ lệ tương ứng với số thời gian làm việc."
+HDLD001_C017|HDLD002_C018,2,WORKING_CONDITIONS,SIM_A,thiết bị và công cụ làm việc sẽ được công ty cấp phát tùy theo nhu cầu của công việc.
+HDLD001_C018|HDLD002_C019|HDLD003_C011,3,INSURANCE_SAFETY,SIM_A|SIM_B,điều kiện an toàn và vệ sinh lao động tại nơi làm việc theo quy định của pháp luật hiện hành.
+HDLD001_C019|HDLD002_C020,2,INSURANCE_SAFETY,SIM_A,"bảo hiểm xã hội, bảo hiểm y tế và bảo hiểm thất nghiệp: theo quy định của pháp luật."
+HDLD001_C020|HDLD002_C021,2,TRAINING,SIM_A,"đào tạo, bồi dưỡng: người lao động được đào tạo, bồi dưỡng, huấn luyện tại nơi làm việc hoặc được gửi đi đào tạo theo quy định của công ty và yêu cầu công việc."
+HDLD001_C021|HDLD002_C022|HDLD003_C027,3,COMPENSATION_BENEFITS,SIM_A|SIM_B,khen thưởng: người lao động được khuyến khích bằng vật chất và tinh thần khi có thành tích trong công tác hoặc theo quy định của công ty.
+HDLD001_C022|HDLD002_C023,2,COMPENSATION_BENEFITS,SIM_A,"các khoản thỏa thuận khác gồm: tiền cơm trưa, thưởng mặc định, hỗ trợ xăng xe, điện thoại, nhà ở, trang phục…, theo quy định của công ty."
+HDLD001_C023|HDLD002_C024,2,EMPLOYEE_OBLIGATIONS_DISCIPLINE,SIM_A,tuân thủ hợp đồng lao động.
+HDLD001_C024|HDLD002_C025,2,EMPLOYEE_OBLIGATIONS_DISCIPLINE,SIM_A,"thực hiện công việc với sự tận tâm, tận lực và mẫn cán, đảm bảo hoàn thành công việc với hiệu quả cao nhất theo sự phân công, điều hành (bằng văn bản hoặc bằng miệng) của ban giám đốc (và các cá nhân được ban giám đốc bổ nhiệm hoặc ủy quyền phụ trách)."
+HDLD001_C025|HDLD002_C026,2,EMPLOYEE_OBLIGATIONS_DISCIPLINE,SIM_A,hoàn thành công việc được giao và sẵn sàng chấp nhận mọi sự điều động khi có yêu cầu.
+HDLD001_C026|HDLD002_C027,2,EMPLOYEE_OBLIGATIONS_DISCIPLINE,SIM_A,"nắm rõ và chấp hành nghiêm túc kỷ luật lao động, an toàn lao động, vệ sinh lao động, phòng cháy chữa cháy, văn hóa công ty, nội quy lao động và các chủ trương, chính sách của công ty."
+HDLD001_C027|HDLD002_C028,2,TRAINING,SIM_A,"trong trường hợp được cử đi đào tạo thì nhân viên phải hoàn thành khoá học đúng thời hạn, phải cam kết sẽ phục vụ lâu dài cho công ty sau khi kết thúc khoá học và được hưởng nguyên lương, các quyền lợi khác được hưởng như người đi làm."
+HDLD001_C028|HDLD002_C029,2,TRAINING,SIM_A,nếu sau khi kết thúc khóa đào tạo mà nhân viên không tiếp tục hợp tác với công ty thì nhân viên phải hoàn trả lại 100% phí đào tạo và các khoản chế độ đã được nhận trong thời gian đào tạo..
+HDLD001_C029|HDLD002_C030,2,EMPLOYEE_OBLIGATIONS_DISCIPLINE,SIM_A,bồi thường vi phạm vật chất: theo quy định nội bộ cuả công ty và quy định cuả pháp luật hiện hành;
+HDLD001_C030|HDLD002_C031,2,EMPLOYEE_OBLIGATIONS_DISCIPLINE,SIM_A,"có trách nhiệm đề xuất các giải pháp nâng cao hiệu quả công việc, giảm thiểu các rủi ro. khuyến khích các đóng góp này được thực hiện bằng văn bản."
+HDLD001_C031|HDLD002_C032,2,EMPLOYEE_OBLIGATIONS_DISCIPLINE,SIM_A,"thuế tncn, nếu có: do người lao động đóng. công ty sẽ tạm khấu trừ trước khi chi trả cho người lao động theo quy định."
+HDLD001_C032|HDLD002_C033,2,EMPLOYER_RIGHTS_OBLIGATIONS,SIM_A,thực hiện đầy đủ những điều kiện cần thiết đã cam kết trong hđlđ để người lao động đạt hiệu quả công việc cao. bảo đảm việc làm cho người lao động theo hđlđ đã ký.
+HDLD001_C033|HDLD002_C034,2,EMPLOYER_RIGHTS_OBLIGATIONS,SIM_A,"thanh toán đầy đủ, đúng hạn các chế độ và quyền lợi cho người lao động theo hợp đồng lao động, thỏa ước lao động tập thể (nếu có);"
+HDLD001_C034|HDLD002_C035,2,EMPLOYER_RIGHTS_OBLIGATIONS,SIM_A,"điều hành người lao động hoàn thành công việc theo hđlđ (bố trí, điều chuyển công việc cho người lao động theo đúng chức năng chuyên môn)."
+HDLD001_C035|HDLD002_C036,2,EMPLOYER_RIGHTS_OBLIGATIONS,SIM_A,"có quyền chuyển tạm thời lao động, ngừng việc, thay đổi, tạm hoãn, chấm dứt hđlđ và áp dụng các biện pháp kỷ luật theo quy định của pháp luật hiện hành và theo nội quy của công ty trong thời gian hđlđ còn giá trị."
+HDLD001_C036|HDLD002_C037,2,EMPLOYER_RIGHTS_OBLIGATIONS,SIM_A,"có quyền đòi bồi thường, khiếu nại với cơ quan liên đới để bảo vệ quyền lợi của mình nếu người lao động vi phạm pháp luật hay các điều khoản của hđlđ."
+HDLD001_C037|HDLD002_C038,2,OTHER,SIM_A,"những vấn đề về lao động không ghi trong hợp đồng lao động này thì áp dụng quy định cuả thỏa ước tập thể, trường hợp chưa có thỏa ước thì áp dụng quy định của pháp luật lao động."
+HDLD001_C038|HDLD002_C039,2,OTHER,SIM_A,"hợp đồng này được lập thành 2 bản có giá trị pháp lý như nhau, mỗi bên giữ 1 bản và có hiệu lực kể từ ngày ký."
+HDLD001_C039|HDLD002_C040,2,OTHER,SIM_A,khi ký kết các phụ lục hợp đồng lao động thì nội dung của phụ lục cũng có giá trị như các nội dung cuả bản hợp đồng này.

@@ -1,0 +1,56 @@
+{
+  "release_id": "v06-rc1",
+  "created_on": "2026-10-12",
+  "status": "CANDIDATE_REVIEW_REQUIRED",
+  "source_data_commit": "5ce5796",
+  "base_main_commit": "3fadcfe",
+  "dataset_version": "v06",
+  "scope": "Clause taxonomy and source spans; no legal risk gold labels",
+  "machine_qc": "PASS",
+  "benchmark_status": "PROVISIONAL_NOT_LOCKED",
+  "files": {
+    "data/processed/clauses_v06.csv": "c5318ebb59195536eac2a83fd223044b33a6ba3d086891d737dd5c2edc49667d",
+    "data/contracts_metadata.csv": "e7594d5a00777fff4ef9378926882044ae1b52f0b6274f8fde21fe8b7141911a",
+    "data/splits/provisional_v06.json": "bc7b0ec4800249436973763ff75d70aa21eb7d3c5ff7e35fcb7e9fd3fcf2073c",
+    "data/evaluation/hard_test_v06_rc1.jsonl": "83d002f73ed66748990a9a2dd6657b248e5c6a785dfdc079dd94c9727aba3f89",
+    "docs/annotation_guideline.md": "f19bfde96fdc62b18744d8d99670098135e09a67e967e121a9aedbe87550374e",
+    "docs/clause_taxonomy_v03.md": "964892d792e1257b779ee38aac540d3ee1b01fcbb333cd2bd18bca20ffe9d7e3",
+    "docs/dataset_schema.md": "86fb68555f12daa61270b9308b0afdcb55173a0dfff352bda59bcbf58f44648d",
+    "docs/data_sources.md": "480427b3ee9ec0e12a888f003d815a5f78379c18fc839b462566fe103400a5ac",
+    "docs/WEEK5_DATA_QC_REPORT.md": "d3f62728a7371f0aefac29c5498618dd25e95474e28d681d24d7785882852da1",
+    "docs/WEEK5_AI_EVALUATION_HANDOFF.md": "fbeffae4d39464278126ca2a7368fc9bdbb21b3487a4c5a518cdaa779264a0fb",
+    "docs/CONTRACT_INTAKE_QC_2026-10-05.md": "fe29da088cbeef40cdfe4623e29225cff4aa438fcd60cbbc7c2047b02c3c2104",
+    "data/releases/v06-rc1/README.md": "61ab1f73eec8633e89ef6f7a33f6b9d3134e6b7935653c7ae91eac4528fab4f2",
+    "data/processed/raw_text/README.md": "622d41e35c15bb05d94dc258d1765d08d66373091b4a84331049ca4d8a913554",
+    "scripts/validate_dataset.py": "4a0debd8c3c7ce2eb6f1593497ecb247a50d163733bc9c90e16cc6aa031d9c71",
+    "scripts/build_provisional_split.py": "e2bbc2829f3fbfba20c827165ad7b6f68f74006951556b8c28518ce00d1ecdca",
+    "reports/week5/qc_summary.json": "bdb07ee65e73bd5ab93199971a4cfac6e5a6193a8ddefd5e6943d88c468a3eba",
+    "reports/week5/duplicate_groups.csv": "6f87216203dcc4496ff6ea567ab641df5b90ad977f4bcef4d945a4df6b316d09",
+    "reports/week5/annotation_review_pairs.csv": "d0e3bcf9df7afa3ec4cf6cf77993f2fd33fd933296e2222e6023c8fbf2b6441e",
+    "data/processed/raw_text/HDLD001.txt": "31ea18a5e75bc57beee442d3ef31ab480c558d4c47eb5ab44906474f45cec625",
+    "data/processed/raw_text/HDLD002.txt": "5342408718b4bde9449427e820e7e6a525df3717fa9c10ad5326c1b525c41711",
+    "data/processed/raw_text/HDLD003.txt": "f76195cc5da1c65aad45debe3ca44c7dd4df5c077f29b1660555b604197e60f7",
+    "data/processed/raw_text/HDLD004.txt": "32f363a4e50ff056c6bc062a123fe8d16699055ca7be596175173381cb07afea",
+    "data/processed/raw_text/HDLD005.txt": "8f6e3d3b10d20f949879e2a7dcd5e27229baa06d661187e299cfa5d9d06ea85f",
+    "data/processed/raw_text/HDLD006.txt": "c51011c624fc0288550c6be0a28ffc6d01d6ce4715a874f3f41d3429c5a40a31",
+    "data/raw/contracts/HDLD001.doc": "59688a671b0f954e890d2724b1b5f3ba7d611e6f3a3447efc6eedf8fc4af94c5",
+    "data/raw/contracts/HDLD002.doc": "c1a54e74c14b093376c120bf39100e1bbc3c10e2e233f6e9390fccba71dcb1d5",
+    "data/raw/contracts/HDLD003.doc": "8f4fcafaa3867d5dbab7b013c595dc13f086a4af9fb505cb3da820c125ac0f3d",
+    "data/raw/contracts/HDLD004.docx": "3bc72c33865a5bb206df0d2a6b8a881154cd70aee5c6c4d85f5462742c6a1537",
+    "data/raw/contracts/HDLD005.docx": "d3653d3cea277db3cc7c82fee0461a26569d1a3d0c3a135004b43c316dac0f36",
+    "data/raw/contracts/HDLD006.docx": "5d42319b1d4459936524dd9f4c615084377d0e2c728b81771aee8cad7dbeaa34"
+  },
+  "required_signoffs": [
+    "Data reviewer: provenance, near-label pairs and source context",
+    "AI/Evaluation Lead: gold adjudication, masks and metric denominators"
+  ],
+  "blockers": [
+    "Independent hard-test adjudication pending",
+    "Test missing WORKING_TIME and dev missing TERMINATION",
+    "Semantic leakage review pending",
+    "Legal risk ground truth unavailable"
+  ],
+  "pending_intake": [
+    "HDLD007: redistribution permission and annotation pending"
+  ]
+}

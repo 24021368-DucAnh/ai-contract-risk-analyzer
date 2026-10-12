@@ -1,0 +1,309 @@
+{
+  "audit_date": "2026-10-12",
+  "dataset": "data/processed/clauses_v06.csv",
+  "dataset_sha256": "c5318ebb59195536eac2a83fd223044b33a6ba3d086891d737dd5c2edc49667d",
+  "validator": {
+    "errors": [],
+    "clause_count": 234,
+    "contract_count": 5,
+    "class_counts": {
+      "COMPENSATION_BENEFITS": 41,
+      "CONTRACT_TERM": 13,
+      "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 34,
+      "EMPLOYER_RIGHTS_OBLIGATIONS": 24,
+      "INSURANCE_SAFETY": 13,
+      "JOB_INFO": 21,
+      "LEAVE": 16,
+      "OTHER": 21,
+      "TERMINATION": 20,
+      "TRAINING": 13,
+      "WORKING_CONDITIONS": 7,
+      "WORKING_TIME": 11
+    },
+    "annotation_status_counts": {
+      "REVIEWED": 234
+    },
+    "offset_quality_counts": {
+      "CONTEXT": 9,
+      "EXACT": 225
+    },
+    "context_clause_ids": [
+      "HDLD001_C014",
+      "HDLD003_C018",
+      "HDLD003_C018A",
+      "HDLD004_C023",
+      "HDLD004_C024",
+      "HDLD004_C025",
+      "HDLD004_C026",
+      "HDLD004_C027",
+      "HDLD004_C043"
+    ],
+    "duplicate_text_count": 33
+  },
+  "contract_counts": {
+    "HDLD001": 39,
+    "HDLD002": 40,
+    "HDLD003": 61,
+    "HDLD004": 43,
+    "HDLD005": 51
+  },
+  "whitespace_duplicates": {
+    "groups": 31,
+    "affected_rows": 64,
+    "extra_rows": 33
+  },
+  "casefold_duplicates": {
+    "groups": 31,
+    "affected_rows": 65,
+    "extra_rows": 34
+  },
+  "exact_label_conflicts": 0,
+  "near_different_label_pairs": 23,
+  "split_reproducible": true,
+  "active_cross_split_matches": 0,
+  "split_summary": {
+    "train": {
+      "contracts": [
+        "HDLD003",
+        "HDLD005"
+      ],
+      "similarity_groups": [
+        "SIM_B",
+        "SIM_D"
+      ],
+      "clause_count": 112,
+      "scorable_clause_count": 112,
+      "exact_span_scorable_count": 110,
+      "excluded_clause_ids": [],
+      "class_counts": {
+        "COMPENSATION_BENEFITS": 18,
+        "CONTRACT_TERM": 7,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 14,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 9,
+        "INSURANCE_SAFETY": 6,
+        "JOB_INFO": 9,
+        "LEAVE": 6,
+        "OTHER": 13,
+        "TERMINATION": 19,
+        "TRAINING": 4,
+        "WORKING_CONDITIONS": 2,
+        "WORKING_TIME": 5
+      },
+      "scorable_class_counts": {
+        "COMPENSATION_BENEFITS": 18,
+        "CONTRACT_TERM": 7,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 14,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 9,
+        "INSURANCE_SAFETY": 6,
+        "JOB_INFO": 9,
+        "LEAVE": 6,
+        "OTHER": 13,
+        "TERMINATION": 19,
+        "TRAINING": 4,
+        "WORKING_CONDITIONS": 2,
+        "WORKING_TIME": 5
+      }
+    },
+    "dev": {
+      "contracts": [
+        "HDLD001",
+        "HDLD002"
+      ],
+      "similarity_groups": [
+        "SIM_A"
+      ],
+      "clause_count": 79,
+      "scorable_clause_count": 49,
+      "exact_span_scorable_count": 48,
+      "excluded_clause_ids": [
+        "HDLD001_C004",
+        "HDLD001_C005",
+        "HDLD001_C006",
+        "HDLD001_C015",
+        "HDLD001_C016",
+        "HDLD001_C018",
+        "HDLD001_C021",
+        "HDLD001_C024",
+        "HDLD001_C025",
+        "HDLD001_C026",
+        "HDLD001_C028",
+        "HDLD001_C032",
+        "HDLD001_C034",
+        "HDLD001_C035",
+        "HDLD001_C036",
+        "HDLD002_C004",
+        "HDLD002_C005",
+        "HDLD002_C006",
+        "HDLD002_C016",
+        "HDLD002_C017",
+        "HDLD002_C019",
+        "HDLD002_C022",
+        "HDLD002_C025",
+        "HDLD002_C026",
+        "HDLD002_C027",
+        "HDLD002_C029",
+        "HDLD002_C033",
+        "HDLD002_C035",
+        "HDLD002_C036",
+        "HDLD002_C037"
+      ],
+      "class_counts": {
+        "COMPENSATION_BENEFITS": 15,
+        "CONTRACT_TERM": 2,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 14,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 10,
+        "INSURANCE_SAFETY": 4,
+        "JOB_INFO": 10,
+        "LEAVE": 6,
+        "OTHER": 6,
+        "TRAINING": 6,
+        "WORKING_CONDITIONS": 2,
+        "WORKING_TIME": 4
+      },
+      "scorable_class_counts": {
+        "COMPENSATION_BENEFITS": 13,
+        "CONTRACT_TERM": 2,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 8,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 2,
+        "INSURANCE_SAFETY": 2,
+        "JOB_INFO": 4,
+        "LEAVE": 2,
+        "OTHER": 6,
+        "TRAINING": 4,
+        "WORKING_CONDITIONS": 2,
+        "WORKING_TIME": 4
+      }
+    },
+    "test": {
+      "contracts": [
+        "HDLD004"
+      ],
+      "similarity_groups": [
+        "SIM_C"
+      ],
+      "clause_count": 43,
+      "scorable_clause_count": 34,
+      "exact_span_scorable_count": 28,
+      "excluded_clause_ids": [
+        "HDLD004_C007",
+        "HDLD004_C008",
+        "HDLD004_C011",
+        "HDLD004_C012",
+        "HDLD004_C015",
+        "HDLD004_C016",
+        "HDLD004_C017",
+        "HDLD004_C018",
+        "HDLD004_C019"
+      ],
+      "class_counts": {
+        "COMPENSATION_BENEFITS": 8,
+        "CONTRACT_TERM": 4,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 6,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 5,
+        "INSURANCE_SAFETY": 3,
+        "JOB_INFO": 2,
+        "LEAVE": 4,
+        "OTHER": 2,
+        "TERMINATION": 1,
+        "TRAINING": 3,
+        "WORKING_CONDITIONS": 3,
+        "WORKING_TIME": 2
+      },
+      "scorable_class_counts": {
+        "COMPENSATION_BENEFITS": 4,
+        "CONTRACT_TERM": 4,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 6,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 5,
+        "INSURANCE_SAFETY": 3,
+        "JOB_INFO": 2,
+        "LEAVE": 1,
+        "OTHER": 2,
+        "TERMINATION": 1,
+        "TRAINING": 3,
+        "WORKING_CONDITIONS": 3
+      }
+    }
+  },
+  "warnings": [
+    {
+      "code": "CONTEXT_NOT_EXACT",
+      "count": 9,
+      "impact": "Exclude CONTEXT from exact clause-span metrics."
+    },
+    {
+      "code": "DUPLICATE_TEXT",
+      "count": 33,
+      "impact": "Extra rows after whitespace normalization; retain and mask for evaluation."
+    },
+    {
+      "code": "EVALUATION_EXCLUSIONS",
+      "count": 39,
+      "impact": "30 dev + 9 test rows excluded from scoring."
+    },
+    {
+      "code": "NEAR_TEXT_DIFFERENT_LABELS",
+      "count": 23,
+      "impact": "Review semantic topic/actor and placeholders; no automatic relabel."
+    },
+    {
+      "code": "LOW_CLASS_SUPPORT",
+      "label": "WORKING_CONDITIONS",
+      "count": 7,
+      "impact": "Limited class support; collect independent template families."
+    },
+    {
+      "code": "TEST_CLASS_MISSING",
+      "label": "WORKING_TIME",
+      "count": 0,
+      "impact": "Scorable test cannot validate all 12 labels."
+    },
+    {
+      "code": "DEV_CLASS_MISSING",
+      "label": "TERMINATION",
+      "count": 0,
+      "impact": "No dev support for this class."
+    },
+    {
+      "code": "INDEPENDENT_GOLD_REVIEW_PENDING",
+      "count": 20,
+      "impact": "Hard candidate cannot be a locked benchmark before adjudication."
+    },
+    {
+      "code": "SOURCE_URLS_UNRESOLVED",
+      "contracts": [
+        "HDLD001",
+        "HDLD002",
+        "HDLD003"
+      ],
+      "impact": "Original URLs remain TODO in data_sources.md."
+    },
+    {
+      "code": "HDLD007_INTAKE_BLOCKED",
+      "impact": "Raw not committed pending redistribution permission; absent from v06 release metadata and dataset."
+    },
+    {
+      "code": "SEMANTIC_LEAKAGE_UNASSESSED",
+      "impact": "Character filtering does not prove no semantic or historical model exposure leakage."
+    },
+    {
+      "code": "LEGAL_RISK_GOLD_UNAVAILABLE",
+      "impact": "Reviewed clause types do not verify legal risk, citation validity, or current law."
+    }
+  ],
+  "raw_document_hashes_verified": {
+    "data/raw/contracts/HDLD001.doc": "59688a671b0f954e890d2724b1b5f3ba7d611e6f3a3447efc6eedf8fc4af94c5",
+    "data/raw/contracts/HDLD002.doc": "c1a54e74c14b093376c120bf39100e1bbc3c10e2e233f6e9390fccba71dcb1d5",
+    "data/raw/contracts/HDLD003.doc": "8f4fcafaa3867d5dbab7b013c595dc13f086a4af9fb505cb3da820c125ac0f3d",
+    "data/raw/contracts/HDLD004.docx": "3bc72c33865a5bb206df0d2a6b8a881154cd70aee5c6c4d85f5462742c6a1537",
+    "data/raw/contracts/HDLD005.docx": "d3653d3cea277db3cc7c82fee0461a26569d1a3d0c3a135004b43c316dac0f36",
+    "data/raw/contracts/HDLD006.docx": "5d42319b1d4459936524dd9f4c615084377d0e2c728b81771aee8cad7dbeaa34"
+  },
+  "hard_test": {
+    "cases": 20,
+    "labels": 11,
+    "qualities": {
+      "EXACT": 14,
+      "CONTEXT": 6
+    }
+  }
+}

@@ -1,0 +1,396 @@
+{
+  "schema_version": 1,
+  "status": "PROVISIONAL",
+  "dataset": "data/processed/clauses_v05.csv",
+  "method": "whole-contract similarity_group assignment",
+  "near_duplicate_rule": {
+    "normalized_text": "casefold and collapsed whitespace",
+    "min_similarity": 0.9,
+    "min_length": 30,
+    "min_length_ratio": 0.85
+  },
+  "splits": {
+    "train": {
+      "contracts": [
+        "HDLD003"
+      ],
+      "similarity_groups": [
+        "SIM_B"
+      ],
+      "clause_count": 61,
+      "scorable_clause_count": 61,
+      "exact_span_scorable_count": 59,
+      "excluded_clause_ids": [],
+      "class_counts": {
+        "COMPENSATION_BENEFITS": 9,
+        "CONTRACT_TERM": 1,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 6,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 6,
+        "INSURANCE_SAFETY": 3,
+        "JOB_INFO": 5,
+        "LEAVE": 3,
+        "OTHER": 6,
+        "TERMINATION": 15,
+        "TRAINING": 3,
+        "WORKING_CONDITIONS": 1,
+        "WORKING_TIME": 3
+      },
+      "scorable_class_counts": {
+        "COMPENSATION_BENEFITS": 9,
+        "CONTRACT_TERM": 1,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 6,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 6,
+        "INSURANCE_SAFETY": 3,
+        "JOB_INFO": 5,
+        "LEAVE": 3,
+        "OTHER": 6,
+        "TERMINATION": 15,
+        "TRAINING": 3,
+        "WORKING_CONDITIONS": 1,
+        "WORKING_TIME": 3
+      }
+    },
+    "dev": {
+      "contracts": [
+        "HDLD001",
+        "HDLD002"
+      ],
+      "similarity_groups": [
+        "SIM_A"
+      ],
+      "clause_count": 79,
+      "scorable_clause_count": 55,
+      "exact_span_scorable_count": 54,
+      "excluded_clause_ids": [
+        "HDLD001_C004",
+        "HDLD001_C006",
+        "HDLD001_C018",
+        "HDLD001_C021",
+        "HDLD001_C024",
+        "HDLD001_C025",
+        "HDLD001_C026",
+        "HDLD001_C028",
+        "HDLD001_C032",
+        "HDLD001_C034",
+        "HDLD001_C035",
+        "HDLD001_C036",
+        "HDLD002_C004",
+        "HDLD002_C006",
+        "HDLD002_C019",
+        "HDLD002_C022",
+        "HDLD002_C025",
+        "HDLD002_C026",
+        "HDLD002_C027",
+        "HDLD002_C029",
+        "HDLD002_C033",
+        "HDLD002_C035",
+        "HDLD002_C036",
+        "HDLD002_C037"
+      ],
+      "class_counts": {
+        "COMPENSATION_BENEFITS": 15,
+        "CONTRACT_TERM": 2,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 14,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 10,
+        "INSURANCE_SAFETY": 4,
+        "JOB_INFO": 10,
+        "LEAVE": 6,
+        "OTHER": 6,
+        "TRAINING": 6,
+        "WORKING_CONDITIONS": 2,
+        "WORKING_TIME": 4
+      },
+      "scorable_class_counts": {
+        "COMPENSATION_BENEFITS": 13,
+        "CONTRACT_TERM": 2,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 8,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 2,
+        "INSURANCE_SAFETY": 2,
+        "JOB_INFO": 6,
+        "LEAVE": 6,
+        "OTHER": 6,
+        "TRAINING": 4,
+        "WORKING_CONDITIONS": 2,
+        "WORKING_TIME": 4
+      }
+    },
+    "test": {
+      "contracts": [
+        "HDLD004"
+      ],
+      "similarity_groups": [
+        "SIM_C"
+      ],
+      "clause_count": 43,
+      "scorable_clause_count": 43,
+      "exact_span_scorable_count": 37,
+      "excluded_clause_ids": [],
+      "class_counts": {
+        "COMPENSATION_BENEFITS": 8,
+        "CONTRACT_TERM": 4,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 6,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 5,
+        "INSURANCE_SAFETY": 3,
+        "JOB_INFO": 2,
+        "LEAVE": 4,
+        "OTHER": 2,
+        "TERMINATION": 1,
+        "TRAINING": 3,
+        "WORKING_CONDITIONS": 3,
+        "WORKING_TIME": 2
+      },
+      "scorable_class_counts": {
+        "COMPENSATION_BENEFITS": 8,
+        "CONTRACT_TERM": 4,
+        "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 6,
+        "EMPLOYER_RIGHTS_OBLIGATIONS": 5,
+        "INSURANCE_SAFETY": 3,
+        "JOB_INFO": 2,
+        "LEAVE": 4,
+        "OTHER": 2,
+        "TERMINATION": 1,
+        "TRAINING": 3,
+        "WORKING_CONDITIONS": 3,
+        "WORKING_TIME": 2
+      }
+    }
+  },
+  "exclusions": [
+    {
+      "clause_id": "HDLD001_C004",
+      "split": "dev",
+      "reason": "EXACT_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C004"
+      ],
+      "max_similarity": 1.0
+    },
+    {
+      "clause_id": "HDLD001_C006",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C006"
+      ],
+      "max_similarity": 0.935
+    },
+    {
+      "clause_id": "HDLD001_C018",
+      "split": "dev",
+      "reason": "EXACT_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C011"
+      ],
+      "max_similarity": 1.0
+    },
+    {
+      "clause_id": "HDLD001_C021",
+      "split": "dev",
+      "reason": "EXACT_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C027"
+      ],
+      "max_similarity": 1.0
+    },
+    {
+      "clause_id": "HDLD001_C024",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C012"
+      ],
+      "max_similarity": 0.951
+    },
+    {
+      "clause_id": "HDLD001_C025",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C013"
+      ],
+      "max_similarity": 0.994
+    },
+    {
+      "clause_id": "HDLD001_C026",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C014"
+      ],
+      "max_similarity": 0.954
+    },
+    {
+      "clause_id": "HDLD001_C028",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C020"
+      ],
+      "max_similarity": 0.997
+    },
+    {
+      "clause_id": "HDLD001_C032",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C035"
+      ],
+      "max_similarity": 0.939
+    },
+    {
+      "clause_id": "HDLD001_C034",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C037"
+      ],
+      "max_similarity": 0.971
+    },
+    {
+      "clause_id": "HDLD001_C035",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C038"
+      ],
+      "max_similarity": 0.937
+    },
+    {
+      "clause_id": "HDLD001_C036",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C040"
+      ],
+      "max_similarity": 0.961
+    },
+    {
+      "clause_id": "HDLD002_C004",
+      "split": "dev",
+      "reason": "EXACT_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C004"
+      ],
+      "max_similarity": 1.0
+    },
+    {
+      "clause_id": "HDLD002_C006",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C006"
+      ],
+      "max_similarity": 0.935
+    },
+    {
+      "clause_id": "HDLD002_C019",
+      "split": "dev",
+      "reason": "EXACT_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C011"
+      ],
+      "max_similarity": 1.0
+    },
+    {
+      "clause_id": "HDLD002_C022",
+      "split": "dev",
+      "reason": "EXACT_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C027"
+      ],
+      "max_similarity": 1.0
+    },
+    {
+      "clause_id": "HDLD002_C025",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C012"
+      ],
+      "max_similarity": 0.951
+    },
+    {
+      "clause_id": "HDLD002_C026",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C013"
+      ],
+      "max_similarity": 0.994
+    },
+    {
+      "clause_id": "HDLD002_C027",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C014"
+      ],
+      "max_similarity": 0.954
+    },
+    {
+      "clause_id": "HDLD002_C029",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C020"
+      ],
+      "max_similarity": 0.997
+    },
+    {
+      "clause_id": "HDLD002_C033",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C035"
+      ],
+      "max_similarity": 0.939
+    },
+    {
+      "clause_id": "HDLD002_C035",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C037"
+      ],
+      "max_similarity": 0.971
+    },
+    {
+      "clause_id": "HDLD002_C036",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C038"
+      ],
+      "max_similarity": 0.937
+    },
+    {
+      "clause_id": "HDLD002_C037",
+      "split": "dev",
+      "reason": "NEAR_CROSS_SPLIT",
+      "matched_clause_ids": [
+        "HDLD003_C040"
+      ],
+      "max_similarity": 0.961
+    }
+  ],
+  "overall_class_counts": {
+    "COMPENSATION_BENEFITS": 32,
+    "CONTRACT_TERM": 7,
+    "EMPLOYEE_OBLIGATIONS_DISCIPLINE": 26,
+    "EMPLOYER_RIGHTS_OBLIGATIONS": 21,
+    "INSURANCE_SAFETY": 10,
+    "JOB_INFO": 17,
+    "LEAVE": 13,
+    "OTHER": 14,
+    "TERMINATION": 16,
+    "TRAINING": 12,
+    "WORKING_CONDITIONS": 6,
+    "WORKING_TIME": 9
+  },
+  "priority_labels_under_10": [
+    "WORKING_CONDITIONS",
+    "CONTRACT_TERM",
+    "WORKING_TIME"
+  ],
+  "dataset_sha256": "dbf1eb9d9a002ba7dfb22c13335b042e6587795b7a6b8f803d0c8519c47ca881"
+}

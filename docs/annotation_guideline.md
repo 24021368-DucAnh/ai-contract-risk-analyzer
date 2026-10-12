@@ -14,7 +14,8 @@ khi đoạn trong raw text khớp `clause_text` sau chuẩn hóa khoảng trắn
 `docs/dataset_schema.md`. Clause được tách hoặc lặp ngữ cảnh mà không có
 đoạn nguồn liên tục phải để trống offset và ghi `OFFSET_UNVERIFIED`.
 Snapshot v05 có thêm `offset_quality`: các row này dùng span `CONTEXT` của
-câu/bullet gốc và ghi `OFFSET_CONTEXT`; chỉ `EXACT` dùng cho đánh giá span chuẩn.
+cụm từ nguồn liên quan và ghi `OFFSET_CONTEXT`; chỉ `EXACT` dùng cho đánh giá
+span chuẩn. Xem `docs/HIGHLIGHT_HANDOFF.md` khi đưa dữ liệu cho frontend.
 3. Quy trình annotation chuẩn
 1. Đọc toàn bộ file gốc trước khi tách clause.
 2. Xác định phần hành chính cần bỏ.
@@ -231,7 +232,7 @@ Khi tạo train/dev/test:
 Mục tiêu: tránh một câu/template xuất hiện ở train và gần như y hệt ở test, làm F1 bị inflate.
 #### 12. QC checklist trước khi merge dataset
 Mỗi batch mới phải đạt:
-- [ ] đúng schema của version (v01–v03: 7 cột; v04: 9 cột; v05: 10 cột);
+- [ ] đúng schema của version (v01–v03: 7 cột; v04: 9 cột; v05–v06: 10 cột);
 - [ ] không duplicate clause_id;
 - [ ] không thiếu contract_id;
 - [ ] không thiếu section_title;
@@ -254,5 +255,6 @@ Ví dụ:
 - clauses_v02.csv → archived
 - clauses_v03.csv → archived
 - clauses_v04.csv → archived
-- clauses_v05.csv → current
+- clauses_v05.csv → archived
+- clauses_v06.csv → current
 Khi append một batch contract mới đã QC xong, tạo version processed mới (v04, v05, ...), sau đó cập nhật metadata/docs tương ứng.
