@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xem thử highlight điều khoản</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, sans-serif; color: #1b2633; background: #f2f5f8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 18px 24px; background: #17385b; color: white; }
+    header h1 { margin: 0 0 4px; font-size: 20px; }
+    header p { margin: 0; color: #d7e5f3; font-size: 14px; }
+    .layout { display: grid; grid-template-columns: minmax(270px, 360px) minmax(0, 1fr); min-height: calc(100vh - 86px); }
+    aside { border-right: 1px solid #d3dce6; background: white; padding: 18px; max-height: calc(100vh - 86px); overflow: auto; }
+    main { padding: 22px; min-width: 0; }
+    label { display: block; font-weight: 650; margin-bottom: 7px; }
+    input, select { width: 100%; padding: 9px 10px; border: 1px solid #aebbc9; border-radius: 7px; font: inherit; background: white; }
+    .filters { display: grid; gap: 13px; margin-bottom: 18px; }
+    .count { color: #536679; font-size: 13px; margin: 0 0 10px; }
+    .clause-list { display: grid; gap: 8px; }
+    .clause-button { width: 100%; padding: 11px 12px; text-align: left; border: 1px solid #dae1e8; border-radius: 8px; background: #fff; color: inherit; cursor: pointer; font: inherit; }
+    .clause-button:hover, .clause-button:focus-visible { border-color: #216ab2; outline: 2px solid transparent; background: #f0f7ff; }
+    .clause-button.selected { border-color: #155a9c; background: #e9f3ff; }
+    .clause-id { display: block; font-weight: 700; font-size: 13px; }
+    .clause-summary { display: block; color: #536679; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 4px; }
+    .badge { display: inline-block; margin-top: 7px; padding: 2px 6px; border-radius: 5px; background: #e1f3e9; color: #17613e; font-size: 11px; font-weight: 700; }
+    .badge.context { background: #fff1d9; color: #815000; }
+    .panel { background: white; border: 1px solid #dbe3ec; border-radius: 10px; padding: 18px; margin-bottom: 18px; }
+    .panel h2 { margin: 0 0 10px; font-size: 17px; }
+    .meta { color: #536679; font-size: 13px; margin-bottom: 10px; }
+    .note { color: #536679; font-size: 13px; }
+    .source { white-space: pre-wrap; overflow-wrap: anywhere; font-family: ui-monospace, Consolas, monospace; line-height: 1.6; font-size: 14px; max-height: 65vh; overflow: auto; }
+    mark { background: #ffcf59; color: #162434; border-radius: 3px; padding: 1px 0; box-shadow: 0 0 0 2px #ffcf59; }
+    .quote { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.5; }
+    @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } aside { max-height: 35vh; border-right: 0; border-bottom: 1px solid #d3dce6; } main { padding: 14px; } }
+  </style>
+</head>
+<body>
+  <header><h1>Xem thử highlight điều khoản</h1><p id="contract-summary"></p></header>
+  <div class="layout">
+    <aside>
+      <div class="filters">
+        <div><label for="search">Tìm điều khoản</label><input id="search" type="search" placeholder="ID hoặc nội dung"></div>
+        <div><label for="quality-filter">Chất lượng offset</label><select id="quality-filter"><option value="ALL">Tất cả</option><option value="EXACT">EXACT</option><option value="CONTEXT">CONTEXT</option></select></div>
+      </div>
+      <p class="count" id="list-count"></p><div id="clause-list" class="clause-list"></div>
+    </aside>
+    <main>
+      <section class="panel" aria-live="polite">
+        <h2 id="selected-title"></h2>
+        <div class="meta" id="selected-meta"></div>
+        <div class="quote" id="selected-clause"></div>
+        <p class="note" id="selected-note"></p>
+      </section>
+      <section class="panel"><h2>Văn bản gốc</h2><div id="raw-text" class="source" role="region" aria-label="Văn bản hợp đồng"></div></section>
+    </main>
+  </div>
+  <script id="contract-payload" type="application/json">__PAYLOAD_JSON__</script>
+  <script>
+    const payload = JSON.parse(document.getElementById("contract-payload").textContent);
+    const chars = Array.from(payload.raw_text);
+    const list = document.getElementById("clause-list");
+    const raw = document.getElementById("raw-text");
+    const search = document.getElementById("search");
+    const filter = document.getElementById("quality-filter");
+    let selectedId = payload.clauses.find(row => row.clause_id === "HDLD003_C018")?.clause_id || payload.clauses[0]?.clause_id;
+
+    const exactCount = payload.clauses.filter(row => row.offset_quality === "EXACT").length;
+    document.getElementById("contract-summary").textContent = `${payload.contract_id} · ${payload.clauses.length} điều khoản · ${exactCount} EXACT · ${payload.clauses.length - exactCount} CONTEXT`;
+
+    function showClause(row) {
+      selectedId = row.clause_id;
+      document.getElementById("selected-title").textContent = row.clause_id;
+      document.getElementById("selected-meta").textContent = `${row.section_title} · ${row.clause_type} · ${row.offset_quality} · [${row.start_offset}, ${row.end_offset})`;
+      document.getElementById("selected-clause").textContent = row.clause_text;
+      document.getElementById("selected-note").textContent = row.offset_quality === "EXACT"
+        ? "Đoạn bôi khớp điều khoản sau khi chuẩn hóa khoảng trắng."
+        : "Đoạn bôi là cụm từ nguồn liên quan; điều khoản đã được tách/chuẩn hóa nên không khớp nguyên văn toàn câu.";
+      const before = document.createTextNode(chars.slice(0, row.start_offset).join(""));
+      const mark = document.createElement("mark");
+      mark.id = "active-highlight";
+      mark.textContent = chars.slice(row.start_offset, row.end_offset).join("");
+      const after = document.createTextNode(chars.slice(row.end_offset).join(""));
+      raw.replaceChildren(before, mark, after);
+      requestAnimationFrame(() => mark.scrollIntoView({block: "center", behavior: "instant"}));
+    }
+
+    function showList() {
+      const term = search.value.trim().toLocaleLowerCase("vi");
+      const quality = filter.value;
+      const visible = payload.clauses.filter(row =>
+        (quality === "ALL" || row.offset_quality === quality) &&
+        (!term || `${row.clause_id} ${row.clause_text}`.toLocaleLowerCase("vi").includes(term))
+      );
+      document.getElementById("list-count").textContent = `${visible.length} / ${payload.clauses.length} điều khoản`;
+      list.replaceChildren();
+      for (const row of visible) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "clause-button" + (row.clause_id === selectedId ? " selected" : "");
+        button.dataset.clauseId = row.clause_id;
+        const id = document.createElement("span");
+        id.className = "clause-id";
+        id.textContent = `${row.clause_id} · ${row.section_title}`;
+        const summary = document.createElement("span");
+        summary.className = "clause-summary";
+        summary.textContent = row.clause_text;
+        const badge = document.createElement("span");
+        badge.className = "badge" + (row.offset_quality === "CONTEXT" ? " context" : "");
+        badge.textContent = row.offset_quality;
+        button.append(id, summary, badge);
+        button.addEventListener("click", () => { showClause(row); showList(); });
+        list.append(button);
+      }
+    }
+
+    search.addEventListener("input", showList);
+    filter.addEventListener("change", showList);
+    showList();
+    if (selectedId) showClause(payload.clauses.find(row => row.clause_id === selectedId));
+  </script>
+</body>
+</html>

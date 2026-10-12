@@ -39,3 +39,7 @@ outputs/
 
 # Local cache
 .cache/
+
+# Pending confirmation of permission to redistribute the HrOnline template.
+data/raw/contracts/HDLD007.docx
+data/processed/raw_text/HDLD007.txt

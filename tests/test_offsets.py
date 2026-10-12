@@ -46,7 +46,7 @@ class OffsetAlignmentTests(unittest.TestCase):
         source = {path.stem: path.read_text(encoding="utf-8") for path in raw_dir.glob("*.txt")}
 
         self.assertEqual(len(rows), 183)
-        self.assertEqual(set(source), {f"HDLD{i:03d}" for i in range(1, 7)})
+        self.assertTrue({f"HDLD{i:03d}" for i in range(1, 7)}.issubset(source))
         self.assertEqual(sum(bool(row["start_offset"]) for row in rows), 174)
         for row in rows:
             start, end = row["start_offset"], row["end_offset"]
@@ -68,7 +68,7 @@ class OffsetAlignmentTests(unittest.TestCase):
 
         self.assertEqual(
             {row["contract_id"]: row["dataset_version"] for row in metadata if row["dataset_status"] == "ANNOTATED"},
-            {f"HDLD{i:03d}": "v05" for i in range(1, 5)},
+            {f"HDLD{i:03d}": "v06" for i in range(1, 6)},
         )
 
     def test_raw_text_has_stable_clean_line_endings(self):

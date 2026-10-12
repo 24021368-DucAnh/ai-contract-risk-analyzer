@@ -36,6 +36,25 @@ class ContextOffsetTests(unittest.TestCase):
             else:
                 self.assertIn("OFFSET_CONTEXT", row["notes"])
 
+    def test_context_spans_highlight_only_the_relevant_source_phrase(self):
+        expected = {
+            "HDLD003_C018": "các loại bảo hiểm",
+            "HDLD003_C018A": "các khoản thuế",
+            "HDLD004_C023": "nghỉ ngơi",
+            "HDLD004_C024": "hỗ trợ học nghề, học văn hóa",
+            "HDLD004_C025": "bố trí chỗ ăn, ở",
+            "HDLD004_C026": "trang bị bảo hộ lao động",
+            "HDLD004_C027": "bồi thường thiệt hại",
+            "HDLD004_C043": "có hiệu lực từ ngày ......... tháng ........... năm ..........",
+        }
+        processed = ROOT / "data" / "processed"
+        with (processed / "clauses_v05.csv").open(encoding="utf-8-sig", newline="") as handle:
+            rows = {row["clause_id"]: row for row in csv.DictReader(handle)}
+        for clause_id, phrase in expected.items():
+            row = rows[clause_id]
+            raw = (processed / "raw_text" / f"{row['contract_id']}.txt").read_text(encoding="utf-8")
+            self.assertEqual(raw[int(row["start_offset"]):int(row["end_offset"])], phrase, clause_id)
+
     def test_context_spans_are_reproducible_from_v04(self):
         processed = ROOT / "data" / "processed"
         with (processed / "clauses_v04.csv").open(encoding="utf-8-sig", newline="") as handle:
