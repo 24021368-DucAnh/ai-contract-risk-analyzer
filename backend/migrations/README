@@ -1,28 +1,12 @@
-# Backend
+# Database migrations
 
-## Tech Stack
+Thư mục Alembic cho backend local. Hướng dẫn dependency/server đã chuyển về
+../README.md. Chạy từ backend/ sau khi cấu hình DATABASE_URL phát triển.
+migrations/env.py dùng settings.database_url thay URL mẫu trong alembic.ini.
 
-- Python
-- FastAPI
-- PostgreSQL
-- SQLAlchemy
-- Alembic
-- PyMuPDF
+Đọc trạng thái: alembic current
+Áp dụng migration khi được phép thay database: alembic upgrade head
 
-## Run locally
-
-### Create virtual environment
-
-python -m venv .venv
-
-### Install dependencies
-
-pip install -r requirements.txt
-
-### Run server
-
-uvicorn app.main:app --reload
-
-### Swagger
-
-http://localhost:8000/docs
+Kiểm đúng database và sao lưu trước đổi schema. Không chạy migration chỉ để
+kiểm tra/dọn file. Migration hiện tạo bảng contracts lưu toàn bộ original_text;
+chưa có TTL hay chính sách xóa PII.

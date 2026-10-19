@@ -1,5 +1,9 @@
 # Backend Architecture v0.1
 
+Thiết kế nền lịch sử: mã hiện chạy upload PDF -> extraction -> PostgreSQL;
+AI integration phía dưới là kế hoạch/stub, chưa chạy trong request.
+Cách chạy và giới hạn bảo mật: xem README.md.
+
 ## Architecture
 
 Layered Modular Architecture

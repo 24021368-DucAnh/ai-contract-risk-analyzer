@@ -88,3 +88,30 @@ Kiểm chứng: `python -m unittest discover -s tests -v` — 21/21 pass.
 Metadata HDLD001–007 giữ nguyên; bản sao raw HDLD008/009 khớp byte với nguồn
 intake; Git bỏ qua cả bốn file nội dung mới. Clause CSV lịch sử không có diff;
 khi so Git blob với checkout Windows cần xét CRLF/LF trước khi kết luận hash.
+
+## Dọn và tích hợp file — 19/10/2026
+
+- Đối chiếu byte/hash, chuyển 2 bản tải LTV Law/LegalZone trùng HDLD008/009
+  vào Recycle Bin; giữ nguyên raw. Manifest cập nhật sang đường dẫn raw và
+  trạng thái/nhóm khớp metadata. KTBK chưa nhận nên trả nhóm về unknown,
+  tránh nhầm tên SIM_F đã dùng cho HDLD008.
+- Chuyển DOCX Thiện Tín hỏng và 2 ảnh contact-sheet sinh từ PDF vào Recycle
+  Bin. Giữ URL/hash/dung lượng cũ trong receipt; row bị loại có local_path
+  rỗng và REMOVED_INVALID_DOCX. PDF nguồn vẫn ở restricted.
+- Xóa 23 file cache .pyc có thể sinh lại. Tổng 28 file được dọn,
+  2.731.273 byte; 5 file nội dung có thể khôi phục từ Recycle Bin.
+- Tích hợp hướng dẫn backend/server vào backend/README.md vốn đang rỗng;
+  migrations/README chỉ giữ hướng dẫn migration. Sửa code fence hỏng và cập
+  nhật quy trình Git/dataset/test trong CONTRIBUTING.md. Gộp các đoạn mô tả
+  nguồn bị lặp; metadata và data_sources vẫn là sổ chính.
+- Giữ các clauses_v01–v06, taxonomy v01–v03, splits v05/v06, báo cáo lịch sử,
+  bản nguồn và Python package/stub. File rỗng không tự động là file dư.
+
+Codex Security đã hoàn thành scan snapshot 402e662, ID
+dfd7a2f3-9a19-411f-af87-dda5006f50d6: một CWE-400 mức medium tại backend
+upload. Báo cáo gốc do plugin quản lý; xem đường dẫn báo cáo trong chat.
+Đợt dọn file không sửa API hay tuyên bố đã khắc phục phát hiện này.
+
+Kiểm tra sau dọn: 21/21 unittest pass; 9 nguồn còn lưu khớp hash/dung lượng,
+1 receipt ghi rõ đã bỏ binary; mappings HDLD008/009 khớp metadata; không còn
+cache .pyc/contact-sheet; raw và snapshots/splits lịch sử không có diff.

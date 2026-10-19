@@ -13,16 +13,12 @@ Danh sách các nguồn hợp đồng lao động tiếng Việt được khảo
 
 > Với `HDLD001`–`HDLD003`, URL trang tải gốc chưa được lưu từ thời điểm thu thập ban đầu. Không tự điền URL đoán; cần truy vết lại nếu project yêu cầu provenance đầy đủ.
 
-Nguồn bổ sung nhận raw local ngày 19/10/2026:
-
-- `SRC003` — LTV Law: [trang công bố](https://ltvlaw.com/tin-tuc/hop-dong-lao-dong), [DOCX gốc](https://ltvlaw.com/mau-don/hop-dong-lao-dong.docx). Nhận `HDLD008`, mẫu 8 điều, 3 trang, `SIM_F`, `TO_ANNOTATE`.
-- `SRC004` — LegalZone: [trang công bố](https://legalzone.vn/hop-dong-lao-dong-cong-nhan/), [DOCX gốc](https://legalzone.vn/wp-content/uploads/legalzone-templates-2026/mau-hop-dong-lao-dong-cong-nhan.docx). Nhận `HDLD009`, mẫu công nhân, 8 trang, `SIM_G`, `TO_ANNOTATE`.
-
-Cả hai được lưu theo cấu trúc hiện có: `data/raw/contracts/HDLDxxx.docx`,
-`data/processed/raw_text/HDLDxxx.txt`, đăng ký trong `contracts_metadata.csv`.
-File nội dung giữ local chờ quyền tái phân phối như HDLD007. SIM_F/G là nhóm
-sàng lọc template, vẫn cần kiểm clause-level trước chia dữ liệu. Nguồn bị
-loại hoặc còn PII chỉ ghi ở báo cáo QC/hàng chờ, chưa cấp HDLD.
+HDLD008/009 nhận raw local ngày 19/10, có text tương ứng trong
+`data/processed/raw_text/` và đăng ký trong `contracts_metadata.csv`.
+Nội dung giữ local chờ quyền tái phân phối như HDLD007. SIM_F/G là nhóm sàng
+lọc template, vẫn cần kiểm clause-level trước split. Nguồn bị loại/còn PII
+chỉ ghi trong QC và intake manifest, chưa cấp HDLD. Intake không giữ thêm
+bản trùng với raw.
 
 ## 2. Truy vết từng hợp đồng
 
@@ -40,8 +36,7 @@ loại hoặc còn PII chỉ ghi ở báo cáo QC/hàng chờ, chưa cấp HDLD.
 
 ### Bổ sung ngày 19/10/2026
 
-- `HDLD008` / `SRC003`: `data/raw/contracts/HDLD008.docx`, text tương ứng `HDLD008.txt`; hash và kiểm tra tại `CONTRACT_INTAKE_QC_2026-10-19.md`.
-- `HDLD009` / `SRC004`: `data/raw/contracts/HDLD009.docx`, text tương ứng `HDLD009.txt`; hash và kiểm tra tại cùng báo cáo.
+- Hash và phép so trùng HDLD008/009: `CONTRACT_INTAKE_QC_2026-10-19.md`.
 - Ba hồ sơ PDF Quảng Ngãi/An Giang còn PII, bản scan và quyền dùng chưa chốt: **chưa nhận raw**, chưa annotate, chưa đưa T1. DOCX Thiện Tín bị hỏng: loại. Không cộng số bản cùng khuôn vào số nguồn độc lập.
 
 ## 2.1. Lưu ý QC pháp lý của tài liệu nguồn

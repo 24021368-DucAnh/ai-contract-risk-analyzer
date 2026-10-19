@@ -1,75 +1,68 @@
 # Contributing Guide
 
-## 1. Không push trực tiếp vào `main`
+## 1. Git workflow
 
-Quy trình:
+Làm trên nhánh riêng, commit, rồi gửi PR để review khi được phép. Không push
+trực tiếp main, không force-push và không tự merge. Nhánh thường dùng:
+`data/`, `ai/`, `backend/`, `frontend/`, `docs/`, `fix/`; nhánh trợ lý hiện tại
+là `codex/contract-source-intake`.
 
-main
-→ tạo branch
-→ code / sửa file
-→ commit
-→ push
-→ Pull Request
-→ review
-→ merge
+Theo yêu cầu chủ repo, trợ lý chỉ làm trên thư mục local ở ổ D; phải hỏi trước
+khi pull/fetch, push hoặc tạo/cập nhật PR. Local commit được giữ để review.
 
-## 2. Bắt đầu task
+Trước khi sửa, xem thay đổi hiện có và giữ phần việc của người khác:
 
-```bash
-git switch main
-git pull origin main
-git switch -c <ten-branch>
+```powershell
+git status --short --branch
+git diff
+```
 
-Ví dụ:
-git switch -c data/risk-annotation-v01
+Commit dùng `<type>: <description>`, ví dụ `data: register new contracts`.
+Chỉ stage các đường dẫn thuộc task, review danh sách staged trước commit.
+Mọi thay đổi vào main cần PR và ít nhất một người review; không merge khi
+còn conflict. Ưu tiên squash khi nhóm đã duyệt.
 
-3. Tên branch
-Dùng:
-data/<task>
-ai/<task>
-backend/<task>
-frontend/<task>
-docs/<task>
-fix/<task>
+## 2. Cấu trúc dữ liệu đang dùng
 
-4. Commit
-Format:
-<type>: <description>
+- `data/raw/contracts/HDLDxxx.doc[x]`: bản nguồn đã nhận, giữ nguyên nội dung.
+- `data/processed/raw_text/HDLDxxx.txt`: text trích từ đúng bản nguồn; offset
+  phụ thuộc bản text này, không ghi đè tùy tiện.
+- `data/contracts_metadata.csv`: sổ HDLD/SRC/SIM và trạng thái annotation.
+- `docs/data_sources.md`: nguồn tải và quy định truy vết.
+- `data/processed/clauses_vXX.csv`: snapshot annotation; v06 có 234 clause/5
+  hợp đồng. Giữ các version cũ để tái tạo và đối chiếu.
+- `data/splits/`: split tạm theo nhóm tương tự, không random từng clause.
+- `data/intake/`: receipt/hàng chờ; nếu nguồn đã nhận, manifest trỏ về raw,
+  không lưu thêm bản trùng trong intake.
+- `scripts/`, `tests/`, `preview/`: xử lý, kiểm thử và highlight.
 
-Ví dụ:
-data: update clause taxonomy
-feat: add risk classifier
-fix: correct parser bug
-docs: update README
+Đọc `docs/dataset_schema.md`, `docs/annotation_guideline.md` và
+`docs/clause_taxonomy_v03.md` trước annotate. Không đổi nhãn hoặc thêm gold
+rủi ro pháp lý thiếu căn cứ/review. WEEK2/WEEK3 là snapshot lịch sử, không
+phải bằng chứng nghiệm thu kế hoạch 8 tuần mới.
 
-5. Pull Request
-- Mọi thay đổi vào main phải qua PR
-- Ít nhất 1 người review
-- Không merge khi còn conflict
-6. Tránh conflict
-Không sửa cùng file với người khác nếu chưa trao đổi.
-Nếu main có thay đổi mới:
-git switch main
-git pull origin main
-git switch <ten-branch>
-git merge main
+HDLD007–009 và text chỉ lưu local chờ quyền tái phân phối. Intake private/
+restricted/ được Git ignore; ignore không thay ẩn danh hoặc quyền truy cập
+hệ điều hành. JSON/HTML highlight chứa toàn bộ raw text, cần kiểm trước chia sẻ.
 
-7. Dataset
-Không xóa version cũ:
-clauses_v01.csv
-clauses_v02.csv
+## 3. Kiểm tra trước bàn giao
 
-Không sửa trực tiếp data/raw/.
-8. Không commit secrets
-Không commit:
-.env
-API key
-password
-AWS credentials
+```powershell
+$env:PYTHONDONTWRITEBYTECODE='1'
+python -B -m unittest discover -s tests -v
+git diff --check
+git diff --cached --name-only
+```
 
-9. Merge
-Ưu tiên:
-Squash and merge
+Kiểm thêm hash, metadata, offsets và nhóm trùng khi thay dataset. Không chạy
+lại `extract_raw_text.ps1` toàn bộ tùy tiện: script hiện ghi đè text dẫn xuất,
+có thể làm lệch offsets lịch sử.
 
-Không dùng:
-git push --force
+## 4. Backend local
+
+Xem `backend/README.md` cho luồng đang chạy và cách chạy local;
+`backend/migrations/README` chỉ dành cho migration. Đây là mã nền cũ, chưa
+phải pipeline AI đầy đủ; đọc giới hạn bảo mật trước mở upload không tin cậy.
+
+Không commit `.env`, API key, mật khẩu hay private key. Giữ `__init__.py`
+và stub còn phục vụ cấu trúc package; cùng rỗng không có nghĩa được xóa.
