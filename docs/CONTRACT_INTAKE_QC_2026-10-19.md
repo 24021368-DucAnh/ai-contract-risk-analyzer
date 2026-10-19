@@ -2,9 +2,10 @@
 
 Phạm vi: chỉ sàng lọc nguồn để xây dựng dữ liệu dự án. Tệp tải về nằm tại
 `data/intake/private/` hoặc `data/intake/restricted/` trên máy của Data Lead;
-hai thư mục này được Git ignore. `data/intake/manifest.csv` ghi URL trực tiếp,
-dung lượng và SHA-256 từng bản gốc. Không thay đổi dataset v06, nhãn, split,
-release candidate hoặc `data/raw/contracts/`.
+hai thư mục này được Git ignore. `data/intake/manifest.csv` là receipt sàng
+lọc, ghi URL, dung lượng và SHA-256 bản tải. Sau đối chiếu cấu trúc repo,
+hai mẫu hợp lệ đã được nhận raw local thành HDLD008/009 như mục bổ sung cuối
+báo cáo. Dataset v06, nhãn và split lịch sử giữ nguyên.
 
 ## Kết quả
 
@@ -40,3 +41,50 @@ loại hết PII.
   và DOCX. Cách khả thi hơn để đạt mục tiêu là xin bản hợp đồng thật từ các
   thành viên/đơn vị có quyền chia sẻ sau khi được ẩn danh, thay vì cộng các
   mẫu tải công khai. Chưa có căn cứ để gán nhãn rủi ro pháp lý cho các tệp này.
+
+## Tích hợp vào cấu trúc hiện có — 19/10/2026
+
+Quyết định: dùng đúng quy trình HDLD007 thay vì để hai mẫu hợp lệ chỉ nằm
+trong intake. Nhận raw local không đồng nghĩa đủ điều kiện T1 hoặc được
+phép tái phân phối công khai. Không sửa nội dung nguồn.
+
+- HDLD008 / SRC003 / SIM_F: `data/raw/contracts/HDLD008.docx`, 3 trang.
+  SHA-256 nguồn: `0c6e571556d1cf387a4cefcf5eb67f5f4fa63084c753447d5fb9aebf16206b6c`.
+  `data/processed/raw_text/HDLD008.txt`: 2.978 code point;
+  SHA-256 `224bf16ce6d48935a72ece5852345b57bfb0c2555827ba42b6d841af3f93e135`.
+- HDLD009 / SRC004 / SIM_G: `data/raw/contracts/HDLD009.docx`, 8 trang.
+  SHA-256 nguồn: `9c290967389d6e27bcf968673182bf7fde4499e59e1d0a2af026adcb9e7fde4c`.
+  `data/processed/raw_text/HDLD009.txt`: 13.669 code point;
+  SHA-256 `8d08ad89f3932853ce6ec0cf657e0148b98d2826eabbe4d71ef7f565c5cb3cd2`.
+
+Text được trích qua Microsoft Word read-only, cùng phép chuyển paragraph,
+table marker, whitespace và UTF-8/LF như script hiện có; không chạy lại hay
+ghi đè HDLD001–007. Word báo số trang theo môi trường máy hiện tại.
+Tính lại đúng phép containment đối xứng hiện có: giao 5-gram chia tập nhỏ
+hơn (giữ dấu tiếng Việt, lowercase, bỏ dấu câu), so với tất cả HDLD001–009:
+HDLD008 tối đa **0.1541** với HDLD007; HDLD009 tối đa **0.0807** với HDLD008.
+Đây là phép đo khác các tỷ lệ sàng lọc ban đầu trong bảng phía trên.
+
+Metadata đăng ký cả hai là `TO_ANNOTATE`, clause_count và dataset_version
+để trống. Bốn file nội dung được Git ignore như HDLD007. Nguồn chính nằm
+trong `docs/data_sources.md`; intake receipt vẫn truy vết bản tải gốc.
+
+### Nhật ký thực hiện kế hoạch Data Lead
+
+- [x] Đọc schema, metadata, data_sources, quy trình raw text và source-intake tests.
+- [x] Nhận HDLD008/009 theo ID, thư mục và trạng thái hiện có.
+- [x] Trích text, ghi hash, số trang, so trùng bằng cùng phương pháp.
+- [x] Kiểm kê sơ bộ D1: xem `D1_DATA_INVENTORY_2026-10-19.md`.
+- [ ] Nhóm chốt D1 4 hay 5 hợp đồng; người thứ hai review PII và nhãn.
+- [ ] MS-1: freeze guideline và chính sách single-label/đa nhãn cùng AI Leads.
+- [ ] Thu T1 >=10 hợp đồng gốc độc lập có quyền sử dụng và đã ẩn danh.
+
+Ruling: làm trực tiếp trong repo ổ D và nhánh hiện có theo yêu cầu người dùng;
+không tạo checkout khác. Chỉ dùng intake cho nguồn chưa nhận; sổ chính vẫn
+là metadata và data_sources. Nếu quyết định nhận mẫu dev cần đổi sau review,
+có thể chuyển trạng thái metadata mà không sửa snapshot lịch sử.
+
+Kiểm chứng: `python -m unittest discover -s tests -v` — 21/21 pass.
+Metadata HDLD001–007 giữ nguyên; bản sao raw HDLD008/009 khớp byte với nguồn
+intake; Git bỏ qua cả bốn file nội dung mới. Clause CSV lịch sử không có diff;
+khi so Git blob với checkout Windows cần xét CRLF/LF trước khi kết luận hash.

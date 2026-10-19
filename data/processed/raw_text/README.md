@@ -13,6 +13,12 @@ Both HDLD007 files remain local and are ignored by Git pending confirmation
 of redistribution permission. A clone contains HDLD001 through HDLD006;
 source URLs and HDLD007 hashes are recorded in the intake QC document.
 
+HDLD008 and HDLD009 were added locally on 2026-10-19 using the same read-only
+Word extraction, without re-extracting HDLD001–007. They are 3 and 8 pages,
+respectively. Both source DOCX and extracted text remain Git-ignored pending
+redistribution permission; provenance is registered in contracts_metadata.csv
+and docs/data_sources.md. They are not in v06 or any evaluation split.
+
 Offsets in `clauses_v04.csv`, `clauses_v05.csv`, and `clauses_v06.csv` refer to these exact saved text files. They
 are Python character indices and use half-open ranges `[start_offset, end_offset)`.
 In v05, `offset_quality=EXACT` means the span matches `clause_text` after whitespace
@@ -32,3 +38,5 @@ SHA-256 digests:
 | HDLD005.docx | `d3653d3cea277db3cc7c82fee0461a26569d1a3d0c3a135004b43c316dac0f36` |
 | HDLD006.docx | `5d42319b1d4459936524dd9f4c615084377d0e2c728b81771aee8cad7dbeaa34` |
 | HDLD007.docx | `07fb706f647f7dec581fcd251751a1ece54c035a24c41c230fe129449f9b325a` |
+| HDLD008.docx | `0c6e571556d1cf387a4cefcf5eb67f5f4fa63084c753447d5fb9aebf16206b6c` |
+| HDLD009.docx | `9c290967389d6e27bcf968673182bf7fde4499e59e1d0a2af026adcb9e7fde4c` |

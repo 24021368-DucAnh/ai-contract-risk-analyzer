@@ -7,7 +7,7 @@ data/
 │   ├── contracts/
 │   │   ├── HDLD001.doc
 │   │   ├── ...
-│   │   └── HDLD007.docx
+│   │   └── HDLD009.docx
 │   └── annotated/
 ├── processed/
 │   ├── clauses_v01.csv
@@ -18,11 +18,14 @@ data/
 │   ├── clauses_v06.csv
 │   └── raw_text/
 │       ├── HDLD001.txt
-│       └── ... HDLD007.txt
+│       └── ... HDLD009.txt
 └── contracts_metadata.csv
-HDLD007.docx và HDLD007.txt chỉ có ở local, được Git ignore trong khi chờ
+HDLD007–009 (DOCX và TXT) chỉ có ở local, được Git ignore trong khi chờ
 xác nhận quyền tái phân phối. Clone repo có raw contracts HDLD001–HDLD006;
-metadata, URL và hash HDLD007 vẫn được giữ để truy vết.
+metadata, URL và hash HDLD007–009 vẫn được giữ để truy vết. HDLD008/009 được
+nhận raw local ngày 19/10, trạng thái TO_ANNOTATE; chưa vào snapshot v06.
+data/intake/ chỉ là hàng chờ/receipt nguồn tải, không thay contracts_metadata.csv
+hoặc docs/data_sources.md. PDF còn PII không được nhận vào raw contracts.
 data/raw/contracts/
 Chứa file nguồn gốc.
 - không sửa nội dung;

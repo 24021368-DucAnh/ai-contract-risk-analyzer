@@ -11,9 +11,15 @@ ngày 19/10 bổ sung hai mẫu DOCX hợp lệ, một DOCX bị hỏng và ba h
 hợp đồng đã điền. Xem `docs/CONTRACT_INTAKE_QC_2026-10-19.md` để biết trang
 chứa hợp đồng, kiểm tra trùng mẫu và quyết định cho từng nguồn.
 
-**Chưa tệp nào trong intake được duyệt cho T1.** Mẫu trống chỉ phục vụ thử
-pipeline; hồ sơ thực tế vẫn có thông tin cá nhân và quyền tái sử dụng chưa
-được xác nhận. Không chuyển chúng sang `data/raw/contracts/`, metadata hay
-release. Không sửa bản gốc; nếu tách hoặc ẩn danh, lưu bản dẫn xuất riêng,
+Ngày 19/10 đã tích hợp hai mẫu hợp lệ theo quy trình HDLD007: LTV Law thành
+`HDLD008` / `SRC003` / `SIM_F`, LegalZone thành `HDLD009` / `SRC004` / `SIM_G`.
+File đã có tại `data/raw/contracts/`, raw text trích bằng Word nằm tại
+`data/processed/raw_text/`; metadata và `docs/data_sources.md` là sổ quản lý
+chính. Hai bản trong intake chỉ là bản tải dùng đối chiếu hash.
+
+**Chưa tệp nào được duyệt cho T1.** Hai mẫu nhận raw local đang `TO_ANNOTATE`;
+nội dung giữ ngoài Git như HDLD007 chờ quyền tái phân phối. Hồ sơ thực tế
+còn PII vẫn ở hàng chờ, chưa nhận raw/metadata/release. Nếu tách hoặc ẩn danh,
+lưu bản dẫn xuất riêng,
 giữ hash và trang nguồn để truy vết. Bảy hợp đồng trong hồ sơ An Giang dùng
 chung một khuôn, không được tính như bảy nguồn độc lập.

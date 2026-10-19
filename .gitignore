@@ -40,9 +40,13 @@ outputs/
 # Local cache
 .cache/
 
-# Pending confirmation of permission to redistribute the HrOnline template.
+# Local accepted templates pending redistribution permission (HrOnline/LTV Law/LegalZone).
 data/raw/contracts/HDLD007.docx
 data/processed/raw_text/HDLD007.txt
+data/raw/contracts/HDLD008.docx
+data/raw/contracts/HDLD009.docx
+data/processed/raw_text/HDLD008.txt
+data/processed/raw_text/HDLD009.txt
 
 # Local source-screening originals; rights/PII checks are still pending.
 data/intake/private/
