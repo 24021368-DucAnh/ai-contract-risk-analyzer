@@ -185,10 +185,10 @@ Quy tắc:
 - append/relabel đáng kể tạo version mới;
 - chỉ một version được coi là current trong workflow.
 Taxonomy
-Tên:
-- clause_taxonomy_v01.md
-- clause_taxonomy_v02.md
-- clause_taxonomy_v03.md
+Đang dùng: `docs/clause_taxonomy_v03.md`.
+Lịch sử:
+- `docs/archive/taxonomy/clause_taxonomy_v01.md`
+- `docs/archive/taxonomy/clause_taxonomy_v02.md`
 Không overwrite taxonomy cũ sau khi đã dùng cho một dataset snapshot.
 Annotation guideline
 Guideline là tài liệu sống nhưng heading phải có version khi rule segmentation thay đổi đáng kể.
@@ -204,7 +204,7 @@ Quy trình:
 Snapshot v05 có bản chia tạm `data/splits/provisional_v05.json`, tái tạo bằng
 `scripts/build_provisional_split.py --dataset-version v05`. Bản chia giữ nguyên 183 row; các row
 trùng/gần trùng xuyên tập được ghi trong `exclusions` và không dùng để chấm
-điểm dev/test. Xem `docs/WEEK2_DATA_HANDOFF.md` để biết số liệu và giới hạn.
+điểm dev/test. Xem `docs/archive/reports/WEEK2_DATA_HANDOFF.md` để biết số liệu lịch sử v05 và giới hạn.
 Bản chia hiện tại là `data/splits/provisional_v06.json`, tái tạo bằng
 `scripts/build_provisional_split.py --dataset-version v06`. Cả `SIM_B` và
 `SIM_D` nằm trong train; `SIM_A` trong dev; `SIM_C` trong test. 39 row đánh
@@ -281,8 +281,8 @@ Trong v05 có 31 nhóm `clause_text` trùng nguyên văn; 2 nhóm xuất hiện 
 
 10. Snapshot hiện tại — v06
 `data/processed/clauses_v06.csv` có 234 clause REVIEWED / 5 contract. HDLD005
-thêm 51 clause (SIM_D); HDLD006 vẫn giữ raw vì gần trùng HDLD005. HDLD007
-đã nhận raw từ nguồn mới nhưng chưa annotate, nên chưa có trong v06/split.
+thêm 51 clause (SIM_D); HDLD006 vẫn giữ raw vì gần trùng HDLD005. HDLD007–009
+đã nhận raw nhưng chưa annotate, nên chưa có trong v06/split.
 
 | Contract | Clauses | Similarity group |
 |---|---:|---|
@@ -295,4 +295,10 @@ thêm 51 clause (SIM_D); HDLD006 vẫn giữ raw vì gần trùng HDLD005. HDLD0
 
 V06 có 225 span `EXACT`, 9 span `CONTEXT`. `WORKING_CONDITIONS` còn 7 mẫu,
 là nhãn ưu tiên cần tìm thêm ở các hợp đồng khác họ mẫu. Xem
-`docs/CONTRACT_INTAKE_QC_2026-10-05.md` để biết quyết định nhận nguồn.
+`docs/archive/reports/CONTRACT_INTAKE_QC_2026-10-05.md` để biết quyết định nhận
+HDLD007; các nguồn sau và trạng thái hiện hành xem `docs/data_sources.md`.
+
+11. Tài liệu hiện hành và lịch sử
+Điểm bắt đầu: `docs/README.md`. Giữ guideline/schema/taxonomy đang dùng trong
+docs/; báo cáo ngày/mốc và taxonomy cũ nằm trong docs/archive/. Di chuyển
+tài liệu không thay đổi snapshot CSV, raw text hoặc đường dẫn script/test.

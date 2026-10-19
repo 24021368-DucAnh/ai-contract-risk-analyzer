@@ -1,5 +1,7 @@
 # Contributing Guide
 
+Tài liệu cần đọc và trạng thái Data Lead hiện hành: [docs/README.md](docs/README.md).
+
 ## 1. Git workflow
 
 Làm trên nhánh riêng, commit, rồi gửi PR để review khi được phép. Không push

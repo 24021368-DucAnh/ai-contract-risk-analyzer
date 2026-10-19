@@ -30,13 +30,13 @@ bản trùng với raw.
 | `HDLD004` | `SRC001` | `data/raw/contracts/HDLD004.docx` | HĐLĐ giúp việc gia đình | Đã annotate | `SIM_C` | Trang tham khảo: https://thuvienphapluat.vn/hoi-dap-phap-luat/mau-hop-dong-lao-dong-giup-viec-gia-dinh-moi-nhat-338634.html |
 | `HDLD005` | `SRC001` | `data/raw/contracts/HDLD005.docx` | HĐLĐ thực hiện công việc hỗ trợ, phục vụ | Đã annotate, 51 clause trong v06 | `SIM_D` | Mẫu ghi rõ Phụ lục II Thông tư 05/2023/TT-BNV; trang tải/tham khảo: https://thuvienphapluat.vn/banan/tin-tuc/tai-mau-hop-dong-lao-dong-theo-nghi-dinh-111-2022-nd-cp-moi-nhat-2026-mau-hop-dong-theo-nghi-dinh-11-20855.html |
 | `HDLD006` | `SRC001` | `data/raw/contracts/HDLD006.docx` | HĐLĐ thực hiện công việc chuyên môn, nghiệp vụ | Giữ raw / chưa annotate full | `SIM_D` | Near-duplicate/template-family với `HDLD005`; giữ để kiểm thử duplicate và truy vết nguồn |
-| `HDLD007` | `SRC002` | `data/raw/contracts/HDLD007.docx` | Mẫu HĐLĐ chung 2026 | Chờ annotate | `SIM_E` | [Trang công bố và tải mẫu](https://hronline.vn/mau-hop-dong-lao-dong-2026-chuan-bo-luat-lao-dong-tai-mien-phi-wordpdf); [file Word công khai](https://docs.google.com/document/d/11B6vwNm9BiPURKvpxtySNNa6NAJawRi2/edit?usp=sharing); QC chi tiết tại `docs/CONTRACT_INTAKE_QC_2026-10-05.md` |
+| `HDLD007` | `SRC002` | `data/raw/contracts/HDLD007.docx` | Mẫu HĐLĐ chung 2026 | Chờ annotate | `SIM_E` | [Trang công bố và tải mẫu](https://hronline.vn/mau-hop-dong-lao-dong-2026-chuan-bo-luat-lao-dong-tai-mien-phi-wordpdf); [file Word công khai](https://docs.google.com/document/d/11B6vwNm9BiPURKvpxtySNNa6NAJawRi2/edit?usp=sharing); [QC nguồn](archive/reports/CONTRACT_INTAKE_QC_2026-10-05.md) |
 | `HDLD008` | `SRC003` | `data/raw/contracts/HDLD008.docx` | Mẫu HĐLĐ chung | Chờ annotate, chỉ lưu local | `SIM_F` | [DOCX gốc](https://ltvlaw.com/mau-don/hop-dong-lao-dong.docx); 3 trang; text trích bằng Word |
 | `HDLD009` | `SRC004` | `data/raw/contracts/HDLD009.docx` | Mẫu HĐLĐ công nhân | Chờ annotate, chỉ lưu local | `SIM_G` | [DOCX gốc](https://legalzone.vn/wp-content/uploads/legalzone-templates-2026/mau-hop-dong-lao-dong-cong-nhan.docx); 8 trang; text trích bằng Word |
 
 ### Bổ sung ngày 19/10/2026
 
-- Hash và phép so trùng HDLD008/009: `CONTRACT_INTAKE_QC_2026-10-19.md`.
+- Hash và phép so trùng HDLD008/009: [QC ngày 19/10](archive/reports/CONTRACT_INTAKE_QC_2026-10-19.md).
 - Ba hồ sơ PDF Quảng Ngãi/An Giang còn PII, bản scan và quyền dùng chưa chốt: **chưa nhận raw**, chưa annotate, chưa đưa T1. DOCX Thiện Tín bị hỏng: loại. Không cộng số bản cùng khuôn vào số nguồn độc lập.
 
 ## 2.1. Lưu ý QC pháp lý của tài liệu nguồn

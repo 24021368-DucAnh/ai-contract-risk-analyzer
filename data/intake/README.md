@@ -8,7 +8,7 @@ thông tin cá nhân.
 `HDLD007.docx` đã có sẵn tại `data/raw/contracts/` trước lượt chuyển tệp
 ngày 13/10. Hash khớp hồ sơ ngày 05/10/2026 nên không ghi đè. Vòng tìm nguồn
 ngày 19/10 bổ sung hai mẫu DOCX hợp lệ, một DOCX bị hỏng và ba hồ sơ PDF có
-hợp đồng đã điền. Xem `docs/CONTRACT_INTAKE_QC_2026-10-19.md` để biết trang
+hợp đồng đã điền. Xem `docs/archive/reports/CONTRACT_INTAKE_QC_2026-10-19.md` để biết trang
 chứa hợp đồng, kiểm tra trùng mẫu và quyết định cho từng nguồn.
 
 Ngày 19/10 đã tích hợp hai mẫu hợp lệ theo quy trình HDLD007: LTV Law thành
