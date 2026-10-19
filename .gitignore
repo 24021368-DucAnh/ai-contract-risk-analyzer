@@ -43,3 +43,7 @@ outputs/
 # Pending confirmation of permission to redistribute the HrOnline template.
 data/raw/contracts/HDLD007.docx
 data/processed/raw_text/HDLD007.txt
+
+# Local source-screening originals; rights/PII checks are still pending.
+data/intake/private/
+data/intake/restricted/
