@@ -63,8 +63,9 @@ URL tải được công khai.
 
 **Hồ sơ hiện tại:** HDLD007–009 là mẫu phát triển và còn chờ quyền tái phân
 phối; MOJ gần trùng HDLD003; KTBK là bundle chưa xác định quyền/nhóm trùng;
-năm hồ sơ PDF có thông tin cá nhân hoặc các trang scan cần xử lý; mẫu DOCX
-Quảng Ngãi bị hỏng đã loại. Không hồ sơ nào được chuyển sang T1 ở bước này.
+các hồ sơ PDF giữ trong `restricted/` có PII/scan hoặc quyền dùng chưa rõ;
+mẫu DOCX Quảng Ngãi bị hỏng đã loại. Không hồ sơ nào được chuyển sang T1 ở
+bước này.
 
 ### Kiểm tra thêm ngày 20/10/2026
 
@@ -79,3 +80,19 @@ trang hồ sơ gốc giải thích ngữ cảnh công bố và chưa xác nhận
 chưa có bản dẫn xuất ẩn danh hoặc người kiểm thứ hai. Vì vậy `t1_eligible=no`.
 Hash, dung lượng và URL chính xác nằm trong `manifest.csv`; không chép thông
 tin cá nhân vào Git hay báo cáo QC.
+
+### Sàng lọc bổ sung ngày 20/10/2026
+
+Đã thêm 11 hồ sơ từ cổng VIMDA/Bộ Y tế và hồ sơ công bố của Sở Y tế Hải Phòng
+vào manifest; bản tải được giữ trong `restricted/` và bị Git ignore. Kết quả
+phân loại: có hồ sơ PDF trích được chữ, nhiều hồ sơ scan cần OCR; một bản
+VIMDA trùng HDLD003 cao (0,4839) và bị loại khỏi T1; một bản là hợp đồng
+làm việc viên chức, ngoài phạm vi HĐLĐ nên bị loại. Một hồ sơ bệnh viện Hải
+Phòng chứa ít nhất hai HĐLĐ trong cùng một bộ công bố và được gắn chung nhóm,
+không mặc định tính hai mẫu độc lập.
+
+Các hồ sơ còn lại đều chưa qua đủ cổng: còn PII/chữ ký, quyền tái sử dụng và
+ngữ cảnh công bố chưa xác minh, hoặc ranh giới hợp đồng/chất lượng OCR chưa
+kiểm tra. Do đó tổng `t1_eligible=yes` vẫn là **0**. Đã tìm được nhiều hơn
+13 đường dẫn/ứng viên, nhưng đó không phải 13 hợp đồng T1 đạt chuẩn; cần quyền
+dùng được xác nhận và hai người nghiệm thu bản ẩn danh trước khi annotate.
