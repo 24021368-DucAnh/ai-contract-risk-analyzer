@@ -75,4 +75,3 @@ This design changes documentation organization only and does not modify backend 
 - The handoff rename accounts for case-insensitive Windows file systems.
 - Local-only materials and all pre-existing edits remain untouched.
 - Security scan status is explicitly dated and scoped; it is not presented as a fresh scan.
-
