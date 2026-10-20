@@ -29,7 +29,8 @@ số phiên bản taxonomy không bắt buộc trùng phiên bản dataset. Khô
   nguồn HDLD001–003; guideline và chính sách đa nhãn cùng Clause/Risk Leads.
   Kiểm kê sơ bộ chưa thay cho nghiệm thu gold/privacy.
 - T1 cần >=10 hợp đồng gốc độc lập có quyền dùng và đã ẩn danh. Các mẫu dev
-  và PDF còn PII trong intake chưa được tính vào T1.
+  và PDF còn PII trong intake chưa được tính vào T1. Quy trình sàng lọc,
+  ẩn danh và nghiệm thu nằm tại [data/intake/README.md](../data/intake/README.md).
 
 Kế hoạch/kiến trúc toàn nhóm nằm ở repo pipeline. Bản local này không tự
 đồng bộ GitHub; không coi trạng thái báo cáo cũ là trạng thái nhánh remote.
