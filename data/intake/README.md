@@ -63,5 +63,19 @@ URL tải được công khai.
 
 **Hồ sơ hiện tại:** HDLD007–009 là mẫu phát triển và còn chờ quyền tái phân
 phối; MOJ gần trùng HDLD003; KTBK là bundle chưa xác định quyền/nhóm trùng;
-bốn hồ sơ PDF có thông tin cá nhân hoặc các trang scan cần xử lý; mẫu DOCX
+năm hồ sơ PDF có thông tin cá nhân hoặc các trang scan cần xử lý; mẫu DOCX
 Quảng Ngãi bị hỏng đã loại. Không hồ sơ nào được chuyển sang T1 ở bước này.
+
+### Kiểm tra thêm ngày 20/10/2026
+
+Ứng viên `CAND-MOH-LONGCHAU-2021` được tải từ [tệp PDF trên cổng VIMDA
+thuộc Bộ Y tế](https://vimda.moh.gov.vn/documents/10182/25329986/upload_00043800_1641803953228.pdf?fileId=25383880&version=1.0).
+Sáu trang có text trích được: trang 1–4 là hợp đồng lao động đã điền và ký;
+trang 5–6 là tài liệu nhân sự liên quan, không tự tính thành hợp đồng khác.
+Bản PDF có tên, số định danh, địa chỉ và chữ ký đọc được; giữ nguyên trong
+`restricted/`, ngoài Git. So 5-gram đối xứng với raw text HDLD001–009 cho
+mức cao nhất 0,1141 (HDLD002), nên ghi nhóm độc lập **tạm thời**. Chưa có
+trang hồ sơ gốc giải thích ngữ cảnh công bố và chưa xác nhận quyền tái sử dụng;
+chưa có bản dẫn xuất ẩn danh hoặc người kiểm thứ hai. Vì vậy `t1_eligible=no`.
+Hash, dung lượng và URL chính xác nằm trong `manifest.csv`; không chép thông
+tin cá nhân vào Git hay báo cáo QC.
