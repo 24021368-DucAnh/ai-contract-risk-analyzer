@@ -7,7 +7,7 @@ data/
 │   ├── contracts/
 │   │   ├── HDLD001.doc
 │   │   ├── ...
-│   │   └── HDLD009.docx
+│   │   └── HDLD007.docx
 │   └── annotated/
 ├── processed/
 │   ├── clauses_v01.csv
@@ -18,14 +18,11 @@ data/
 │   ├── clauses_v06.csv
 │   └── raw_text/
 │       ├── HDLD001.txt
-│       └── ... HDLD009.txt
+│       └── ... HDLD007.txt
 └── contracts_metadata.csv
-HDLD007–009 (DOCX và TXT) chỉ có ở local, được Git ignore trong khi chờ
+HDLD007.docx và HDLD007.txt chỉ có ở local, được Git ignore trong khi chờ
 xác nhận quyền tái phân phối. Clone repo có raw contracts HDLD001–HDLD006;
-metadata, URL và hash HDLD007–009 vẫn được giữ để truy vết. HDLD008/009 được
-nhận raw local ngày 19/10, trạng thái TO_ANNOTATE; chưa vào snapshot v06.
-data/intake/ chỉ là hàng chờ/receipt nguồn tải, không thay contracts_metadata.csv
-hoặc docs/data_sources.md. PDF còn PII không được nhận vào raw contracts.
+metadata, URL và hash HDLD007 vẫn được giữ để truy vết.
 data/raw/contracts/
 Chứa file nguồn gốc.
 - không sửa nội dung;
@@ -185,10 +182,10 @@ Quy tắc:
 - append/relabel đáng kể tạo version mới;
 - chỉ một version được coi là current trong workflow.
 Taxonomy
-Đang dùng: `docs/clause_taxonomy_v03.md`.
-Lịch sử:
-- `docs/archive/taxonomy/clause_taxonomy_v01.md`
-- `docs/archive/taxonomy/clause_taxonomy_v02.md`
+Tên:
+- clause_taxonomy_v01.md
+- clause_taxonomy_v02.md
+- clause_taxonomy_v03.md
 Không overwrite taxonomy cũ sau khi đã dùng cho một dataset snapshot.
 Annotation guideline
 Guideline là tài liệu sống nhưng heading phải có version khi rule segmentation thay đổi đáng kể.
@@ -204,7 +201,7 @@ Quy trình:
 Snapshot v05 có bản chia tạm `data/splits/provisional_v05.json`, tái tạo bằng
 `scripts/build_provisional_split.py --dataset-version v05`. Bản chia giữ nguyên 183 row; các row
 trùng/gần trùng xuyên tập được ghi trong `exclusions` và không dùng để chấm
-điểm dev/test. Xem `docs/archive/reports/WEEK2_DATA_HANDOFF.md` để biết số liệu lịch sử v05 và giới hạn.
+điểm dev/test. Xem `docs/WEEK2_DATA_HANDOFF.md` để biết số liệu và giới hạn.
 Bản chia hiện tại là `data/splits/provisional_v06.json`, tái tạo bằng
 `scripts/build_provisional_split.py --dataset-version v06`. Cả `SIM_B` và
 `SIM_D` nằm trong train; `SIM_A` trong dev; `SIM_C` trong test. 39 row đánh
@@ -215,6 +212,20 @@ Ngưỡng near-duplicate v06 là 0.85 sau review các biến thể template lọ
 ngưỡng 0.90; v05 giữ ngưỡng lịch sử 0.90. Bộ lọc ký tự này vẫn cần review
 ngữ nghĩa trước benchmark chính thức.
 8. QC bắt buộc
+
+Chạy kiểm tra tự động trên snapshot hiện hành từ thư mục gốc repo:
+
+```bash
+python -m scripts.validate_dataset
+```
+
+Lệnh trả exit code 1 nếu có lỗi cấu trúc, metadata, nhãn hoặc offset. Nó in
+số contract/clause, phân bố 12 nhãn, trạng thái review, số text trùng nguyên
+văn và danh sách `CONTEXT` cần review. `EXACT` được đối chiếu sau chuẩn hóa khoảng trắng;
+`CONTEXT` chỉ được kiểm vị trí, đoạn nguồn không rỗng và ghi chú
+`OFFSET_CONTEXT`. Không dùng các span `CONTEXT` làm nhãn exact-span.
+Trùng text được thống kê để kiểm leakage, không tự động xem là lỗi hay xóa row.
+
 Structural QC
 - tên/thứ tự cột đúng;
 - không duplicate clause_id;
@@ -281,8 +292,14 @@ Trong v05 có 31 nhóm `clause_text` trùng nguyên văn; 2 nhóm xuất hiện 
 
 10. Snapshot hiện tại — v06
 `data/processed/clauses_v06.csv` có 234 clause REVIEWED / 5 contract. HDLD005
-thêm 51 clause (SIM_D); HDLD006 vẫn giữ raw vì gần trùng HDLD005. HDLD007–009
-đã nhận raw nhưng chưa annotate, nên chưa có trong v06/split.
+thêm 51 clause (SIM_D); HDLD006 vẫn giữ raw vì gần trùng HDLD005. HDLD007
+đã nhận raw từ nguồn mới nhưng chưa annotate, nên chưa có trong v06/split.
+
+Ở v06 RC1 ngày 12/10/2026, HDLD007 chỉ được giữ trong hồ sơ intake; raw chưa
+chia sẻ trong Git nên không nằm trong metadata release. Xem
+`WEEK5_DATA_QC_REPORT.md` và `WEEK5_AI_EVALUATION_HANDOFF.md` cho gates,
+warnings, masks và hard test candidate. Chạy validator mặc định trên v06;
+muốn kiểm snapshot lịch sử cần metadata tương ứng với snapshot đó.
 
 | Contract | Clauses | Similarity group |
 |---|---:|---|
@@ -295,10 +312,5 @@ thêm 51 clause (SIM_D); HDLD006 vẫn giữ raw vì gần trùng HDLD005. HDLD0
 
 V06 có 225 span `EXACT`, 9 span `CONTEXT`. `WORKING_CONDITIONS` còn 7 mẫu,
 là nhãn ưu tiên cần tìm thêm ở các hợp đồng khác họ mẫu. Xem
-`docs/archive/reports/CONTRACT_INTAKE_QC_2026-10-05.md` để biết quyết định nhận
-HDLD007; các nguồn sau và trạng thái hiện hành xem `docs/data_sources.md`.
+`docs/CONTRACT_INTAKE_QC_2026-10-05.md` để biết quyết định nhận nguồn.
 
-11. Tài liệu hiện hành và lịch sử
-Điểm bắt đầu: `docs/README.md`. Giữ guideline/schema/taxonomy đang dùng trong
-docs/; báo cáo ngày/mốc và taxonomy cũ nằm trong docs/archive/. Di chuyển
-tài liệu không thay đổi snapshot CSV, raw text hoặc đường dẫn script/test.

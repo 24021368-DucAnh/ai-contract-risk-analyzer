@@ -22,14 +22,10 @@ class SourceIntakeTests(unittest.TestCase):
             self.assertRegex(text, rf"ĐIỀU {number}:|Điều {number}:")
         self.assertNotRegex(text, r"\b\d{12}\b")  # no filled CCCD
 
-    def test_hdld007_provenance_is_registered_without_entering_the_dataset(self):
+    def test_hdld007_stays_in_intake_queue_until_raw_can_be_shared(self):
         with (ROOT / "data" / "contracts_metadata.csv").open(encoding="utf-8-sig", newline="") as handle:
             metadata = {row["contract_id"]: row for row in csv.DictReader(handle)}
-        row = metadata["HDLD007"]
-        self.assertEqual(row["dataset_status"], "TO_ANNOTATE")
-        self.assertEqual(row["similarity_group"], "SIM_E")
-        self.assertEqual(row["clause_count"], "")
-        self.assertEqual(row["dataset_version"], "")
+        self.assertNotIn("HDLD007", metadata)
         self.assertIn("HDLD007", (ROOT / "docs" / "data_sources.md").read_text(encoding="utf-8"))
 
 

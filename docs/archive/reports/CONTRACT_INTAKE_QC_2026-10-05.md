@@ -1,5 +1,11 @@
 # Kiểm tra nguồn hợp đồng mới — 05/10/2026
 
+Cập nhật release ngày 12/10/2026: HDLD007 chỉ nằm trong hàng chờ intake.
+File chưa được chia sẻ trong Git, nên record được đưa ra khỏi
+`contracts_metadata.csv` của v06 RC1. Quyết định intake, URL, hash và SIM_E
+trong hồ sơ này được giữ để tiếp tục khi có quyền chia sẻ; nội dung HDLD007
+chưa được kiểm chứng lại trong checkout tuần 5.
+
 Mục tiêu: bổ sung **hợp đồng lao động tiếng Việt**, có đủ điều khoản, truy vết
 được file gốc, không có dữ liệu cá nhân đã điền và không gần trùng với nhóm
 đã có. Mẫu hợp đồng chỉ là **đầu vào** để phân tích; ghi nhãn clause không chứng

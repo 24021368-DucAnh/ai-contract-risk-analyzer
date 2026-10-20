@@ -8,17 +8,8 @@ Danh sách các nguồn hợp đồng lao động tiếng Việt được khảo
 |---|---|---|---|---:|---|---|
 | `SRC001` | Thư Viện Pháp Luật | https://thuvienphapluat.vn/ | Mẫu hợp đồng lao động / biểu mẫu pháp lý tiếng Việt | 6 | Đã tải | Gồm `HDLD001`–`HDLD006`. Một số tài liệu là mẫu tham khảo; `HDLD004`–`HDLD006` có căn cứ văn bản pháp luật ghi trực tiếp trong tài liệu. |
 | `SRC002` | HrOnline | https://hronline.vn/mau-hop-dong-lao-dong-2026-chuan-bo-luat-lao-dong-tai-mien-phi-wordpdf | Mẫu HĐLĐ 2026 được đăng tải miễn phí | 1 | Đã tải | `HDLD007`; file Word công khai, 9 điều, chưa điền PII. Đây là mẫu tham khảo, không phải nguồn luật hoặc bằng chứng rằng mọi điều khoản đều hợp pháp. |
-| `SRC003` | LTV Law | https://ltvlaw.com/tin-tuc/hop-dong-lao-dong | Mẫu HĐLĐ chung | 1 | Đã tải local | HDLD008; nội dung giữ local chờ quyền tái phân phối. |
-| `SRC004` | LegalZone | https://legalzone.vn/hop-dong-lao-dong-cong-nhan/ | Mẫu HĐLĐ công nhân | 1 | Đã tải local | HDLD009; nội dung giữ local chờ quyền tái phân phối. |
 
 > Với `HDLD001`–`HDLD003`, URL trang tải gốc chưa được lưu từ thời điểm thu thập ban đầu. Không tự điền URL đoán; cần truy vết lại nếu project yêu cầu provenance đầy đủ.
-
-HDLD008/009 nhận raw local ngày 19/10, có text tương ứng trong
-`data/processed/raw_text/` và đăng ký trong `contracts_metadata.csv`.
-Nội dung giữ local chờ quyền tái phân phối như HDLD007. SIM_F/G là nhóm sàng
-lọc template, vẫn cần kiểm clause-level trước split. Nguồn bị loại/còn PII
-chỉ ghi trong QC và intake manifest, chưa cấp HDLD. Intake không giữ thêm
-bản trùng với raw.
 
 ## 2. Truy vết từng hợp đồng
 
@@ -30,14 +21,7 @@ bản trùng với raw.
 | `HDLD004` | `SRC001` | `data/raw/contracts/HDLD004.docx` | HĐLĐ giúp việc gia đình | Đã annotate | `SIM_C` | Trang tham khảo: https://thuvienphapluat.vn/hoi-dap-phap-luat/mau-hop-dong-lao-dong-giup-viec-gia-dinh-moi-nhat-338634.html |
 | `HDLD005` | `SRC001` | `data/raw/contracts/HDLD005.docx` | HĐLĐ thực hiện công việc hỗ trợ, phục vụ | Đã annotate, 51 clause trong v06 | `SIM_D` | Mẫu ghi rõ Phụ lục II Thông tư 05/2023/TT-BNV; trang tải/tham khảo: https://thuvienphapluat.vn/banan/tin-tuc/tai-mau-hop-dong-lao-dong-theo-nghi-dinh-111-2022-nd-cp-moi-nhat-2026-mau-hop-dong-theo-nghi-dinh-11-20855.html |
 | `HDLD006` | `SRC001` | `data/raw/contracts/HDLD006.docx` | HĐLĐ thực hiện công việc chuyên môn, nghiệp vụ | Giữ raw / chưa annotate full | `SIM_D` | Near-duplicate/template-family với `HDLD005`; giữ để kiểm thử duplicate và truy vết nguồn |
-| `HDLD007` | `SRC002` | `data/raw/contracts/HDLD007.docx` | Mẫu HĐLĐ chung 2026 | Chờ annotate | `SIM_E` | [Trang công bố và tải mẫu](https://hronline.vn/mau-hop-dong-lao-dong-2026-chuan-bo-luat-lao-dong-tai-mien-phi-wordpdf); [file Word công khai](https://docs.google.com/document/d/11B6vwNm9BiPURKvpxtySNNa6NAJawRi2/edit?usp=sharing); [QC nguồn](archive/reports/CONTRACT_INTAKE_QC_2026-10-05.md) |
-| `HDLD008` | `SRC003` | `data/raw/contracts/HDLD008.docx` | Mẫu HĐLĐ chung | Chờ annotate, chỉ lưu local | `SIM_F` | [DOCX gốc](https://ltvlaw.com/mau-don/hop-dong-lao-dong.docx); 3 trang; text trích bằng Word |
-| `HDLD009` | `SRC004` | `data/raw/contracts/HDLD009.docx` | Mẫu HĐLĐ công nhân | Chờ annotate, chỉ lưu local | `SIM_G` | [DOCX gốc](https://legalzone.vn/wp-content/uploads/legalzone-templates-2026/mau-hop-dong-lao-dong-cong-nhan.docx); 8 trang; text trích bằng Word |
-
-### Bổ sung ngày 19/10/2026
-
-- Hash và phép so trùng HDLD008/009: [QC ngày 19/10](archive/reports/CONTRACT_INTAKE_QC_2026-10-19.md).
-- Ba hồ sơ PDF Quảng Ngãi/An Giang còn PII, bản scan và quyền dùng chưa chốt: **chưa nhận raw**, chưa annotate, chưa đưa T1. DOCX Thiện Tín bị hỏng: loại. Không cộng số bản cùng khuôn vào số nguồn độc lập.
+| `HDLD007` | `SRC002` | Intake queue; raw chưa chia sẻ trong Git | Mẫu HĐLĐ chung 2026 | Chờ quyền chia sẻ và annotate; chưa vào metadata release | `SIM_E` dự kiến | [Trang công bố và tải mẫu](https://hronline.vn/mau-hop-dong-lao-dong-2026-chuan-bo-luat-lao-dong-tai-mien-phi-wordpdf); [file Word công khai](https://docs.google.com/document/d/11B6vwNm9BiPURKvpxtySNNa6NAJawRi2/edit?usp=sharing); QC chi tiết tại `docs/CONTRACT_INTAKE_QC_2026-10-05.md` |
 
 ## 2.1. Lưu ý QC pháp lý của tài liệu nguồn
 
@@ -89,8 +73,8 @@ Mỗi nguồn/hợp đồng cần kiểm tra:
 
 ## 7. Trạng thái hiện tại
 
-- Raw contracts: **9 ở local**, **6 trong Git**; DOCX và raw text HDLD007–009 giữ local cho đến khi xác nhận quyền tái phân phối. URL và hash nguồn được lưu trong hồ sơ QC.
+- Raw contracts: **6 trong Git**, đã kiểm hash ngày 12/10/2026. Hồ sơ intake ngày 05/10 ghi nhận thêm HDLD007 ở local; checkout release không chứa file đó và không kiểm chứng lại nội dung HDLD007 trong tuần 5. URL/hash được giữ trong hồ sơ QC, chờ quyền tái phân phối.
 - Contracts đã annotate: **5** (`HDLD001`–`HDLD005`)
-- Contracts chờ annotate: **`HDLD007`, `HDLD008`, `HDLD009`**
+- Contract tiếp theo: **`HDLD007`**
 - Contract hold near-duplicate: **`HDLD006`**
 - Dataset processed hiện tại: **`data/processed/clauses_v06.csv` — 234 clauses** (225 offset `EXACT`, 9 offset `CONTEXT`).

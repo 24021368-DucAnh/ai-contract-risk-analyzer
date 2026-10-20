@@ -5,8 +5,8 @@
 - `data/processed/raw_text/<contract_id>.txt`: đúng văn bản UTF-8 đã dùng để tính offset.
 - `data/processed/clauses_v06.csv`: 234 clause của `HDLD001`–`HDLD005`, mỗi row có
   `contract_id`, `clause_id`, `clause_text`, `start_offset`, `end_offset`,
-  `offset_quality`. `HDLD006` giữ để kiểm tra near-duplicate; `HDLD007` có raw text
-  nhưng chưa annotate.
+  `offset_quality`. `HDLD006` giữ để kiểm tra near-duplicate; `HDLD007` ở intake
+  queue, raw chưa chia sẻ trong Git và chưa annotate.
 - `start_offset` là vị trí đầu **bao gồm**, `end_offset` là vị trí cuối **không bao gồm**.
   Cả hai là chỉ số ký tự Python (Unicode code point), tính trên đúng file `.txt` này.
 
@@ -30,7 +30,7 @@ Ví dụ: `HDLD003_C018` bôi `raw_text[2453:2470]` = `các loại bảo hiểm`
 Frontend JavaScript cần nhớ `.slice()` đếm UTF-16 code units, còn CSV đếm Unicode
 code points. Để dùng đúng cả khi tài liệu tương lai có emoji, có thể tạo
 `const chars = Array.from(rawText)` một lần, rồi lấy
-`chars.slice(startOffset, endOffset).join("")`. Bảy raw text hiện tại không chứa
+`chars.slice(startOffset, endOffset).join("")`. Sáu raw text trong release không chứa
 ký tự ngoài BMP, nhưng không nên dựa vào điều đó cho hợp đồng mới.
 
 ## Scripts và kiểm tra

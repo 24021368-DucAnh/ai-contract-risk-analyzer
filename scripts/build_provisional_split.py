@@ -146,7 +146,7 @@ def main() -> None:
     manifest["dataset_sha256"] = hashlib.sha256(dataset_bytes).hexdigest()
     output = args.output or ROOT / f"data/splits/provisional_{args.dataset_version}.json"
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    output.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"Wrote {output}")
 
 
