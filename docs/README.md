@@ -17,12 +17,19 @@ số phiên bản taxonomy không bắt buộc trùng phiên bản dataset. Khô
 
 ## Trạng thái và việc đang làm
 
-- Metadata là sổ trạng thái từng hợp đồng: 9 raw local; 5 hợp đồng đã annotate
-  trong [clauses_v06.csv](../data/processed/clauses_v06.csv), tổng 234 clause,
-  225 EXACT và 9 CONTEXT. HDLD006 hold near-duplicate; HDLD007–009 chờ annotate.
-- [provisional_v06.json](../data/splits/provisional_v06.json) là split tạm;
-  không phải benchmark giữ kín. Nội dung HDLD007–009 chỉ lưu local chờ quyền
-  tái phân phối, dù metadata/nguồn vẫn được quản lý bằng Git.
+- Raw contracts: 13 file có trong workspace hiện tại; 6 file được Git theo dõi
+  (HDLD001–006) và 7 file local-only (HDLD007–013). File có trên máy không
+  đồng nghĩa được chấp nhận vào dataset hoặc được phép tái phân phối.
+- Dataset v06 có 5 hợp đồng đã annotate trong
+  [clauses_v06.csv](../data/processed/clauses_v06.csv), tổng 234 clause:
+  225 EXACT và 9 CONTEXT. HDLD006 vẫn ở trạng thái HOLD_NEAR_DUPLICATE.
+- Manifest intake hiện có 22 ứng viên: 2 REGISTERED_LOCAL_TO_ANNOTATE,
+  15 trạng thái HOLD_*, 1 LOCAL_DEV_HOLD_REDISTRIBUTION, 3 EXCLUDED_* và
+  1 REMOVED_*. Tất cả đều có t1_eligible=no; chưa có ứng viên nào đủ điều
+  kiện T1 theo manifest. Xem [intake README](../data/intake/README.md).
+- [provisional_v06.json](../data/splits/provisional_v06.json) là split tạm,
+  không phải benchmark giữ kín. Các file local-only tiếp tục được giữ ngoài
+  Git khi quyền sử dụng, PII hoặc quyền tái phân phối chưa được xử lý.
 - Theo kế hoạch 8 tuần mới của nhóm, 19/10 là đầu W2, MS-1 ngày 25/10.
   Các tên WEEK2/WEEK3 trong archive thuộc lịch cũ.
 - Việc cần chốt: D1 gồm HDLD001–004 hay thêm HDLD005; review PII thủ công và

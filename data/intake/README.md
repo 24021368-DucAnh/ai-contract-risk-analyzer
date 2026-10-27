@@ -11,24 +11,32 @@ ngày 19/10 bổ sung hai mẫu DOCX hợp lệ, một DOCX bị hỏng và ba h
 hợp đồng đã điền. Xem `docs/archive/reports/CONTRACT_INTAKE_QC_2026-10-19.md` để biết trang
 chứa hợp đồng, kiểm tra trùng mẫu và quyết định cho từng nguồn.
 
-Ngày 19/10 đã tích hợp hai mẫu hợp lệ theo quy trình HDLD007: LTV Law thành
-`HDLD008` / `SRC003` / `SIM_F`, LegalZone thành `HDLD009` / `SRC004` / `SIM_G`.
-File đã có tại `data/raw/contracts/`, raw text trích bằng Word nằm tại
-`data/processed/raw_text/`; metadata và `docs/data_sources.md` là sổ quản lý
-chính. Hai bản trùng trong intake đã được chuyển vào Recycle Bin sau khi
-kiểm khớp hash; manifest hiện trỏ thẳng đến HDLD008/009 trong raw.
+### Trạng thái hiện tại của manifest
+
+Manifest hiện có 22 ứng viên: 2 ở trạng thái `REGISTERED_LOCAL_TO_ANNOTATE`,
+15 ở các trạng thái `HOLD_*`, 1 ở trạng thái
+`LOCAL_DEV_HOLD_REDISTRIBUTION`, 3 ở các trạng thái `EXCLUDED_*` và 1 ở
+trạng thái `REMOVED_*`. Cả 22 ứng viên đều có `t1_eligible=no`.
+
+`HDLD008` và `HDLD009` vẫn là các mẫu phát triển trong hàng chờ, không phải
+dữ liệu T1 đã được duyệt. Manifest là nguồn tham chiếu cho trạng thái intake
+hiện tại; các báo cáo QC theo ngày được giữ làm bằng chứng lịch sử và không
+tự động phản ánh trạng thái mới nhất.
 
 Receipt của DOCX bị hỏng giữ URL, hash và dung lượng lịch sử, `local_path`
 để trống và trạng thái `REMOVED_INVALID_DOCX`. Không coi các trường hash/bytes
 ở row này là cam kết còn lưu binary. Hai ảnh contact-sheet đã bỏ vì có thể
 tái tạo từ PDF và chứa thêm bản sao thông tin cá nhân.
 
-**Chưa tệp nào được duyệt cho T1.** Hai mẫu nhận raw local đang `TO_ANNOTATE`;
-nội dung giữ ngoài Git như HDLD007 chờ quyền tái phân phối. Hồ sơ thực tế
-còn PII vẫn ở hàng chờ, chưa nhận raw/metadata/release. Nếu tách hoặc ẩn danh,
-lưu bản dẫn xuất riêng, giữ hash và trang nguồn để truy vết. Bảy hợp đồng trong hồ sơ An Giang dùng
-chung một khuôn, không được tính như bảy nguồn độc lập.
+**Chưa có ứng viên nào được duyệt cho T1.** Hai ứng viên đã đăng ký annotate
+chưa đồng nghĩa với việc quyền tái phân phối đã được xác nhận hoặc dữ liệu
+đã được chấp nhận vào dataset. Các hồ sơ còn PII/chữ ký, chưa rõ quyền sử
+dụng hoặc chưa qua đủ cổng kiểm tra phải tiếp tục được giữ ngoài release.
 
+Nếu tạo bản ẩn danh, lưu bản dẫn xuất riêng, giữ provenance cần thiết để truy
+vết và kiểm tra bản dẫn xuất trước khi xem xét đưa vào tập đánh giá. Bảy hợp
+đồng trong hồ sơ An Giang dùng chung một khuôn, không được tính như bảy nguồn
+độc lập.
 ## Quy trình nhận hợp đồng T1 (tuần 2 của kế hoạch mới)
 
 T1 cần ít nhất 10 **hợp đồng gốc độc lập**, tách khỏi D1/D2, dữ liệu few-shot
