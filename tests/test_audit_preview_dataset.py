@@ -101,16 +101,33 @@ class PreviewAuditTests(unittest.TestCase):
 
     def test_new_rows_without_source_metadata_are_explicitly_blocked(self):
         fields, rows = read_rows(BASE)
-        new_row = dict(rows[0], clause_id="HDLD999_C001", contract_id="HDLD999",
-                       annotation_status="NEEDS_REVIEW")
+        source_text = rows[0]["clause_text"]
+        new_row = dict(
+            rows[0], clause_id="HDLD999_C001", contract_id="HDLD999",
+            annotation_status="NEEDS_REVIEW", start_offset="0",
+            end_offset=str(len(source_text)), offset_quality="EXACT",
+        )
         with tempfile.TemporaryDirectory() as directory:
-            preview = Path(directory) / "clauses_v07.csv"
+            root = Path(directory)
+            raw_dir = root / "raw_text"
+            raw_dir.mkdir()
+            for source in RAW_TEXT.glob("HDLD00[1-5].txt"):
+                shutil.copyfile(source, raw_dir / source.name)
+            (raw_dir / "HDLD999.txt").write_text(source_text, encoding="utf-8")
+            preview = root / "clauses_v07.csv"
             write_rows(preview, fields, rows + [new_row])
-            audit = audit_preview_dataset(BASE, preview, METADATA, RAW_TEXT)
+            audit = audit_preview_dataset(BASE, preview, METADATA, raw_dir)
+            invalid_row = dict(new_row, end_offset=str(len(source_text) + 1))
+            write_rows(preview, fields, rows + [invalid_row])
+            invalid_audit = audit_preview_dataset(BASE, preview, METADATA, raw_dir)
 
         self.assertTrue(any("incomplete source metadata" in item for item in audit.release_blockers))
         self.assertEqual(audit.span_errors, 0)
         self.assertEqual(audit.row_counts_by_contract["HDLD999"]["metadata_missing"], 1)
+        self.assertEqual(audit.row_counts_by_contract["HDLD999"]["span_structural_only"], 1)
+        self.assertEqual(invalid_audit.span_errors, 1)
+        self.assertEqual(invalid_audit.row_counts_by_contract["HDLD999"]["span_error"], 1)
+        self.assertTrue(any("source span" in error for error in invalid_audit.structural_errors))
 
 
 if __name__ == "__main__":
