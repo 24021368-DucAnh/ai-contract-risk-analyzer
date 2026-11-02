@@ -120,3 +120,16 @@ existing receipt remains `SOURCE_FOUND_DOWNLOAD_FAILED`, with no local hash,
 page count, OCR, or corpus text. Retry the signed attachment from the registry
 when its download endpoint is reachable, then compare it with the observed
 metadata and review the instrument's history before importing any provision.
+
+## Secondary copy lead — Circular 10/2020 — 2026-11-02
+
+A full-text PDF copy is discoverable on the University of Danang's public legal
+education portal at
+<https://pbgdpl.udn.vn/FileCongvan/2022/1/2022m1_100000000.9754103PBQPPL_CVD_454406.pdf>.
+The web text view exposes the instrument heading and provisions, but this copy
+was not downloaded into restricted storage or compared page-by-page with the
+signed registry attachment. Treat it only as a
+retrieval lead: it does not change the failed official-attachment receipt,
+provide a local source hash, establish current effectivity, or authorize text
+to enter the legal corpus. Next, obtain the registry attachment or compare a
+locally receipted copy against it and review the instrument's amendment history.
