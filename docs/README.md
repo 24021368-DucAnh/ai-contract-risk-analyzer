@@ -23,6 +23,9 @@ số phiên bản taxonomy không bắt buộc trùng phiên bản dataset. Khô
 - Dataset v06 có 5 hợp đồng đã annotate trong
   [clauses_v06.csv](../data/processed/clauses_v06.csv), tổng 234 clause:
   225 EXACT và 9 CONTEXT. HDLD006 vẫn ở trạng thái HOLD_NEAR_DUPLICATE.
+- Bản v07 local đang duyệt có 306 clause/8 hợp đồng: 234 dòng v06 giữ nguyên
+  và 72 dòng `NEEDS_REVIEW` thuộc HDLD010/012/013. V07 bị Git ignore tại máy
+  này, chưa phải bản phát hành; xem [QC v07](V07_QC_2026-10-28.md).
 - Manifest intake hiện có 22 ứng viên: 2 REGISTERED_LOCAL_TO_ANNOTATE,
   15 trạng thái HOLD_*, 1 LOCAL_DEV_HOLD_REDISTRIBUTION, 3 EXCLUDED_* và
   1 REMOVED_*. Tất cả đều có t1_eligible=no; chưa có ứng viên nào đủ điều
@@ -32,6 +35,20 @@ số phiên bản taxonomy không bắt buộc trùng phiên bản dataset. Khô
   Git khi quyền sử dụng, PII hoặc quyền tái phân phối chưa được xử lý.
 - Theo kế hoạch 8 tuần mới của nhóm, 19/10 là đầu W2, MS-1 ngày 25/10.
   Các tên WEEK2/WEEK3 trong archive thuộc lịch cũ.
+- Snapshot tuần 3 (26/10–01/11); xem
+  [checklist Data Lead tuần 3](W3_DATA_LEAD_PLAN_2026-10-29.md).
+- Đối chiếu đầu việc Data Lead tuần 1–3 ngày 29/10 tại
+  [báo cáo W1–W3](W1_W3_DATA_LEAD_AUDIT_2026-10-29.md).
+- Dữ liệu luật W4 (02–08/11): [sổ nguồn W4](W4_LEGAL_DATA_ACQUISITION_2026-10-29.md)
+  và [tra cứu nguồn cập nhật 02/11](LEGAL_SOURCE_DISCOVERY_2026-11-02.md).
+  OCR VBHN 18 là ứng viên chưa soát; xem [cập nhật Data Lead 02/11](N2_DATA_LEAD_UPDATE_2026-11-02.md)
+  và receipt nguồn tại `data/intake/legal_source_receipts_2026-11-02.csv`.
+  Receipt OCR/index metadata lần lượt ở
+  `data/intake/legal_ocr_candidate_receipts_2026-11-02.csv` và
+  `data/intake/legal_ocr_structure_index_receipts_2026-11-02.csv`.
+  Công cụ tạo chỉ mục Điều–khoản–điểm OCR là
+  `scripts/build_legal_ocr_structure_index.py`; CSV kết quả chỉ nằm trong
+  thư mục restricted và mọi node vẫn chờ kiểm duyệt pháp lý.
 - Việc cần chốt: D1 gồm HDLD001–004 hay thêm HDLD005; review PII thủ công và
   nguồn HDLD001–003; guideline và chính sách đa nhãn cùng Clause/Risk Leads.
   Kiểm kê sơ bộ chưa thay cho nghiệm thu gold/privacy.

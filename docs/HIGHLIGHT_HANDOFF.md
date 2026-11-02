@@ -41,10 +41,25 @@ ký tự ngoài BMP, nhưng không nên dựa vào điều đó cho hợp đồn
 - `scripts/build_offsets.py`: tạo v04, chỉ nhận span khớp nội dung.
 - `scripts/build_context_offsets.py`: tạo v05 và chọn cụm từ nguồn cho 9 case
   không khớp nguyên văn.
-- `scripts/export_highlight_payload.py HDLD003`: xuất JSON ra stdout gồm raw text,
-  61 clauses của HDLD003, offset, `offset_quality` và `highlight_text` đã kiểm tra.
-  Có thể đổi ID thành HDLD001–HDLD005 và chuyển hướng stdout vào file `.json`.
-  Script báo lỗi nếu span `EXACT` lệch khỏi raw text hoặc ID chưa được annotate.
+- `python scripts/export_highlight_payload.py HDLD003 --local-fixture`: chế độ
+  phát triển **chỉ trên snapshot cố định** của HDLD001–HDLD005 (kiểm SHA-256).
+  Xuất JSON ra stdout để kiểm tra highlight tại máy; đây **không phải quyền
+  công bố** nguyên văn, không dùng cho hợp đồng mới hoặc dữ liệu T1.
+- Mặc định `python scripts/export_highlight_payload.py <unit_id>` chỉ đọc
+  văn bản dẫn xuất `.txt` từ `data/processed/approved/` sau khi đơn vị
+  hợp đồng trong `data/intake/contract_unit_review_queue.csv` được duyệt
+  `ACCEPTED_T1` hoặc `ACCEPTED_ADDITIONAL`; script kiểm toàn bộ receipt,
+  hash, quyền sử dụng/ẩn danh, duyệt độc lập và chỉ cho phép span `EXACT`
+  khớp văn bản dẫn xuất. Không tự đọc fallback từ `raw_text/`.
+- `python scripts/build_highlight_preview.py HDLD003 --local-fixture` tạo
+  HTML cục bộ mặc định ở `data/intake/private/previews/HDLD003.html`.
+  Mọi đường dẫn `--output` phải nằm dưới `data/intake/private/`;
+  script từ chối xuất HTML ra `preview/` hoặc thư mục chia sẻ khác.
+  Không đưa file HTML hay JSON có toàn văn lên Git, PR hoặc website nếu
+  chưa có kiểm tra quyền công bố riêng.
+- Script báo lỗi nếu span `EXACT` lệch nguồn, dữ liệu có thay đổi hoặc
+  nguồn chưa qua cổng xét nhận. Việc pass cổng kỹ thuật không thay thế
+  việc kiểm tra bằng mắt, thẩm quyền cấp quyền và thẩm định pháp lý.
 - `python -m unittest discover -s tests -v`: kiểm tra offset, chất lượng span,
   khả năng tái tạo v05 và metadata. Trên máy này dùng Python bundled của Codex
   nếu lệnh `python` chưa có trên PATH.

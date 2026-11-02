@@ -1,0 +1,15 @@
+candidate_id,qc_reported_signed_units,rights_holder_verified,personal_data_lawful_basis_verified,store_process_rights,internal_derivative_rights,evaluation_derivative_rights,assigned_owner,request_sent_date,contact_status,rights_evidence_path,next_action
+CAND-AG-HEALTH-2025,7,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Identify the authorized source holder and confirm worker-data processing authority before requesting any document
+CAND-QN-GSP-2025,1,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Identify the authorized source holder and confirm worker-data processing authority before requesting any document
+CAND-QN-VIETMY-2025,1,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Identify the authorized source holder and confirm worker-data processing authority before requesting any document
+CAND-MOH-LONGCHAU-2021,1,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Identify the authorized source holder and confirm worker-data processing authority before requesting any document
+CAND-MOH-PHARMETECH-2015,0,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Confirm 2015 employer and authority to process an older executed agreement and its personal data
+CAND-MOH-HASUKITO-2024,0,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Identify 2024 employer and contracting parties then request a non-PII rights and provenance referral
+CAND-MOH-COSVIA-2025,0,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Identify filing holder and employment agreement authorizing party before page review
+CAND-HP-HOSPITAL-2025,0,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Identify hospital source holder and request authority for each independently signed agreement in the bundle
+CAND-HP-HOSPITAL-2023,0,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Verify hospital holder and whether a signed agreement is distinct from 2025 group
+CAND-HP-INTERNATIONAL-2025,0,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Verify employer identity and rights before using scanned private hospital contract
+CAND-MOH-CNP-2023,0,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Find employer and lawful purpose for filed agreement before visual review
+CAND-MOH-LEGACY-2024,0,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Confirm filing year and whether dossier contains any distinct executed agreement
+CAND-HP-HEALTH-COMPANY-2025,0,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Confirm employer and whether filing contains executed agreement rather than supporting form
+CAND-HP-2026,0,NO,NO,PENDING,PENDING,PENDING,,,NOT_SENT,,Find original publishing page and appropriate holder before determining document status
