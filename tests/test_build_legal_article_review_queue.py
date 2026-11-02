@@ -28,6 +28,19 @@ class LegalArticleReviewQueueTests(unittest.TestCase):
         self.assertEqual(rows[2]["detection_status"], "NOT_DETECTED_BY_OCR")
         self.assertTrue(all(row["review_status"] == "PENDING_VISUAL_REVIEW" for row in rows))
 
+    def test_detects_article_heading_with_ocr_prefix_marker(self):
+        queue = self.queue_module()
+        rows = queue.build_review_rows(
+            ["", "Ñ Điều 166. Người lao động làm việc trong lĩnh vực nghệ thuật"],
+            article_count=220,
+            source_sha256="d" * 64,
+        )
+
+        article_166 = rows[165]
+        self.assertEqual(article_166["occurrence_count"], "1")
+        self.assertEqual(article_166["pages"], "2")
+        self.assertEqual(article_166["detection_status"], "OCR_HEADING_CANDIDATE")
+
     def test_parser_requires_ordered_page_markers_and_ocr_only_status(self):
         candidate = (
             "STATUS: OCR_CANDIDATE_UNPROOFREAD\n"
