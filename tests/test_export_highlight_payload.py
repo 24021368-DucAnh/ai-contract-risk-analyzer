@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class HighlightPayloadTests(unittest.TestCase):
     def test_exports_newly_annotated_hdld005(self):
         result = subprocess.run(
-            [sys.executable, str(ROOT / "scripts" / "export_highlight_payload.py"), "HDLD005"],
+            [sys.executable, str(ROOT / "scripts" / "export_highlight_payload.py"), "HDLD005", "--local-fixture"],
             cwd=ROOT, capture_output=True, text=True, encoding="utf-8",
         )
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -21,7 +21,7 @@ class HighlightPayloadTests(unittest.TestCase):
 
     def test_exports_original_text_and_distinct_clause_highlights(self):
         result = subprocess.run(
-            [sys.executable, str(ROOT / "scripts" / "export_highlight_payload.py"), "HDLD003"],
+            [sys.executable, str(ROOT / "scripts" / "export_highlight_payload.py"), "HDLD003", "--local-fixture"],
             cwd=ROOT,
             capture_output=True,
             text=True,

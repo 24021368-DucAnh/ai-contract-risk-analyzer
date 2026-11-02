@@ -109,6 +109,39 @@ Các dẫn chiếu Điều 149, 151 và 177 ở điểm c khoản 2 chỉ là te
 chưa kiểm đích dẫn chiếu hoặc tạo cạnh `REFERS_TO`. Mọi dòng vẫn
 `PENDING_LEGAL_REVIEW`.
 
+## Mở rộng OCR và cây cấu trúc — 02/11/2026
+
+Đã chạy OCR UTF-8 toàn văn cho hai PDF scan đã có trong restricted:
+
+- Bộ luật Lao động 45/2019/QH14: 83/83 trang có nội dung OCR; hash nguồn
+  khớp receipt. Sau khi siết nhận diện heading để bỏ dòng dẫn chiếu Điều,
+  index có 993 node: 1 văn bản, 220 Điều, 551 khoản, 221 điểm; 15 Điều là
+  placeholder cần tìm thủ công. Index cũ dùng regex rộng được giữ tên
+  `_broad_heading_v1.csv`, không dùng làm review queue hiện hành.
+- Nghị định 145/2020/NĐ-CP: 122/122 trang có nội dung OCR; hash nguồn
+  khớp receipt. Index có 821 node: 1 văn bản, 115 Điều, 355 khoản, 350 điểm;
+  8 Điều là placeholder cần tìm thủ công. Thông tin công bố của
+  Chính phủ mô tả Nghị định gồm 11 chương, 115 Điều ([nguồn chính thức](https://vanban.chinhphu.vn/thong-cao-bao-chi-vbqppl-do-chinh-phu-thu-tuong-chinh-phu-ban-hanh/thong-cao-bao-chi-thang-12-nam-2020-10061095)).
+
+Candidate SHA-256 lần lượt là
+`879fd98f8aca581eec79e1139797089a6baf838f5d1bd341ea90de2455587f04` và
+`b4995a0776aa46c2e22834fbfb671564b47612690737dfd7c28214302b1a9481`.
+Nghị định 283/2026/NĐ-CP: 100/100 trang có nội dung OCR; index metadata có
+1.046 node (1 văn bản, 68 Điều, 312 khoản, 665 điểm), với Điều 33 là
+placeholder do heading chưa được OCR nhận diện. Candidate SHA-256 là
+`ca401ddb6a846be08da5684a9e905c2bf71792c714b998049f75cba3c3b1fbb6`.
+Số 68 Điều được đối chiếu với thông tin của cơ quan nhà nước địa phương
+([nguồn](https://iamo.gialai.gov.vn/tin-tuc/tuyen-truyen-pho-bien-noi-dung-co-ban-cua-nghi-dinh-so-283-2026-nd-cp-cua-chinh-phu.html));
+index cũ với regex heading rộng được giữ riêng dưới hậu tố
+`_broad_heading_v1.csv`.
+
+Receipts hiện ghi sáu OCR candidates tại
+`data/intake/legal_ocr_candidate_receipts_2026-11-02.csv`. Các CSV index chỉ
+nằm trong ignored `data/intake/restricted/legal_sources/`;
+mọi node vẫn `PENDING_LEGAL_REVIEW`. Bao phủ trang và nhận diện đủ số Điều
+không chứng minh OCR chính xác, lịch sử sửa đổi, hiệu lực, quyền sử dụng hay
+đủ căn cứ để nhập corpus. Chưa tạo edge hoặc chép text vào corpus.
+
 ## Chép nháp Điều 22 theo node — 31/10/2026
 
 `data/intake/legal_article22_transcription_candidates_w4_2026-10-31.csv`
@@ -118,3 +151,20 @@ khoản 2. Ảnh trang 9–10 bản gốc và 10–11 bản hợp nhất đã đ
 lỗi OCR. Bản OCR chưa soát riêng vẫn ở
 `data/intake/legal_article22_ocr_candidates_w4_2026-10-31.csv` để truy vết.
 Text nháp chưa được người kiểm pháp lý duyệt và không đưa vào corpus phát hành.
+
+## Cập nhật hiệu lực văn bản xử phạt — 02/11/2026
+
+Tra cứu lại Cổng Chính phủ cho thấy Nghị định 283/2026/NĐ-CP được ban hành
+15/07/2026, có hiệu lực 10/09/2026 và có PDF ký số đính kèm ([hồ sơ chính
+thức](https://vanban.chinhphu.vn/?docid=218871&pageid=27160&typegroupid=4)).
+Báo Điện tử Chính phủ ghi Nghị định 12/2022/NĐ-CP hết hiệu lực từ 10/09/2026
+và dẫn quy định của Nghị định 283/2026 cho giai đoạn mới ([nguồn Chính phủ](https://baochinhphu.vn/lao-dong-nuoc-ngoai-duoc-tra-them-1-tien-luong-thay-bao-hiem-that-nghiep-10226101211144485.htm)).
+Do đó 12/2022 được giữ như candidate lịch sử/chuyển tiếp, không phải nguồn
+xử phạt hiện hành mặc định. PDF 283 đã được tải vào restricted intake, OCR
+100/100 trang và lập metadata-only index với 1.046 node; Điều 33 còn cần dò.
+Mọi provision/interval vẫn chờ đối chiếu điều khoản chuyển tiếp, amendment
+map và người kiểm pháp lý. Corpus chưa thay đổi.
+
+### Cập nhật 02/11 — VBHN 18/VBHN-VPQH 2026 OCR receipt
+
+Tải lại tệp PDF 18/VBHN-VPQH qua liên kết đính kèm trên trang Cổng TTĐT Chính phủ; SHA-256 vẫn khớp source receipt đã có. Tạo lượt OCR page-marked mới 86/86 trang trong restricted storage (`VBHN_18_2026_ocr_candidate.txt`), SHA-256/byte count ghi tại `data/intake/legal_ocr_candidate_receipts_2026-11-02.csv`. Mục lục metadata nghiêm ngặt có 1.082 hàng (220 điều dự kiến, 610 khoản, 251 điểm; tiêu đề OCR chưa phát hiện: 76, 77, 78, 79, 166), receipt hash nằm ở `data/intake/legal_ocr_structure_index_receipts_2026-11-02.csv`. Đây chỉ là OCR/index ứng viên; không có nguyên văn trong receipt, không chứng minh cấu trúc hoặc hiệu lực, toàn bộ vẫn `PENDING_LEGAL_REVIEW`; không thay đổi `provisions.jsonl`, `edges.jsonl`, `label_map.yaml`, không tăng số mục checklist hoàn tất.

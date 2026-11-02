@@ -51,3 +51,8 @@ data/processed/raw_text/HDLD009.txt
 # Local source-screening originals; rights/PII checks are still pending.
 data/intake/private/
 data/intake/restricted/
+# New text extracts and HTML previews must not be staged accidentally.
+# Historical tracked development snapshots remain tracked until separately reviewed.
+data/processed/raw_text/*.txt
+data/processed/approved/
+preview/*.html

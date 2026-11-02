@@ -13,6 +13,55 @@ chứa hợp đồng, kiểm tra trùng mẫu và quyết định cho từng ngu
 
 ### Trạng thái hiện tại của manifest
 
+**Hàng chờ theo từng hợp đồng:** `contract_unit_review_queue.csv` tách 10
+đơn vị hợp đồng được nêu trong QC lịch sử từ bốn PDF nguồn. Các bản này đều
+`HOLD`: chưa đủ quyền sử dụng, ẩn danh và duyệt độc lập; không tăng số mẫu
+được nhận. Kiểm tra bằng `python scripts/validate_intake_gate.py`; xem
+`docs/CONTRACT_SOURCE_HOLDER_REQUEST_AND_REVIEW.md` để xin nguồn và nghiệm thu.
+Tuyến liên hệ công khai đã rà soát ngày 28/10 (không phải quyền sử dụng):
+`source_contact_routes_2026-10-28.csv` và
+`docs/SOURCE_HOLDER_CONTACT_RESEARCH_2026-10-28.md`. Mọi tuyến đều chưa gửi
+yêu cầu và chưa xác minh thẩm quyền của các bên ký.
+Mười PDF khác trong manifest có bảng sàng lọc ưu tiên nguồn riêng
+additional_signed_lead_triage_2026-10-28.csv và
+docs/ADDITIONAL_SIGNED_LEAD_TRIAGE_2026-10-28.md. Đây là hồ sơ chờ xác minh
+và **không** cộng thêm hợp đồng đã ký/được nghiệm thu vào T1 hoặc 20 bổ sung.
+Manifest vẫn là receipt nguồn/tệp; hàng chờ này không tự sửa `t1_eligible`.
+Đã bổ sung 10 hồ sơ này vào `source_holder_outreach_queue.csv` để chuẩn bị
+xác minh bên có thẩm quyền, và 10 tuyến công khai vào
+`source_contact_routes_2026-10-28.csv`. Tổng hàng chờ xin quyền hiện là
+14 nguồn, 17 tuyến/đầu mối tham chiếu (có các địa chỉ công khai lặp lại theo
+từng hồ sơ). Tất cả đều `NOT_SENT`, chưa ai xác minh quyền cấp phép.
+Riêng PDF từ CDN Hải Phòng có tuyến Cổng thành phố; chưa xác định đơn vị
+thực sự phát hành hoặc chủ thể cấp quyền.
+
+**Đợt giới thiệu đầu mối (28/10/2026):**
+`source_referral_batches_2026-10-28.csv` gom 14 ứng viên đang chờ quyền thành
+5 nhóm theo cổng An Giang, Quảng Ngãi, VIMDA/Bộ Y tế, Sở Y tế Hải Phòng và
+Cổng thành phố Hải Phòng. Đối chiếu bằng mã đã xác nhận 14/14 ứng viên được
+phủ đúng một lần, 14 cặp ứng viên/tuyến trùng khớp bảng 17 tuyến liên hệ.
+Tất cả nhóm ở `DRAFT_ONLY`, chủ thể có quyền chưa xác minh và thư chưa gửi.
+Mẫu thư giới thiệu đầu mối và lời mời đối tác cấp hợp đồng thật nằm tại
+`docs/SIGNED_CONTRACT_REFERRAL_AND_PARTNER_PACK_2026-10-28.md`. Chỉ khi được
+cấp phép hợp lệ và duyệt độc lập mới bắt đầu nhập dữ liệu hợp đồng.
+
+**Nguồn giới thiệu doanh nghiệp ngoài 14 hồ sơ:** bảng
+`consenting_employer_referral_routes_2026-10-28.csv` và tài liệu
+`docs/CONSENTING_EMPLOYER_REFERRAL_RESEARCH_2026-10-28.md` ghi năm đầu mối
+liên hệ tổ chức công khai (VCCI có hai đầu mối, VINASME, VINASA, HAWA) với
+khả năng giới thiệu doanh nghiệp tự nguyện. Các đầu mối đang `RESEARCH_ONLY`,
+chưa liên hệ và chưa có doanh nghiệp/hợp đồng hay quyền xử lý nào được xác minh.
+Không cộng đầu mối hiệp hội vào số hợp đồng nghiệm thu.
+
+**Phiếu xác nhận quyền đóng góp (bản nháp 28/10/2026):**
+`docs/CONTRACT_CONTRIBUTION_PERMISSION_FORM_DRAFT_2026-10-28.md`
+đưa ra các lựa chọn quyền riêng cho lưu bản gốc, xử lý cục bộ, tạo bản dẫn
+xuất ẩn danh, dùng trong T1 kín hoặc tập bổ sung và sử dụng dịch vụ AI bên thứ
+ba (mặc định không cho phép). Phiếu hiện ở trạng thái `DRAFT_ONLY`, chưa ký,
+chưa được người có chuyên môn pháp lý duyệt và không phải bằng chứng có quyền
+nhập dữ liệu. VCCI có hai địa chỉ email khác tên miền trong các trang công khai;
+cần xác nhận đầu mối thực tế qua điện thoại chính thức trước khi gửi yêu cầu.
+
 Manifest hiện có 22 ứng viên: 2 ở trạng thái `REGISTERED_LOCAL_TO_ANNOTATE`,
 15 ở các trạng thái `HOLD_*`, 1 ở trạng thái
 `LOCAL_DEV_HOLD_REDISTRIBUTION`, 3 ở các trạng thái `EXCLUDED_*` và 1 ở

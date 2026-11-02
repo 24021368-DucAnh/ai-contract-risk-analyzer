@@ -1,5 +1,29 @@
 # Kiểm kê D1 cho kế hoạch mới — 19/10/2026
 
+## Đối chiếu lại tại repo này ngày 28/10/2026
+
+**Đính chính về snapshot hiện tại:** repo local có 13 file hợp đồng gốc
+`HDLD001`–`HDLD013` và 13 bản raw text tương ứng. Phiên bản clauses mới
+nhất tại máy là `data/processed/clauses_v07.csv`, hiện bị bỏ qua bởi
+`.git/info/exclude`, nên không xuất hiện trong `git status`. V07 có **306
+clause trên 8 hợp đồng**: HDLD001 39, HDLD002 40, HDLD003 61, HDLD004 43,
+HDLD005 51, HDLD010 23, HDLD012 36, HDLD013 13. Trong đó 234 dòng
+`REVIEWED`, 72 dòng `NEEDS_REVIEW`; 289 offset `EXACT`, 17 `CONTEXT`.
+HDLD006–009 và HDLD011 có file local nhưng chưa có clause trong v07.
+**13 file gốc không đồng nghĩa 13 hợp đồng đã annotate hoặc được nhận vào T1.**
+Manifest intake vẫn có 22 candidate, tất cả `t1_eligible=no`.
+
+Đoạn v06 bên dưới là snapshot lịch sử để đối chiếu BRD, không phải tình
+trạng mới nhất của repo.
+
+Đếm trực tiếp `data/processed/clauses_v06.csv` ở working tree hiện tại:
+HDLD001 39, HDLD002 40, HDLD003 61, HDLD004 43, HDLD005 51.
+**HDLD001–004 cộng đúng 183 clause trên 4 hợp đồng**, khớp số liệu D1
+trong BRD §8.2. HDLD005 là phần bổ sung v06 ngoài D1 baseline; chưa có
+quyết định thêm vào D1. Toàn bộ v06 có 234 row (225 `EXACT`, 9 `CONTEXT`),
+và `provisional_v06.json` vẫn ghi `PROVISIONAL`. Kiểm kê số lượng không thay
+thế kiểm tra PII, quyền sử dụng, hoặc gold ranh giới ký tự.
+
 Đối chiếu kế hoạch W1/W2 trong PROGRESS.md của repo nhóm với dữ liệu đang
 có trong repo ổ D. Đây là kiểm kê nguồn và kiểm tra PII sơ bộ, chưa phải
 nghiệm thu gold hoặc quyết định thay D1 của BRD.
@@ -39,3 +63,21 @@ chưa có canonical text đáng tin cậy, chưa đưa vào D1 hoặc T1.
 
 Chưa tick hoàn thành W1 D1 privacy audit vì chưa có review thủ công đầy đủ.
 Không suy ra nhãn rủi ro pháp lý từ taxonomy hoặc tên website công bố mẫu.
+
+## Bổ sung kiểm kê và phạm vi D1 — 02/11/2026
+
+- Giữ **D1 baseline = HDLD001–004**, đúng BRD §8.2: 4 hợp đồng, 183
+  clause. Phân bổ v06 là 39 + 40 + 61 + 43. Không sửa BRD.
+- HDLD005 có 51 clause trong v06, là dữ liệu bổ sung ngoài D1 baseline;
+  không đưa vào D1 hoặc benchmark M1 cho tới khi có quyết định đổi phạm vi.
+- Kiểm lại canonical text ở repo dữ liệu: HDLD001–004 lần lượt có 7.214,
+  6.823, 9.004 và 10.991 code point; regex chỉ báo cáo số lượng, không lưu
+  giá trị, với 0 email, 0 chuỗi 9–12 chữ số liên tiếp và 0 mẫu điện thoại.
+- **Trạng thái privacy: chưa xác minh đã khử định danh.** Raw DOC/DOCX vẫn
+  còn trong nguồn cục bộ; tên, địa chỉ, ảnh/chữ ký, metadata và định danh
+  gián tiếp chưa được rà trực quan/độc lập. Kết quả regex bằng 0 không chứng
+  minh không còn PII. Không nhận dữ liệu này làm gold privacy hoặc T1.
+
+Đầu việc kiểm kê và chốt phạm vi vận hành được hoàn tất; privacy review,
+quyền sử dụng, gold segmentation và gold privacy vẫn là các cổng riêng, còn
+mở.
