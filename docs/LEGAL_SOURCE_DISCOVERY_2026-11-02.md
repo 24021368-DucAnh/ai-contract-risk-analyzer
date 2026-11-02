@@ -76,10 +76,13 @@ Unicode replacement characters. These checks validate file structure and
 encoding only, not OCR correctness.
 
 The 18/VBHN-VPQH OCR candidate has all 86 source pages in order and matching
-source SHA-256. Its metadata-only Article review queue contains 220 rows; 215
-article numbers have OCR heading matches and 5 are not detected. Every row is
-`PENDING_VISUAL_REVIEW`; those counts are not proof that any provision is
-correct, complete, or absent from the source.
+source SHA-256. Its metadata-only Article review queue contains 220 rows; the
+corrected structure index v02 detects 216 heading candidates and leaves
+Articles 76–79 for manual search. Article 166 was initially missed because the
+OCR line carries a leading `Ñ`; the current parser recognizes it, and the
+heading is visible on receipt-matched PDF page 61. Every row remains
+`PENDING_VISUAL_REVIEW`; heading detection does not prove provision text,
+completeness, effectivity, or legal correctness.
 
 An initial OCR candidate was decoded using the Windows default code page and
 contained corrupted Vietnamese characters. It was retained under the explicit

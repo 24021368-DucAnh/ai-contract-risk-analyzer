@@ -8,7 +8,7 @@ from collections import defaultdict
 from pathlib import Path
 
 PAGE_MARKER = re.compile(r"^===== PDF_PAGE (\d{3}) \| OCR_CANDIDATE =====$", re.MULTILINE)
-ARTICLE_HEADING = re.compile(r"^\s*Điều\s+(\d{1,3})\b", re.MULTILINE | re.IGNORECASE)
+ARTICLE_HEADING = re.compile(r"^\s*(?:Ñ\s+)?Điều\s+(\d{1,3})\b", re.MULTILINE | re.IGNORECASE)
 SHA256 = re.compile(r"^[0-9a-f]{64}$", re.IGNORECASE)
 FIELDS = (
     "article_no",
