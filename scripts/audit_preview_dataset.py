@@ -80,14 +80,20 @@ def audit_preview_dataset(
         counts[contract_id]["rows"] += 1
         counts[contract_id][row["annotation_status"] or "MISSING_STATUS"] += 1
         metadata = metadata_by_id.get(contract_id)
-        if row["clause_id"] not in base_by_id and metadata is None:
-            counts[contract_id]["metadata_missing"] += 1
+        is_new_row = row["clause_id"] not in base_by_id
+        metadata_incomplete = (
+            metadata is None
+            or not metadata.get("source_id")
+            or not metadata.get("file_name")
+        )
+        if is_new_row and metadata_incomplete:
             counts[contract_id]["missing_source_metadata"] += 1
+            if metadata is None:
+                counts[contract_id]["metadata_missing"] += 1
             result.release_blockers.append(f"{contract_id}: new preview row has incomplete source metadata")
-            continue
-        if metadata is None:
+        if metadata is None and not is_new_row:
             counts[contract_id]["metadata_missing"] += 1
-        else:
+        elif metadata is not None:
             if metadata.get("dataset_version") != "v07":
                 counts[contract_id]["metadata_not_v07"] += 1
             if metadata.get("dataset_status") != "ANNOTATED":
@@ -108,16 +114,12 @@ def audit_preview_dataset(
                 counts[contract_id]["valid_span"] += 1
             else:
                 counts[contract_id]["span_structural_only"] += 1
-        except (OSError, KeyError, TypeError, ValueError):
+        except (OSError, KeyError, TypeError, ValueError) as error:
             result.span_errors += 1
             counts[contract_id]["span_error"] += 1
-
-        if (
-            row["clause_id"] not in base_by_id
-            and (metadata is None or not metadata.get("source_id") or not metadata.get("file_name"))
-        ):
-            counts[contract_id]["missing_source_metadata"] += 1
-            result.release_blockers.append(f"{contract_id}: new preview row has incomplete source metadata")
+            result.structural_errors.append(
+                f"{row['clause_id']}: source span check failed ({type(error).__name__})"
+            )
 
     result.row_counts_by_contract = {
         contract_id: dict(sorted(row_counts.items()))

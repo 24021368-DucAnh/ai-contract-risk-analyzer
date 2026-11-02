@@ -151,3 +151,11 @@ mismatch in three VBHN visual-review log rows. Those pages were re-rendered
 from the receipt-matched PDF; the corrected log now passes a regression test.
 This improves source provenance only: the OCR index is unchanged and remains
 pending legal review.
+
+## V07 preview span-audit follow-up â€” 2026-11-02
+
+Fixed `scripts/audit_preview_dataset.py` so newly added rows with incomplete source metadata still undergo code-point bounds and EXACT-text checks against available local raw text. Missing metadata remains a release blocker and is no longer treated as a reason to skip span validation.
+
+A re-audit of the local v07 preview found 72 `NEEDS_REVIEW` rows with structurally valid spans: HDLD010 (23), HDLD012 (36), and HDLD013 (13). These are counted as `span_structural_only`; they have no accepted source metadata. The audit reports 234 spans validated with existing metadata, 72 structurally checked without it, 0 span errors, and 0 structural errors. The preview remains blocked by 12 release-blocker groups, including pending annotation and missing provenance for the new rows.
+
+The regression test confirms valid spans are counted while metadata blockers remain, and invalid bounds increment `span_errors` and `structural_errors`. The full data-repository suite passes **94 tests**. No v07 row, contract metadata, or release status was changed. This closes no legal, privacy, rights, or human-review gate and does not change the N2 plan count (11/19).
