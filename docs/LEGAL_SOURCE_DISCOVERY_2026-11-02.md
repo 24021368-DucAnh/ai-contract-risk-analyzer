@@ -105,3 +105,18 @@ visible headings matched the logged article occurrences: 116–118, 118–120 an
 consistency for all entries. This is structural Data QA only: it does not
 transcribe provisions, update the OCR structure index, establish effectivity,
 or replace legal review; all index rows remain pending legal review.
+
+## Recheck of Circular 10/2020 source metadata — 2026-11-02
+
+The national legal database managed by the Ministry of Justice has an exact
+record for Circular 10/2020/TT-BLĐTBXH at
+<https://vbpl.vn/botuphap/Pages/vbpq-toanvan.aspx?ItemID=146696>. The record
+displays the instrument number/title, effective date 2021-01-01, and status
+“Còn hiệu lực” as observed on 2026-11-02. This is registry metadata, not an
+independent amendment-history review or provision-level approval. The linked
+record redirected to the portal landing page in the local browser and the
+previous official-host download attempt timed out; no PDF was obtained, so the
+existing receipt remains `SOURCE_FOUND_DOWNLOAD_FAILED`, with no local hash,
+page count, OCR, or corpus text. Retry the signed attachment from the registry
+when its download endpoint is reachable, then compare it with the observed
+metadata and review the instrument's history before importing any provision.
