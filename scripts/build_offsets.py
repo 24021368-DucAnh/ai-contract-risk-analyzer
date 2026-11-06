@@ -7,7 +7,6 @@ rephrases or splits a source sentence remains unaligned for manual review.
 import csv
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_CSV = ROOT / "data" / "processed" / "clauses_v03.csv"
 OUTPUT_CSV = ROOT / "data" / "processed" / "clauses_v04.csv"

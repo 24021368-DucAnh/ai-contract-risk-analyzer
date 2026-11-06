@@ -13,6 +13,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.validate_intake_gate import evaluate_units, load_csv
+
 SIGNOFF = ROOT / "data/intake/t1_equivalent_gate_signoff_2026-11-06.json"
 ADR = ROOT / "docs/ADR_T1_EQUIVALENT_GATE_V1.md"
 MODES = {
@@ -56,9 +57,10 @@ def validate():
             raise ValueError(f"source file missing or outside repo for {doc}")
         if digest(path) != source["sha256"]:
             raise ValueError(f"source hash mismatch for {doc}")
-        if mode == "REAL_EXECUTED_RESTRICTED":
-            if row.get("source_pdf_sha256") != source["sha256"] or not row.get("source_document_ref"):
-                raise ValueError(f"restricted local PDF receipt missing for {doc}")
+        if mode == "REAL_EXECUTED_RESTRICTED" and (
+            row.get("source_pdf_sha256") != source["sha256"] or not row.get("source_document_ref")
+        ):
+            raise ValueError(f"restricted local PDF receipt missing for {doc}")
         if doc == "HDLD014":
             if row.get("project_status") != "SYNTHETIC_CHALLENGE_NOT_T1":
                 raise ValueError("synthetic source promoted into original T1")

@@ -46,7 +46,7 @@ def checkpoint_pages(checkpoint: object, expected_metadata: dict) -> dict[int, s
     raw_pages = checkpoint.get("pages")
     page_count = expected_metadata.get("page_count")
     if not isinstance(raw_pages, dict) or not isinstance(page_count, int):
-        raise ValueError("OCR checkpoint has invalid page entries")
+        raise ValueError("OCR checkpoint has invalid page entries")  # noqa: TRY004 - checkpoint schema uses ValueError
     pages: dict[int, str] = {}
     for raw_page_no, page_text in raw_pages.items():
         try:

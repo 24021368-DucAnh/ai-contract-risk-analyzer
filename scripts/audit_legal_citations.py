@@ -10,7 +10,6 @@ import hashlib
 import re
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 ARTICLE = re.compile(r"(?<!\w)điều\s+([0-9]{1,3})(?!\w)", re.IGNORECASE)
 OUTPUT_COLUMNS = (

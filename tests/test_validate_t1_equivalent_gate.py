@@ -35,9 +35,11 @@ class EquivalentGateTests(unittest.TestCase):
                 return "0" * 64
             return real_digest(path)
 
-        with patch.object(gate, "digest", side_effect=changed_digest):
-            with self.assertRaisesRegex(ValueError, "source hash mismatch"):
-                gate.validate()
+        with (
+            patch.object(gate, "digest", side_effect=changed_digest),
+            self.assertRaisesRegex(ValueError, "source hash mismatch"),
+        ):
+            gate.validate()
 
 
 if __name__ == "__main__":

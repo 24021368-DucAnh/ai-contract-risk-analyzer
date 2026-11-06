@@ -4,9 +4,8 @@ import argparse
 import csv
 import hashlib
 import json
-from pathlib import Path
 import re
-
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 D1_IDS = frozenset({"HDLD001", "HDLD002", "HDLD003", "HDLD004"})

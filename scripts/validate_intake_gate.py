@@ -11,7 +11,7 @@ from datetime import date
 from pathlib import Path
 
 from pypdf import PdfReader
-
+from pypdf.errors import PdfReadError
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED_DECISIONS = {"HOLD", "ACCEPTED_T1", "ACCEPTED_ADDITIONAL"}
@@ -82,7 +82,7 @@ def evaluate_units(manifest_rows, unit_rows, root):
                     if path.is_file():
                         try:
                             page_counts[candidate_id] = len(PdfReader(path).pages)
-                        except Exception as exc:
+                        except (OSError, ValueError, PdfReadError) as exc:
                             errors.append(f"{tag}: unreadable source PDF ({type(exc).__name__})")
                             page_counts[candidate_id] = None
                     else:

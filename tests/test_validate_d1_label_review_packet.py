@@ -1,6 +1,9 @@
 import unittest
 
-from scripts.validate_d1_label_review_packet import validate_packet, validate_reviewed_packet
+from scripts.validate_d1_label_review_packet import (
+    validate_packet,
+    validate_reviewed_packet,
+)
 
 
 def row(**updates):

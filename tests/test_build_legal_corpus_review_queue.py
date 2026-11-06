@@ -2,7 +2,6 @@ import unittest
 
 from scripts.build_legal_corpus_review_queue import build_review_queue
 
-
 SOURCE_HASH = "a" * 64
 
 

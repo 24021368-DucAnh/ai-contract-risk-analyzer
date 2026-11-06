@@ -4,7 +4,6 @@ import hashlib
 import json
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data/processed/raw_text/HDLD014.txt"
 CANDIDATE = ROOT / "data/intake/private/HDLD014_synthetic_candidate_v01.json"
