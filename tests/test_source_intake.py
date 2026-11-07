@@ -3,7 +3,6 @@ import unittest
 import zipfile
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -22,10 +21,13 @@ class SourceIntakeTests(unittest.TestCase):
             self.assertRegex(text, rf"ĐIỀU {number}:|Điều {number}:")
         self.assertNotRegex(text, r"\b\d{12}\b")  # no filled CCCD
 
-    def test_hdld007_stays_in_intake_queue_until_raw_can_be_shared(self):
+    def test_hdld007_metadata_keeps_rights_and_annotation_review_visible(self):
         with (ROOT / "data" / "contracts_metadata.csv").open(encoding="utf-8-sig", newline="") as handle:
             metadata = {row["contract_id"]: row for row in csv.DictReader(handle)}
-        self.assertNotIn("HDLD007", metadata)
+        hdld007 = metadata["HDLD007"]
+        self.assertEqual(hdld007["dataset_status"], "TO_ANNOTATE")
+        self.assertEqual(hdld007["project_status"], "CANDIDATE_T1_NEEDS_REVIEW")
+        self.assertIn("rights and annotation review", hdld007["notes"])
         self.assertIn("HDLD007", (ROOT / "docs" / "data_sources.md").read_text(encoding="utf-8"))
 
 

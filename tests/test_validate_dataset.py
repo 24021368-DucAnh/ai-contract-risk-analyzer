@@ -5,7 +5,6 @@ from pathlib import Path
 
 from scripts.validate_dataset import validate_dataset
 
-
 ROOT = Path(__file__).resolve().parents[1]
 CLAUSES = ROOT / "data" / "processed" / "clauses_v06.csv"
 METADATA = ROOT / "data" / "contracts_metadata.csv"
