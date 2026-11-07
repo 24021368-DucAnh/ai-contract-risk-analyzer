@@ -1,0 +1,16 @@
+{
+  "receipt_id": "current_freeze_2026-11-06",
+  "status": "CURRENT_WORKSPACE_FREEZE_RECEIPT",
+  "historical_release": "v06-rc1",
+  "review_basis": "Owner states W2/W7 group approval; this receipt records file hashes, not new signatures.",
+  "reviewer_ids_as_attested_by_owner": [
+    "DucAnh_N2",
+    "argon",
+    "Minh_N1"
+  ],
+  "files": {
+    "docs/annotation_guideline.md": "ec86c083e8f38c801662ef7b7ec5a5352385f911439a2f642c32bb6349ca8278",
+    "scripts/validate_dataset.py": "c7df79aafd1b3cf334556e9f8a044d3a7a3ce981bff77460a1f07cd8a52fe434",
+    "data/releases/v06-rc1/manifest.json": "b9cd848b7f88875c935112d543df0b9dfc29eceb4fe87dfd73c0f11b26b8fc66"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "status": "ACCEPTED_UNDER_EQUIVALENT_GATE_V1",
+  "gate_id": "T1_EQUIVALENT_GATE_V1",
+  "accepted_equivalent": 10,
+  "required_equivalent": 10,
+  "mode_counts": {
+    "PUBLIC_TEMPLATE_VERIFIED": 5,
+    "REAL_EXECUTED_RESTRICTED": 4,
+    "SYNTHETIC_CALIBRATION_CONTROL": 1
+  },
+  "original_brd_accepted": 0,
+  "original_brd_required": 10,
+  "slice_unique_8": [
+    "HDLD005",
+    "HDLD007",
+    "HDLD008",
+    "HDLD009",
+    "HDLD010",
+    "HDLD011",
+    "HDLD012",
+    "HDLD013"
+  ],
+  "slice_t1_real_9": [
+    "HDLD005",
+    "HDLD006",
+    "HDLD007",
+    "HDLD008",
+    "HDLD009",
+    "HDLD010",
+    "HDLD011",
+    "HDLD012",
+    "HDLD013"
+  ],
+  "slice_composite_10": [
+    "HDLD005",
+    "HDLD006",
+    "HDLD007",
+    "HDLD008",
+    "HDLD009",
+    "HDLD010",
+    "HDLD011",
+    "HDLD012",
+    "HDLD013",
+    "HDLD014"
+  ],
+  "signoff_receipt_sha256": "8323f973e9487f2c8fa6e06b78bca56d5d13725d63aeeb00f123aafd88257e22",
+  "adr_sha256": "65003027a7e54dd12d34bcf0650a7212d6edd9c4e24f5d8794f566644785dcee",
+  "limitation": "Owner-attested academic composite; source execution, rights and external provenance are not independently verified by this script."
+}

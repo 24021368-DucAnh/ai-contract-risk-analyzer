@@ -1,0 +1,68 @@
+{
+  "gate_id": "T1_EQUIVALENT_GATE_V1",
+  "decision": "APPROVED_PROJECT_DEVIATION_AS_ATTESTED_BY_OWNER",
+  "decision_date": "2026-11-06",
+  "roles": {
+    "owner": "DucAnh_N2",
+    "reviewer": "argon",
+    "adjudicator": "Minh_N1"
+  },
+  "adr_sha256": "65003027a7e54dd12d34bcf0650a7212d6edd9c4e24f5d8794f566644785dcee",
+  "document_modes": {
+    "HDLD005": "PUBLIC_TEMPLATE_VERIFIED",
+    "HDLD006": "PUBLIC_TEMPLATE_VERIFIED",
+    "HDLD007": "PUBLIC_TEMPLATE_VERIFIED",
+    "HDLD008": "PUBLIC_TEMPLATE_VERIFIED",
+    "HDLD009": "PUBLIC_TEMPLATE_VERIFIED",
+    "HDLD010": "REAL_EXECUTED_RESTRICTED",
+    "HDLD011": "REAL_EXECUTED_RESTRICTED",
+    "HDLD012": "REAL_EXECUTED_RESTRICTED",
+    "HDLD013": "REAL_EXECUTED_RESTRICTED",
+    "HDLD014": "SYNTHETIC_CALIBRATION_CONTROL"
+  },
+  "original_brd_gate_unchanged": true,
+  "redistribution_of_raw_contracts_authorized": false,
+  "note": "This records the owner statement, not independently observed signatures.",
+  "source_receipts": {
+    "HDLD005": {
+      "path": "data/raw/contracts/HDLD005.docx",
+      "sha256": "d3653d3cea277db3cc7c82fee0461a26569d1a3d0c3a135004b43c316dac0f36"
+    },
+    "HDLD006": {
+      "path": "data/raw/contracts/HDLD006.docx",
+      "sha256": "5d42319b1d4459936524dd9f4c615084377d0e2c728b81771aee8cad7dbeaa34"
+    },
+    "HDLD007": {
+      "path": "data/raw/contracts/HDLD007.docx",
+      "sha256": "07fb706f647f7dec581fcd251751a1ece54c035a24c41c230fe129449f9b325a"
+    },
+    "HDLD008": {
+      "path": "data/raw/contracts/HDLD008.docx",
+      "sha256": "0c6e571556d1cf387a4cefcf5eb67f5f4fa63084c753447d5fb9aebf16206b6c"
+    },
+    "HDLD009": {
+      "path": "data/raw/contracts/HDLD009.docx",
+      "sha256": "9c290967389d6e27bcf968673182bf7fde4499e59e1d0a2af026adcb9e7fde4c"
+    },
+    "HDLD010": {
+      "path": "data/raw/contracts/HDLD010.pdf",
+      "sha256": "bd8328aee3b9f6dacad8e9de3ad52faddbebaded8f31136c95bd26789849e5ed"
+    },
+    "HDLD011": {
+      "path": "data/raw/contracts/HDLD011.pdf",
+      "sha256": "7f49d7c52c5a5546e8b64d84410a734708d0f5e9212dd941469ee3a3b2af463f"
+    },
+    "HDLD012": {
+      "path": "data/raw/contracts/HDLD012.pdf",
+      "sha256": "305782cb8390beaf26beb6b2cacaf74fe551043f5974ff7cfbf6fa67a751c028"
+    },
+    "HDLD013": {
+      "path": "data/raw/contracts/HDLD013.pdf",
+      "sha256": "0b46e6c6d92094574062d6474b7e1f19298ba1f73ea55a8e1d00a415add1c87c"
+    },
+    "HDLD014": {
+      "path": "data/processed/raw_text/HDLD014.txt",
+      "sha256": "2b368425935405776d031c8e0adc0a657d7799ea5f2367af8a4f9b8040fa7c09"
+    }
+  }
+}

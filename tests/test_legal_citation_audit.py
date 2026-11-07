@@ -1,8 +1,8 @@
 """Ensure legal-source discovery emits locators, never source text or PII."""
 
+import csv
 import tempfile
 import unittest
-import csv
 from pathlib import Path
 
 from scripts.audit_legal_citations import collect_references

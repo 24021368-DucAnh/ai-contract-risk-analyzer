@@ -5,7 +5,6 @@ from pathlib import Path
 
 from scripts.build_d1_clause_candidates import build_d1_clause_candidates
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 

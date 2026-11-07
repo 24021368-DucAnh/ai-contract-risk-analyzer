@@ -4,13 +4,11 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import os
 import re
 import tempfile
 from collections import defaultdict
 from pathlib import Path
-
 
 # Vietnamese legal article headings use a delimiter after the article number.
 # Without it, line-start citations such as "Điều 12 của Bộ luật này" become
