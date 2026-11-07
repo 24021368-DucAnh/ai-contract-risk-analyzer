@@ -76,10 +76,13 @@ Unicode replacement characters. These checks validate file structure and
 encoding only, not OCR correctness.
 
 The 18/VBHN-VPQH OCR candidate has all 86 source pages in order and matching
-source SHA-256. Its metadata-only Article review queue contains 220 rows; 215
-article numbers have OCR heading matches and 5 are not detected. Every row is
-`PENDING_VISUAL_REVIEW`; those counts are not proof that any provision is
-correct, complete, or absent from the source.
+source SHA-256. Its metadata-only Article review queue contains 220 rows; the
+corrected structure index v02 detects 216 heading candidates and leaves
+Articles 76–79 for manual search. Article 166 was initially missed because the
+OCR line carries a leading `Ñ`; the current parser recognizes it, and the
+heading is visible on receipt-matched PDF page 61. Every row remains
+`PENDING_VISUAL_REVIEW`; heading detection does not prove provision text,
+completeness, effectivity, or legal correctness.
 
 An initial OCR candidate was decoded using the Windows default code page and
 contained corrupted Vietnamese characters. It was retained under the explicit
@@ -120,3 +123,16 @@ existing receipt remains `SOURCE_FOUND_DOWNLOAD_FAILED`, with no local hash,
 page count, OCR, or corpus text. Retry the signed attachment from the registry
 when its download endpoint is reachable, then compare it with the observed
 metadata and review the instrument's history before importing any provision.
+
+## Secondary copy lead — Circular 10/2020 — 2026-11-02
+
+A full-text PDF copy is discoverable on the University of Danang's public legal
+education portal at
+<https://pbgdpl.udn.vn/FileCongvan/2022/1/2022m1_100000000.9754103PBQPPL_CVD_454406.pdf>.
+The web text view exposes the instrument heading and provisions, but this copy
+was not downloaded into restricted storage or compared page-by-page with the
+signed registry attachment. Treat it only as a
+retrieval lead: it does not change the failed official-attachment receipt,
+provide a local source hash, establish current effectivity, or authorize text
+to enter the legal corpus. Next, obtain the registry attachment or compare a
+locally receipted copy against it and review the instrument's amendment history.

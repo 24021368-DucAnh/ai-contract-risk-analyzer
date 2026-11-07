@@ -19,11 +19,16 @@ corpus.
   293/2025 (14 pages), and Decree 12/2022 (83 pages). All 183 page markers are
   ordered and non-empty, each source hash matches its receipt, and no Unicode
   replacement characters were found. All candidates remain unproofread.
-- OCR detected 215 distinct article numbers from 1–220 in VBHN 18; 76–79 and
-  166 were not detected. This is only heading detection.
-- Generated a metadata-only review queue with 220 rows, one per expected
-  article number. It records detected heading counts/pages and marks every row
-  `PENDING_VISUAL_REVIEW`; it contains no provision text.
+- The corrected VBHN 18 structure index detects 216 heading candidates from
+  220 expected articles; Articles 76–79 remain undetected and require manual
+  search. Article 166 was recovered after recognizing the OCR prefix `Ñ` and
+  visually confirming the heading on receipt-matched PDF page 61. This is
+  heading detection only.
+- Regenerated a metadata-only review queue v02 with 220 rows, one per expected
+  article number. It detects 216 headings (226 total matches, including
+  repeated headings) and leaves Articles 76–79 for manual search. Article 166
+  maps to PDF page 61. Every row remains `PENDING_VISUAL_REVIEW`; the queue
+  contains no provision text.
 - Built an additional restricted hierarchy index from the UTF-8 OCR candidate:
   1 document, 220 article nodes, 592 clause candidates, and 252 point
   candidates (1,065 rows total). Every row remains `PENDING_LEGAL_REVIEW`;
@@ -151,3 +156,59 @@ mismatch in three VBHN visual-review log rows. Those pages were re-rendered
 from the receipt-matched PDF; the corrected log now passes a regression test.
 This improves source provenance only: the OCR index is unchanged and remains
 pending legal review.
+
+## V07 preview span-audit follow-up â€” 2026-11-02
+
+Fixed `scripts/audit_preview_dataset.py` so newly added rows with incomplete source metadata still undergo code-point bounds and EXACT-text checks against available local raw text. Missing metadata remains a release blocker and is no longer treated as a reason to skip span validation.
+
+A re-audit of the local v07 preview found 72 `NEEDS_REVIEW` rows with structurally valid spans: HDLD010 (23), HDLD012 (36), and HDLD013 (13). These are counted as `span_structural_only`; they have no accepted source metadata. The audit reports 234 spans validated with existing metadata, 72 structurally checked without it, 0 span errors, and 0 structural errors. The preview remains blocked by 12 release-blocker groups, including pending annotation and missing provenance for the new rows.
+
+The regression test confirms valid spans are counted while metadata blockers remain, and invalid bounds increment `span_errors` and `structural_errors`. The full data-repository suite passes **94 tests**. No v07 row, contract metadata, or release status was changed. This closes no legal, privacy, rights, or human-review gate and does not change the N2 plan count (11/19).
+
+## Follow-up: full Labour Code OCR text candidate — 2026-11-02
+
+Created a restricted review-only hierarchy export from the receipt-matched
+official 18/VBHN-VPQH PDF issued 2026-02-12. The current output is
+`data/intake/restricted/legal_sources/VBHN_18_2026_provision_text_candidates_v02.jsonl`
+with companion manifest and corrected structure index v02. The PDF SHA-256 matches its receipt
+(`5a01a5b4b778b78c7bc9372e3a7270735bd98c28160604bff95db06bb3345a6f`); the
+86-page OCR markers are complete and ordered, and the OCR header/index use the
+same source hash. The export contains 1,082 hierarchy nodes: 1 document, 220
+articles, 610 clause candidates and 251 point candidates. It carries OCR text
+for 1,077 nodes; Articles 76–79 remain without detected headings and require
+manual search. Article 166 now maps to PDF page 61 after the prefix correction.
+The regenerated metadata-only Article review queue has 220 rows, detects 216
+headings and leaves four article numbers for manual search; its SHA-256 is
+`10a303c38d413669700dae63cb8418d56e127d58b03d00b6323ba6b78ecc9287`. The
+tracked receipt records the new index hash/count. Node IDs are unique, parent
+references resolve, and all nodes remain `PENDING_LEGAL_REVIEW`; the manifest explicitly sets
+`runtime_eligible=false`, `verbatim_text_verified=false` and
+`effective_interval_verified=false`. Pages 7–8 were visually inspected for
+structure only; no provision text was approved. The tracked corpus is
+unchanged, OCR output remains ignored/restricted, and this follow-up does not
+close an N2 checkbox or change the 11/19 progress count.
+
+## Live worktree refresh — 2026-11-02
+
+Rechecked the current local data repository and its separate pipeline checklist.
+The local intake inventory contains 13 source files; `clauses_v07.csv` contains
+306 rows over 8 contract IDs, not 13 admitted contracts. Of those rows, 234
+belong to the reviewed v06 baseline and 72 remain `NEEDS_REVIEW` across
+HDLD010/012/013. The refreshed `audit_preview_dataset` run reports 0 structural
+errors, 234 valid source spans, 0 span errors, and 12 release-blocker groups.
+The 72 new rows lack complete source metadata and are not eligible for release.
+
+The private D1 segmentation queue still has 183/183 rows at
+`PENDING_MANUAL_SEGMENTATION`, with 0 reviewer IDs and 0 reviewer notes. The
+183-row D1 label export explicitly remains
+`CANDIDATE_NOT_SEGMENTATION_GOLD`; the v06 release manifest also remains
+`CANDIDATE_REVIEW_REQUIRED`. These artifacts do not satisfy D1 segmentation
+gold or independent gold adjudication.
+
+Current local verification: the focused preview-audit suite passes 6 tests and
+the full data-repository suite passes 95 tests. The separate Weeks 1–7 N2
+checklist still has 11 of 19 direct top-level items complete (57.9%); nested
+detail rows are excluded, and this refresh does not close a plan item. At least
+three more direct items need their stated evidence before the 70% target is
+met. The next actionable N2 gate is human review of D1 segmentation/labels;
+legal text, rights/privacy, and effectivity approval remain separate gates.
