@@ -8,7 +8,7 @@
 
 ## What this review contains
 
-This note lists preliminary positive-risk candidates by clause ID. It contains no contract excerpts or personal data. The working packet and source documents remain in the Data repository's ignored `data/intake/private/` area. Review each candidate against the locally available source clause before accepting, changing, or rejecting it.
+This note lists preliminary positive-risk candidates by clause ID. The accompanying `T1_M2_candidate_packet_v02.csv` contains all 1,494 role-specific rows, IDs, offsets, source hashes, candidate fields, and review states; it contains no clause text or personal data. Original source documents remain in the Data repository's ignored `data/intake/private/` area. Review each candidate against the source clause before accepting, changing, or rejecting it.
 
 The candidate packet preserves all 1,494 original rows. Seven single-unit rows are marked `RISK_CANDIDATE_NEEDS_REVIEW`; all other rows remain `UNREVIEWED` / `NEEDS_REVIEW`. Four additional proposals span multiple fragmented rows and therefore remain grouped proposals rather than row-level labels. No reviewer or adjudicator decision has been entered, and no Gold was generated.
 
