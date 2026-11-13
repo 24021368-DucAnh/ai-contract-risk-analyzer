@@ -23,7 +23,7 @@ FIELDS = (
 def parse_ocr_candidate(candidate: str) -> tuple[str, list[str]]:
     """Read page blocks only from a hash-labelled, explicitly unproofread OCR file."""
     if not isinstance(candidate, str):
-        raise ValueError("OCR candidate must be text")
+        raise TypeError("OCR candidate must be text")
     status = re.search(r"(?m)^STATUS: (.+)$", candidate)
     source_hash = re.search(r"(?m)^SOURCE_SHA256: ([0-9a-fA-F]{64})$", candidate)
     page_count_match = re.search(r"(?m)^PAGE_COUNT: (\d+)$", candidate)

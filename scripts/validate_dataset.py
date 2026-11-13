@@ -29,7 +29,10 @@ CLAUSE_TYPES = frozenset({
     "OTHER", "TERMINATION", "TRAINING", "WORKING_CONDITIONS", "WORKING_TIME",
 })
 STATUSES = frozenset({"REVIEWED", "NEEDS_REVIEW"})
-DATASET_STATUSES = frozenset({"ANNOTATED", "TO_ANNOTATE", "HOLD_NEAR_DUPLICATE", "EXCLUDED"})
+DATASET_STATUSES = frozenset({"ANNOTATED", "TO_ANNOTATE", "HOLD_NEAR_DUPLICATE", "EXCLUDED", "SYNTHETIC_FIXTURE"})
+PROJECT_STATUSES = frozenset({"D1_REVIEWED", "CANDIDATE_T1_NEEDS_REVIEW", "SYNTHETIC_CHALLENGE_NOT_T1"})
+PROVENANCE_COLUMNS = ("source_document_ref", "source_pdf_sha256", "source_verification_status")
+EQUIVALENT_GATE_COLUMNS = ("equivalent_gate_mode", "equivalent_gate_status")
 CLAUSE_ID = re.compile(r"^(HDLD\d{3})_C\d{3}[A-Z]?$")
 CONTRACT_ID = re.compile(r"^HDLD\d{3}$")
 
@@ -50,7 +53,14 @@ def _read_csv(path: Path, columns: tuple[str, ...], report: ValidationReport) ->
     try:
         with path.open(encoding="utf-8-sig", newline="") as handle:
             reader = csv.DictReader(handle)
-            if tuple(reader.fieldnames or ()) != columns:
+            fieldnames = tuple(reader.fieldnames or ())
+            metadata_variants = {
+                columns,
+                (*columns, "project_status"),
+                (*columns, "project_status", *PROVENANCE_COLUMNS),
+                (*columns, "project_status", *PROVENANCE_COLUMNS, *EQUIVALENT_GATE_COLUMNS),
+            } if columns == METADATA_COLUMNS else {columns}
+            if fieldnames not in metadata_variants:
                 report.errors.append(f"{path}: expected columns {','.join(columns)}")
                 return []
             rows = list(reader)
@@ -74,6 +84,7 @@ def validate_dataset(clauses_path: Path, metadata_path: Path, raw_text_dir: Path
         return report
 
     metadata_by_id: dict[str, dict[str, str]] = {}
+    current_version = clauses_path.stem.removeprefix("clauses_")
     source_dir = raw_text_dir.parent.parent / "raw" / "contracts"
     for line, row in enumerate(metadata, start=2):
         contract_id = (row.get("contract_id") or "").strip()
@@ -87,10 +98,18 @@ def validate_dataset(clauses_path: Path, metadata_path: Path, raw_text_dir: Path
                 report.errors.append(f"metadata:{line}: empty {key}")
         if row.get("dataset_status") not in DATASET_STATUSES:
             report.errors.append(f"metadata:{line}: invalid dataset_status")
+        project_status = row.get("project_status")
+        if project_status is not None and project_status not in PROJECT_STATUSES:
+            report.errors.append(f"metadata:{line}: invalid project_status")
         file_name = row.get("file_name") or ""
         if file_name and Path(file_name).name != file_name:
             report.errors.append(f"metadata:{line}: invalid file_name {file_name!r}")
-        elif file_name and not (source_dir / file_name).is_file():
+        elif (
+            file_name
+            and row.get("dataset_version") == current_version
+            and row.get("dataset_status") == "ANNOTATED"
+            and not (source_dir / file_name).is_file()
+        ):
             report.errors.append(f"metadata:{line}: missing source file {file_name}")
 
     seen_ids: set[str] = set()
@@ -167,16 +186,18 @@ def validate_dataset(clauses_path: Path, metadata_path: Path, raw_text_dir: Path
     for contract_id, row in metadata_by_id.items():
         count = clause_counts[contract_id]
         expected = (row.get("clause_count") or "").strip()
-        if expected:
-            if not expected.isdecimal() or int(expected) != count:
-                report.errors.append(f"metadata:{contract_id}: clause_count mismatch ({expected} vs {count})")
-        elif row.get("dataset_status") == "ANNOTATED":
-            report.errors.append(f"metadata:{contract_id}: missing clause_count")
-        if row.get("dataset_status") == "ANNOTATED" and count == 0:
-            report.errors.append(f"metadata:{contract_id}: ANNOTATED contract has no clauses")
-        if count and row.get("dataset_status") != "ANNOTATED":
-            report.errors.append(f"metadata:{contract_id}: clauses exist but status is not ANNOTATED")
-        if count and row.get("dataset_version") != clauses_path.stem.removeprefix("clauses_"):
+        row_version = row.get("dataset_version")
+        if row_version == current_version and (count > 0 or row.get("dataset_status") == "ANNOTATED"):
+            if expected:
+                if not expected.isdecimal() or int(expected) != count:
+                    report.errors.append(f"metadata:{contract_id}: clause_count mismatch ({expected} vs {count})")
+            elif row.get("dataset_status") == "ANNOTATED":
+                report.errors.append(f"metadata:{contract_id}: missing clause_count")
+            if row.get("dataset_status") == "ANNOTATED" and count == 0:
+                report.errors.append(f"metadata:{contract_id}: ANNOTATED contract has no clauses")
+            if count and row.get("dataset_status") != "ANNOTATED":
+                report.errors.append(f"metadata:{contract_id}: clauses exist but status is not ANNOTATED")
+        if count and row_version != current_version:
             report.errors.append(f"metadata:{contract_id}: dataset_version mismatch")
 
     report.clause_count = len(clauses)

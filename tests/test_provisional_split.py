@@ -1,9 +1,7 @@
-import csv
 import unittest
 from pathlib import Path
 
 from scripts.build_provisional_split import build_manifest, load_current_data
-
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -29,6 +27,22 @@ class ProvisionalSplitTests(unittest.TestCase):
             "HDLD002_C005", "HDLD002_C016", "HDLD002_C017",
             "HDLD004_C011", "HDLD004_C016",
         }.issubset(excluded))
+
+    def test_owner_scoped_d1_split_recomputes_exclusions_without_hdld005(self):
+        rows, metadata = load_current_data(ROOT, dataset_version="v06")
+        d1_contracts = {"HDLD001", "HDLD002", "HDLD003", "HDLD004"}
+        d1_rows = [row for row in rows if row["contract_id"] in d1_contracts]
+        manifest = build_manifest(d1_rows, metadata, dataset_version="v06")
+
+        self.assertEqual(len(d1_rows), 183)
+        self.assertEqual(manifest["splits"]["train"]["contracts"], ["HDLD003"])
+        self.assertEqual(manifest["splits"]["dev"]["contracts"], ["HDLD001", "HDLD002"])
+        self.assertEqual(manifest["splits"]["test"]["contracts"], ["HDLD004"])
+        self.assertEqual(manifest["splits"]["dev"]["scorable_clause_count"], 49)
+        self.assertEqual(manifest["splits"]["test"]["scorable_clause_count"], 43)
+        self.assertEqual(sum(
+            split["scorable_clause_count"] for split in manifest["splits"].values()
+        ), 153)
 
     def test_keeps_template_groups_together_and_covers_all_reviewed_rows(self):
         rows, metadata = load_current_data(ROOT, dataset_version="v05")

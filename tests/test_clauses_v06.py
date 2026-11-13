@@ -4,7 +4,6 @@ from pathlib import Path
 
 from scripts.build_offsets import normalize_whitespace
 
-
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed"
 

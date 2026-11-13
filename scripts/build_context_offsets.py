@@ -8,7 +8,6 @@ them as exact clause quotations or use them for exact-span evaluation.
 import csv
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed"
 SOURCE_CSV = PROCESSED / "clauses_v04.csv"

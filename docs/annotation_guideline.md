@@ -258,3 +258,9 @@ Ví dụ:
 - clauses_v05.csv → archived
 - clauses_v06.csv → current
 Khi append một batch contract mới đã QC xong, tạo version processed mới (v04, v05, ...), sau đó cập nhật metadata/docs tương ứng.
+
+#### 14. Phụ lục căn chỉnh được nhóm dự án phê duyệt ngày 06/11/2026
+
+Nhóm `DucAnh_N2` (Owner/Data), `argon` (Reviewer) và `Minh_N1` (Adjudicator) phê duyệt nội dung căn chỉnh trong `docs/annotation_guideline_alignment_draft_2026-11-05.md` theo bản hash ghi tại `data/intake/private/project_group_signoff_ann_split_graph_2026-11-06.json`. Từ đây, quy tắc gán nhãn cho dữ liệu mới là: mặc định một nhãn; chỉ thêm nhãn thứ hai hoặc thứ ba khi có mệnh đề độc lập thuộc chủ đề khác; `OTHER` đứng một mình. Nhãn chính là chủ đề chiếm phần lớn nội dung, nếu hòa thì lấy chủ đề xuất hiện trước. Điều khoản chỉ có tiêu đề vẫn gán nhãn theo chủ đề; vai trò lao động không làm đổi nhãn clause.
+
+Ánh xạ chủ đề được chốt: bảo mật/không cạnh tranh/sở hữu trí tuệ của NLĐ ưu tiên `EMPLOYEE_OBLIGATIONS_DISCIPLINE`, chỉ thêm `TERMINATION` khi có hệ quả sau chấm dứt rõ ràng; tranh chấp và luật áp dụng dùng `OTHER`; quyền bồi thường của NLĐ dùng `EMPLOYER_RIGHTS_OBLIGATIONS` khi NSDLĐ là chủ thể có nghĩa vụ rõ ràng, còn quyền chung không nêu chủ thể dùng `OTHER`. Dữ liệu v06 đã lưu với một nhãn không bị đổi hồi tố. Bộ adapter M7 đa nhãn và prompt/classifier phải triển khai riêng trước khi dùng quy tắc mới để chạy mô hình.

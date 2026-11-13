@@ -9,7 +9,6 @@ import unicodedata
 from pathlib import Path
 from typing import Any
 
-
 FIELDS = (
     "document_id",
     "citation_id",

@@ -1,0 +1,55 @@
+{
+  "status": "CLEAN_CLAUSE_VIEW_NOT_SEGMENTATION_GOLD",
+  "dataset": "T1",
+  "source_csv_sha256": "3d9cd1c0bd696af81c18dd10858d82d13724723c3d583296ac815bfeaa8d9422",
+  "existing_full_segmentation_gold_manifest_sha256": "52354df20f42be9489242cb0a9646ccf17c50a25d72a600c6e3260c01309a36f",
+  "documents": [
+    "HDLD005",
+    "HDLD006",
+    "HDLD007",
+    "HDLD008",
+    "HDLD009",
+    "HDLD010",
+    "HDLD011",
+    "HDLD012",
+    "HDLD013"
+  ],
+  "clean_clause_rows": 340,
+  "clean_clause_rows_hdld006_013": 289,
+  "per_document_clean_rows": {
+    "HDLD005": 51,
+    "HDLD006": 59,
+    "HDLD007": 51,
+    "HDLD008": 17,
+    "HDLD009": 54,
+    "HDLD010": 26,
+    "HDLD011": 31,
+    "HDLD012": 38,
+    "HDLD013": 13
+  },
+  "per_document_uncovered_nonwhitespace_codepoints": {
+    "HDLD005": 6109,
+    "HDLD006": 4585,
+    "HDLD007": 1793,
+    "HDLD008": 920,
+    "HDLD009": 4163,
+    "HDLD010": 1388,
+    "HDLD011": 2070,
+    "HDLD012": 2860,
+    "HDLD013": 2329
+  },
+  "reason": "Clean clause spans exclude preambles/headings/signatures and cannot pass full-text segmentation coverage. Existing 842-span Gold remains unchanged.",
+  "all_t1_rows": 340,
+  "tagged_genuine_t1": 340,
+  "tagged_genuine_t1_by_contract": {
+    "HDLD005": 51,
+    "HDLD006": 59,
+    "HDLD007": 51,
+    "HDLD008": 17,
+    "HDLD009": 54,
+    "HDLD010": 26,
+    "HDLD011": 31,
+    "HDLD012": 38,
+    "HDLD013": 13
+  }
+}
