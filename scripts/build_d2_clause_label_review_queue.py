@@ -9,8 +9,9 @@ from pathlib import Path
 
 FIELDS = (
     "document_id", "d2_source_sha256", "d2_gold_clause_ref", "start_char", "end_char",
-    "span_sha256", "d1_source_sha256", "d1_gold_clause_ref", "suggested_labels",
-    "transfer_status", "reviewer_n1", "reviewer_n2", "decision", "decision_note",
+    "span_sha256", "d1_source_sha256", "d1_gold_clause_ref", "taxonomy_version",
+    "suggested_labels", "adjudicated_labels", "transfer_status", "reviewer_n1",
+    "reviewer_n2", "decision", "decision_note",
 )
 
 
@@ -44,6 +45,8 @@ def build_queue(
         d1_text, d1_sha, d1_segments = _read_gold(d1_text_path, d1_gold_path)
         d2_text, d2_sha, d2_segments = _read_gold(d2_text_path, d2_gold_path)
         d1_labels = json.loads(d1_labels_path.read_text(encoding="utf-8"))
+        if d1_labels.get("taxonomy_version", "clause_taxonomy_v03") != "clause_taxonomy_v03":
+            raise ValueError("D1 Gold taxonomy is not clause_taxonomy_v03")
         labels_by_ref = {}
         for item in d1_labels["items"]:
             ref = item["clause_id"]
@@ -66,7 +69,9 @@ def build_queue(
                 "start_char": str(segment["start_char"]), "end_char": str(segment["end_char"]),
                 "span_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
                 "d1_source_sha256": d1_sha, "d1_gold_clause_ref": matched_ref,
+                "taxonomy_version": "clause_taxonomy_v03",
                 "suggested_labels": ";".join(labels_by_ref[matched_ref]) if matched_ref else "",
+                "adjudicated_labels": "",
                 "transfer_status": status, "reviewer_n1": "", "reviewer_n2": "",
                 "decision": "", "decision_note": "",
             })
