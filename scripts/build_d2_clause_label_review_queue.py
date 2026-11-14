@@ -11,7 +11,7 @@ FIELDS = (
     "document_id", "d2_source_sha256", "d2_gold_clause_ref", "start_char", "end_char",
     "span_sha256", "d1_source_sha256", "d1_gold_clause_ref", "taxonomy_version",
     "suggested_labels", "adjudicated_labels", "transfer_status", "reviewer_n1",
-    "reviewer_n2", "decision", "decision_note",
+    "reviewer_n2", "reviewed_on", "decision", "decision_note",
 )
 
 
@@ -73,7 +73,7 @@ def build_queue(
                 "suggested_labels": ";".join(labels_by_ref[matched_ref]) if matched_ref else "",
                 "adjudicated_labels": "",
                 "transfer_status": status, "reviewer_n1": "", "reviewer_n2": "",
-                "decision": "", "decision_note": "",
+                "reviewed_on": "", "decision": "", "decision_note": "",
             })
     if not rows:
         raise ValueError("no D2 Gold segments")

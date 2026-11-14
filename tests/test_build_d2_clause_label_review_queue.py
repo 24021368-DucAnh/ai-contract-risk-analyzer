@@ -42,6 +42,7 @@ def test_exact_unique_spans_only_and_no_automatic_gold(tmp_path):
     assert rows[0]["reviewer_n1"] == rows[0]["reviewer_n2"] == ""
     assert rows[0]["decision"] == ""
     assert rows[0]["adjudicated_labels"] == ""
+    assert rows[0]["reviewed_on"] == ""
     assert rows[1]["suggested_labels"] == ""
 
 
