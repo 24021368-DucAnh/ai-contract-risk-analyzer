@@ -6,7 +6,6 @@ import tempfile
 import unittest
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -29,6 +28,7 @@ class HighlightPreviewTests(unittest.TestCase):
                 capture_output=True,
                 text=True,
                 encoding="utf-8",
+                check=False,
             )
             self.assertEqual(result.returncode, 0, result.stderr)
             html = output.read_text(encoding="utf-8")
@@ -52,6 +52,7 @@ class HighlightPreviewTests(unittest.TestCase):
                 [sys.executable, str(ROOT / "scripts" / "build_highlight_preview.py"),
                  "HDLD003", "--local-fixture", "--output", str(output)],
                 cwd=ROOT, capture_output=True, text=True, encoding="utf-8",
+                check=False,
             )
             self.assertNotEqual(result.returncode, 0)
             self.assertFalse(output.exists())

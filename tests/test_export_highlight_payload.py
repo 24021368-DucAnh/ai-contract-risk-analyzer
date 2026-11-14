@@ -4,7 +4,6 @@ import sys
 import unittest
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -13,6 +12,7 @@ class HighlightPayloadTests(unittest.TestCase):
         result = subprocess.run(
             [sys.executable, str(ROOT / "scripts" / "export_highlight_payload.py"), "HDLD005", "--local-fixture"],
             cwd=ROOT, capture_output=True, text=True, encoding="utf-8",
+            check=False,
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
@@ -26,6 +26,7 @@ class HighlightPayloadTests(unittest.TestCase):
             capture_output=True,
             text=True,
             encoding="utf-8",
+            check=False,
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)

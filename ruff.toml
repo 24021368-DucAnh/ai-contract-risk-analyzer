@@ -1,0 +1,5 @@
+# Preserve byte-for-byte freeze receipts while linting all other tracked Python files.
+[lint.per-file-ignores]
+"scripts/validate_dataset.py" = ["I001"]
+"data/releases/v06-rc1/frozen/scripts/validate_dataset.py" = ["I001"]
+"scripts/build_provisional_split.py" = ["I001"]

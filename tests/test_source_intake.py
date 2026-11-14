@@ -3,7 +3,6 @@ import unittest
 import zipfile
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -25,7 +24,8 @@ class SourceIntakeTests(unittest.TestCase):
     def test_hdld007_stays_in_intake_queue_until_raw_can_be_shared(self):
         with (ROOT / "data" / "contracts_metadata.csv").open(encoding="utf-8-sig", newline="") as handle:
             metadata = {row["contract_id"]: row for row in csv.DictReader(handle)}
-        self.assertNotIn("HDLD007", metadata)
+        self.assertEqual(metadata["HDLD007"]["dataset_status"], "TO_ANNOTATE")
+        self.assertEqual(metadata["HDLD007"]["project_status"], "CANDIDATE_T1_NEEDS_REVIEW")
         self.assertIn("HDLD007", (ROOT / "docs" / "data_sources.md").read_text(encoding="utf-8"))
 
 

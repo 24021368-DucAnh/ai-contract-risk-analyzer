@@ -1,6 +1,7 @@
 """Check the release receipt and hard-case evidence against the frozen inputs."""
 
 import csv
+import gzip
 import hashlib
 import json
 import unittest
@@ -14,6 +15,20 @@ ROOT = Path(__file__).resolve().parents[1]
 class ReleaseCandidateTests(unittest.TestCase):
     def test_release_receipt_matches_every_included_file(self):
         receipt = json.loads((ROOT / 'data/releases/v06-rc1/manifest.json').read_text(encoding='utf-8'))
+        frozen_paths = {'scripts/validate_dataset.py'}
+        for relative_path, expected_hash in receipt['files'].items():
+            if relative_path == 'docs/annotation_guideline.md':
+                content = gzip.decompress((ROOT / 'data/releases/v06-rc1/frozen/docs/annotation_guideline.md.gz').read_bytes())
+                self.assertEqual(hashlib.sha256(content).hexdigest(), expected_hash, relative_path)
+                continue
+            path = (ROOT / 'data/releases/v06-rc1/frozen' / relative_path
+                    if relative_path in frozen_paths else ROOT / relative_path)
+            self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),
+                             expected_hash, relative_path)
+
+    def test_current_freeze_receipt_matches_current_files(self):
+        receipt = json.loads((ROOT / 'data/releases/current_freeze_2026-11-06/manifest.json').read_text(encoding='utf-8'))
+        self.assertEqual(receipt['status'], 'CURRENT_WORKSPACE_FREEZE_RECEIPT')
         for relative_path, expected_hash in receipt['files'].items():
             self.assertEqual(hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest(),
                              expected_hash, relative_path)

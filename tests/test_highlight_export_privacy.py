@@ -7,6 +7,7 @@ import unittest
 from pathlib import Path
 
 from pypdf import PdfWriter
+
 from scripts.export_highlight_payload import build_payload
 
 

@@ -4,7 +4,6 @@ from pathlib import Path
 
 from scripts.build_offsets import align_rows, normalize_whitespace
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 

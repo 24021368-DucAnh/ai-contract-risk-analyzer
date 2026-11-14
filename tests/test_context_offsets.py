@@ -5,7 +5,6 @@ from pathlib import Path
 from scripts.build_context_offsets import fill_context_offsets
 from scripts.build_offsets import normalize_whitespace
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
