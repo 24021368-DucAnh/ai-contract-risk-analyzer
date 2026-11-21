@@ -1,4 +1,4 @@
-"""A review suggestion cannot become D2 Gold before two-person adjudication."""
+"""A review suggestion cannot become D2 Gold before human adjudication."""
 
 import csv
 import hashlib
@@ -50,6 +50,56 @@ def test_two_person_review_creates_source_pinned_gold(tmp_path):
     result = convert_reviewed_queue(packet, {"DOC": (source, gold)})
     assert [item["labels"] for item in result["DOC"]["items"]] == [["JOB_INFO"], ["OTHER"]]
     assert result["DOC"]["status"] == "GOLD_ADJUDICATED"
+    assert result["DOC"]["approval_governance_mode"] == "DUAL_HUMAN_REVIEW_V1"
+
+
+def test_single_owner_mode_accepts_single_owner_and_blocks_second_reviewer_or_ai(tmp_path):
+    packet, source, gold = _fixture(tmp_path)
+    with packet.open(encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    for r in rows:
+        r["reviewer_n1"] = "DucAnh_Owner"
+        r["reviewer_n2"] = ""
+    with packet.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=rows[0])
+        writer.writeheader()
+        writer.writerows(rows)
+
+    result = convert_reviewed_queue(
+        packet,
+        {"DOC": (source, gold)},
+        approval_mode="OWNER_SINGLE_APPROVER_AI_ASSISTED_V1",
+    )
+    assert result["DOC"]["status"] == "GOLD_ADJUDICATED"
+    assert result["DOC"]["approval_governance_mode"] == "OWNER_SINGLE_APPROVER_AI_ASSISTED_V1"
+
+    # Non-empty reviewer_n2 in single-owner mode must fail
+    rows[0]["reviewer_n2"] = "Second_Person"
+    with packet.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=rows[0])
+        writer.writeheader()
+        writer.writerows(rows)
+    with pytest.raises(ValueError, match="single-owner adjudication invalid"):
+        convert_reviewed_queue(
+            packet,
+            {"DOC": (source, gold)},
+            approval_mode="OWNER_SINGLE_APPROVER_AI_ASSISTED_V1",
+        )
+
+    # AI token in reviewer_n1 must fail
+    for r in rows:
+        r["reviewer_n1"] = "ChatGPT_Auditor"
+        r["reviewer_n2"] = ""
+    with packet.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=rows[0])
+        writer.writeheader()
+        writer.writerows(rows)
+    with pytest.raises(ValueError, match="single-owner adjudication invalid"):
+        convert_reviewed_queue(
+            packet,
+            {"DOC": (source, gold)},
+            approval_mode="OWNER_SINGLE_APPROVER_AI_ASSISTED_V1",
+        )
 
 
 @pytest.mark.parametrize("field,value", [
@@ -68,3 +118,41 @@ def test_incomplete_or_changed_review_fails_closed(tmp_path, field, value):
         writer.writerows(rows)
     with pytest.raises(ValueError):
         convert_reviewed_queue(packet, {"DOC": (source, gold)})
+
+
+def test_single_owner_rejects_different_names_across_rows(tmp_path):
+    packet, source, gold = _fixture(tmp_path)
+    with packet.open(encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    for row, name in zip(rows, ("Human_First", "Human_Second")):
+        row["reviewer_n1"] = name
+        row["reviewer_n2"] = ""
+    with packet.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=rows[0])
+        writer.writeheader()
+        writer.writerows(rows)
+    with pytest.raises(ValueError, match="inconsistent owner_approver"):
+        convert_reviewed_queue(
+            packet, {"DOC": (source, gold)},
+            approval_mode="OWNER_SINGLE_APPROVER_AI_ASSISTED_V1",
+        )
+
+
+@pytest.mark.parametrize("owner", ["", "Gemini", "owner_approver", "pending"])
+def test_owner_mode_never_approves_unreviewed_or_placeholder_rows(tmp_path, owner):
+    packet, source, gold = _fixture(tmp_path)
+    with packet.open(encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    for row in rows:
+        row["reviewer_n1"] = owner
+        row["reviewer_n2"] = ""
+        row["decision"] = "PENDING"
+    with packet.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=rows[0])
+        writer.writeheader()
+        writer.writerows(rows)
+    with pytest.raises(ValueError, match="single-owner adjudication invalid"):
+        convert_reviewed_queue(
+            packet, {"DOC": (source, gold)},
+            approval_mode="OWNER_SINGLE_APPROVER_AI_ASSISTED_V1",
+        )

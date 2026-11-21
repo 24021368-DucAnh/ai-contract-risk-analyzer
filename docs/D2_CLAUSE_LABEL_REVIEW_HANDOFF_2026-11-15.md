@@ -1,9 +1,23 @@
-# D2 clause-label review handoff — 15/11/2026
+# D2 clause-label review handoff — updated 21/11/2026
 
-The restricted worksheet is `D:\DHCN\Nam3_Ky1\CVDKHMT\corpus-v2-private-review-2026-11-15\restricted\d2_clause_label_review_v01.csv`, SHA-256 `5f6f1e60756b8160dd5cc52483e16d86d6921cdf0246b700fcbc0a3b5c876caf`. It covers **250 D2 Gold segments**. The script finds 34 exact, unique source-text matches to a D1 clause-label Gold item and offers its label as a suggestion; 216 are unmatched and have no suggested label. All reviewer and decision fields are blank. There is no D2 clause-label Gold file or M8 oracle result in this package.
+This PR adds an explicit `--approval-mode OWNER_SINGLE_APPROVER_AI_ASSISTED_V1` to the source-pinned converter. It does not adjudicate any actual D2 row, write Gold, or produce an M8 oracle score. Approval of the WP1 RC01 corpus is not approval of D2 clause labels.
 
-`scripts/build_d2_clause_label_review_queue.py` reproduces the worksheet after validating D1/D2 source hashes and Unicode code-point offsets. Exact text matching is deliberately conservative: shared IDs, topic similarity, source contract identity, and predicted labels alone do not transfer Gold. The worksheet has no contract text and stays outside public Git because document IDs and labels are still review data.
+## Preserved input and review boundary
 
-N1/N2 should inspect the D2 span and clause unit, confirm or reject each suggestion, and directly annotate the unmatched and inserted-error clauses. Enter the final canonical labels in `adjudicated_labels` separated by `;`, record both reviewer IDs, `reviewed_on` and `decision: APPROVED`; keep `suggested_labels` unchanged as trace evidence. They must resolve the M1 unit policy before finalizing offsets. `scripts/convert_d2_clause_review_to_gold.py` is ready for a **check-only** pass after review: it rejects missing decisions, duplicate or unknown clause IDs, invalid labels, changed source hashes/spans, and incomplete 250-row coverage. It then writes a new restricted Gold version without overwriting the old one. The 74-case M8 oracle can run only after that new Gold is independently validated. T1/T2 held-out data remains outside this workflow.
+The restricted 15/11 worksheet covers 250 D2 segmentation Gold spans, with 34 exact unique D1 matches offered only as suggestions and 216 unmatched rows. Those are historical packet counts; this PR does not alter the worksheet or fill decisions. Actual spans, source hashes, clause units and final labels must be reviewed before converting to a new Gold version. Exact matching alone, shared IDs or model predictions do not transfer Gold. T1/T2 held-out files stay outside this task.
 
-The current blank worksheet was checked with the converter's `--check-only` mode; it returned `BLOCKED_FAIL_CLOSED` at the first unreviewed D2 item and wrote no Gold. After the two reviewers return a completed copy, Data Lead reruns the converter as `python -m scripts.convert_d2_clause_review_to_gold` with `--restricted-root`, `--packet`, `--output` and first `--check-only`; only after a ready result should it be run without `--check-only` to create a new versioned restricted directory.
+## Owner-only mode
+
+The CSV schema remains unchanged. For a genuinely reviewed row, put the single real Owner identifier in legacy `reviewer_n1`, leave `reviewer_n2` empty, and fill `adjudicated_labels`, `reviewed_on` and `decision` only after the Owner decision. The same Owner identifier must be used across all rows/documents. The flag makes these legacy columns unambiguous; never fill a second person or AI name. The converter rejects AI/placeholder identifiers, a nonempty second-reviewer field in this mode, mixed Owner identifiers, incomplete decisions, invalid labels, source/hash/span changes, duplicate/unknown refs and incomplete segmentation coverage. Keep `suggested_labels` as trace evidence.
+
+The default `DUAL_HUMAN_REVIEW_V1` remains available for legacy callers and still requires two distinct valid reviewers. Selecting a mode does not approve the rows.
+
+## Conversion steps (restricted local files only)
+
+First run `python -m scripts.convert_d2_clause_review_to_gold --restricted-root <existing-restricted-root> --packet <actually-reviewed-csv> --output <new-restricted-output> --approval-mode OWNER_SINGLE_APPROVER_AI_ASSISTED_V1 --check-only` with the required .venv Python. The CLI additionally requires exactly 250 spans over the four configured D2 documents. An unreviewed worksheet must fail closed and write no Gold. Only after READY_TO_WRITE and Owner review should the same command be run without `--check-only`, to a new output directory under the restricted root.
+
+The produced Gold/manifest explicitly records `approval_governance_mode`; the manifest binds the reviewed packet SHA and D2 source hashes. Tests use synthetic fixture strings, not actual D2 review or evidence of human Gold approval. M8 oracle and M1 unit-policy acceptance remain separate tasks.
+
+## PR dependency
+
+PR #24 currently targets the source-register branch of PR #23. Merge/review #22 -> #23 -> #24 and confirm the base after #23 merges. Do not copy temporary local SHAs into Pipeline. This package is prepared locally for review; it does not authorize push or merge.

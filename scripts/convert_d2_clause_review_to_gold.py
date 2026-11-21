@@ -10,6 +10,48 @@ from pathlib import Path
 from scripts.build_d2_clause_label_review_queue import FIELDS
 from scripts.validate_d1_label_review_packet import LABELS
 
+ALLOWED_APPROVAL_MODES = (
+    "DUAL_HUMAN_REVIEW_V1",
+    "OWNER_SINGLE_APPROVER_AI_ASSISTED_V1",
+)
+
+FORBIDDEN_APPROVER_TOKENS = {
+    "pending",
+    "tbd",
+    "todo",
+    "unknown",
+    "none",
+    "null",
+    "n/a",
+    "na",
+    "ai",
+    "chatgpt",
+    "gpt",
+    "claude",
+    "gemini",
+    "codex",
+    "copilot",
+    "llm",
+    "bot",
+    "assistant",
+    "auto",
+    "system",
+    "independent_source_auditor",
+    "reviewer_n1",
+    "reviewer_n2",
+    "owner_approver",
+}
+
+
+def _is_forbidden_approver(name: str) -> bool:
+    norm = name.strip().lower()
+    if not norm:
+        return True
+    if norm in FORBIDDEN_APPROVER_TOKENS:
+        return True
+    tokens = norm.replace("-", "_").replace(" ", "_").split("_")
+    return any(tok in FORBIDDEN_APPROVER_TOKENS for tok in tokens)
+
 
 def _date(value: str) -> date:
     try:
@@ -22,9 +64,15 @@ def _date(value: str) -> date:
 
 
 def convert_reviewed_queue(
-    packet: Path, documents: dict[str, tuple[Path, Path]],
+    packet: Path,
+    documents: dict[str, tuple[Path, Path]],
+    *,
+    approval_mode: str = "DUAL_HUMAN_REVIEW_V1",
 ) -> dict[str, dict]:
     """Reject partial approval and any changed source text, span, or taxonomy."""
+    if approval_mode not in ALLOWED_APPROVAL_MODES:
+        raise ValueError(f"unsupported approval_mode: {approval_mode}")
+
     with packet.open(encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
         if set(reader.fieldnames or []) != set(FIELDS) or len(reader.fieldnames or []) != len(FIELDS):
@@ -53,6 +101,7 @@ def convert_reviewed_queue(
         checked[doc_id] = (source_sha, segments)
 
     gold_files = {}
+    seen_owner_approvers: set[str] = set()
     for doc_id, (source_sha, segments) in checked.items():
         matched: dict[str, list[str]] = {}
         for row in (r for r in rows if r["document_id"] == doc_id):
@@ -66,9 +115,19 @@ def convert_reviewed_queue(
             if row["taxonomy_version"] != "clause_taxonomy_v03":
                 raise ValueError(f"taxonomy version changed: {doc_id}/{ref}")
             first, second = row["reviewer_n1"].strip(), row["reviewer_n2"].strip()
-            if (row["decision"] != "APPROVED" or not first or not second or first == second
-                    or any(mark in first + second for mark in "<>")):
-                raise ValueError(f"two-person adjudication pending: {doc_id}/{ref}")
+            if approval_mode == "DUAL_HUMAN_REVIEW_V1":
+                if (row["decision"] != "APPROVED" or not first or not second or first == second
+                        or _is_forbidden_approver(first) or _is_forbidden_approver(second)
+                        or any(mark in first + second for mark in "<>")):
+                    raise ValueError(f"two-person adjudication pending: {doc_id}/{ref}")
+            else:
+                if (row["decision"] != "APPROVED" or not first or second
+                        or _is_forbidden_approver(first)
+                        or any(mark in first for mark in "<>")):
+                    raise ValueError(f"single-owner adjudication invalid or pending: {doc_id}/{ref}")
+                seen_owner_approvers.add(first)
+                if len(seen_owner_approvers) > 1:
+                    raise ValueError(f"inconsistent owner_approver across D2 rows: {sorted(seen_owner_approvers)}")
             _date(row["reviewed_on"])
             labels = [label.strip() for label in row["adjudicated_labels"].split(";")]
             if not labels or any(label not in LABELS for label in labels) or len(labels) != len(set(labels)):
@@ -76,9 +135,16 @@ def convert_reviewed_queue(
             matched[ref] = labels
         if set(matched) != set(segments):
             raise ValueError(f"D2 clause-label review coverage mismatch: {doc_id}")
+        source_desc = (
+            "D2 clause-label two-person review packet"
+            if approval_mode == "DUAL_HUMAN_REVIEW_V1"
+            else "D2 clause-label single-owner AI-assisted review packet (OWNER_SINGLE_APPROVER_AI_ASSISTED_V1)"
+        )
         gold_files[doc_id] = {
-            "schema_version": "clause_labels_v1", "status": "GOLD_ADJUDICATED",
-            "source": "D2 clause-label two-person review packet",
+            "schema_version": "clause_labels_v1",
+            "status": "GOLD_ADJUDICATED",
+            "approval_governance_mode": approval_mode,
+            "source": source_desc,
             "taxonomy_version": "clause_taxonomy_v03",
             "items": [{"clause_id": ref, "labels": matched[ref]} for ref in sorted(matched)],
         }
@@ -91,17 +157,22 @@ def main() -> None:
     parser.add_argument("--packet", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--check-only", action="store_true")
+    parser.add_argument(
+        "--approval-mode",
+        choices=ALLOWED_APPROVAL_MODES,
+        default="DUAL_HUMAN_REVIEW_V1",
+    )
     args = parser.parse_args()
     root = args.restricted_root.resolve()
     docs = {f"HDLD{number:03}": (
         root / f"D2_candidate_v02/HDLD{number:03}.d2_candidate.txt",
         root / f"D2_segmentation_gold_v02/HDLD{number:03}.gold_segmentation.json",
     ) for number in range(1, 5)}
-    gold = convert_reviewed_queue(args.packet, docs)
+    gold = convert_reviewed_queue(args.packet, docs, approval_mode=args.approval_mode)
     if sum(len(payload["items"]) for payload in gold.values()) != 250:
         raise ValueError("D2 Gold must cover all 250 adjudicated segmentation spans")
     if args.check_only:
-        print(json.dumps({"status": "READY_TO_WRITE", "items": 250, "documents": 4}))
+        print(json.dumps({"status": "READY_TO_WRITE", "items": 250, "documents": 4, "approval_mode": args.approval_mode}))
         return
     output = args.output.resolve()
     if not output.is_relative_to(root) or output.exists():
@@ -112,8 +183,11 @@ def main() -> None:
             json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
         )
     (output / "manifest.json").write_text(json.dumps({
-        "status": "GOLD_ADJUDICATED", "taxonomy_version": "clause_taxonomy_v03",
-        "documents": sorted(gold), "items": 250,
+        "status": "GOLD_ADJUDICATED",
+        "approval_governance_mode": args.approval_mode,
+        "taxonomy_version": "clause_taxonomy_v03",
+        "documents": sorted(gold),
+        "items": 250,
         "packet_sha256": hashlib.sha256(args.packet.read_bytes()).hexdigest(),
         "d2_sources_sha256": {doc_id: hashlib.sha256(source.read_bytes()).hexdigest()
                                for doc_id, (source, _) in docs.items()},
