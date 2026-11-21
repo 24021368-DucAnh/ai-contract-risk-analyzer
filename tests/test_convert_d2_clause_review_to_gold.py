@@ -156,3 +156,22 @@ def test_owner_mode_never_approves_unreviewed_or_placeholder_rows(tmp_path, owne
             packet, {"DOC": (source, gold)},
             approval_mode="OWNER_SINGLE_APPROVER_AI_ASSISTED_V1",
         )
+
+
+@pytest.mark.parametrize("owner", ["ChatGPT4", "GPT4", "ChatGPT/AI", "Gemini-2.5"])
+def test_owner_mode_blocks_ai_aliases_even_on_approved_fixture_rows(tmp_path, owner):
+    packet, source, gold = _fixture(tmp_path)
+    with packet.open(encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    for row in rows:
+        row["reviewer_n1"] = owner
+        row["reviewer_n2"] = ""
+    with packet.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=rows[0])
+        writer.writeheader()
+        writer.writerows(rows)
+    with pytest.raises(ValueError, match="single-owner adjudication invalid"):
+        convert_reviewed_queue(
+            packet, {"DOC": (source, gold)},
+            approval_mode="OWNER_SINGLE_APPROVER_AI_ASSISTED_V1",
+        )

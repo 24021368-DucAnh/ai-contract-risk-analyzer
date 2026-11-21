@@ -4,6 +4,7 @@ import argparse
 import csv
 import hashlib
 import json
+import re
 from datetime import date
 from pathlib import Path
 
@@ -49,8 +50,13 @@ def _is_forbidden_approver(name: str) -> bool:
         return True
     if norm in FORBIDDEN_APPROVER_TOKENS:
         return True
-    tokens = norm.replace("-", "_").replace(" ", "_").split("_")
-    return any(tok in FORBIDDEN_APPROVER_TOKENS for tok in tokens)
+    # Split punctuation without breaking Vietnamese names such as "Mai".
+    tokens = re.findall(r"[^\W_]+", norm)
+    model_alias = re.compile(r"(?:chatgpt|gpt|gemini|claude|codex|copilot|llm|bot|assistant)\d\w*")
+    return any(
+        tok in FORBIDDEN_APPROVER_TOKENS or model_alias.fullmatch(tok)
+        for tok in tokens
+    )
 
 
 def _date(value: str) -> date:
