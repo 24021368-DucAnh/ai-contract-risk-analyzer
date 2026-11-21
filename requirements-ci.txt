@@ -1,0 +1,4 @@
+# Versions verified against the mandatory local Python environment and PyPI.
+pytest==9.0.3
+pypdf==6.21.1
+ruff==0.17.3
