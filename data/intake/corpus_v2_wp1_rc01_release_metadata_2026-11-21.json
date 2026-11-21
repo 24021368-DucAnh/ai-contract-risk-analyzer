@@ -1,0 +1,118 @@
+{
+  "schema_version": "wp1_rc01_release_metadata_v1",
+  "as_of": "2026-11-21",
+  "corpus_version": "legal_corpus_2026-11-20_v2_wp1_rc01",
+  "graph_version": "data_graph_2026-11-20_v2_wp1_rc01",
+  "approval_status": "OWNER_APPROVED_LOCAL_ARTIFACT",
+  "approval_policy": "OWNER_SINGLE_APPROVER_AI_ASSISTED_V1",
+  "owner_approval_date": "2026-11-20",
+  "approval_channel": "conversation",
+  "approval_record_sha256": "aa90c298dac391741fbf087ff910531313eb7b68592791349b4a20780696923a",
+  "owner_decision_sheet_sha256": "5052cd1295c9aa89ef5bfcee43c44042c753a8e17e937290393bca518eba5922",
+  "release_checksums": {
+    "provisions.jsonl": "08c6aace922131559a2e740e82f6e1c1c9850e61a06a1c4e03880bc47885a459",
+    "edges.jsonl": "5757b7048dd7b7aa38979335f1ac8b4772858bba92406ef78f2c2e57d3108d9a",
+    "label_map.yaml": "8340f4c1028a43aaaa8acc83c60b769e94cc49b353cfdc90003e39d76b5f5c5a",
+    "review_receipts.json": "c1ddac3c2534e093c4909b078b0008220db940a372affb4b8cca83849bba6931"
+  },
+  "runtime_counts": {
+    "provisions": 30,
+    "articles": 8,
+    "manual_edges": 2,
+    "structural_parent_edges": 13,
+    "clause_labels": 9,
+    "label_citation_pairs": 19
+  },
+  "runtime_source_ids": [
+    "LAW-BLLD-45-2019",
+    "LAW-BLLD-VBHN-18-2026",
+    "LAW-BLLD-VBHN-18-2026-GAZETTE-PDF"
+  ],
+  "pipeline_runtime_pin_changed": false,
+  "data_remote_commit_pin": null,
+  "gold_d2_approved": false,
+  "dev_m8_v2_measured": false,
+  "automated_scan_status": "PENDING_MANUAL_REVIEW_SCAN_PDF",
+  "usage_scope": "INTERNAL_REPO_ONLY",
+  "public_metadata_only": true,
+  "source_decisions": [
+    {
+      "source_id": "LAW-BLLD-45-2019",
+      "sha256": "a0c0fcc3b9e040bcdcab70191f0ab95952183be94a6f5bc6424e8d3e85697139",
+      "source_decision": "APPROVED",
+      "usage_rights_decision": "INTERNAL_REPO_ONLY",
+      "effective_window_decision": "APPROVED",
+      "active_runtime_source": true
+    },
+    {
+      "source_id": "LAW-BLLD-VBHN-18-2026",
+      "sha256": "5a01a5b4b778b78c7bc9372e3a7270735bd98c28160604bff95db06bb3345a6f",
+      "source_decision": "APPROVED",
+      "usage_rights_decision": "INTERNAL_REPO_ONLY",
+      "effective_window_decision": "APPROVED",
+      "active_runtime_source": true
+    },
+    {
+      "source_id": "LAW-BLLD-VBHN-18-2026-GAZETTE-PDF",
+      "sha256": "9f0ead44c45112ca46882b01036179c23772d1494f7af32024c07f2366a62d27",
+      "source_decision": "APPROVED",
+      "usage_rights_decision": "INTERNAL_REPO_ONLY",
+      "effective_window_decision": "APPROVED",
+      "active_runtime_source": true
+    },
+    {
+      "source_id": "LAW-BLLD-VBHN-18-2026-GAZETTE-DOCX",
+      "sha256": "1386441b1f513defdd55186d7e65b8432dcac87c2e0d78676de25facb9c5e6ff",
+      "source_decision": "APPROVED",
+      "usage_rights_decision": "INTERNAL_REPO_ONLY",
+      "effective_window_decision": "APPROVED",
+      "active_runtime_source": false
+    },
+    {
+      "source_id": "LAW-ND-145-2020",
+      "sha256": "a72a1ff295cc06fbddd335d57257688f5118826968cd8b62d58f50fc1554b230",
+      "source_decision": "DEFERRED_TO_WP2",
+      "usage_rights_decision": "HOLD_OR_METADATA_ONLY",
+      "effective_window_decision": "DEFERRED_TO_WP2",
+      "active_runtime_source": false
+    },
+    {
+      "source_id": "LAW-ND-293-2025",
+      "sha256": "80d2943b04403338a18af20c488b4f215a98b023046ba3775f99b6e2cda93169",
+      "source_decision": "DEFERRED_TO_WP2",
+      "usage_rights_decision": "HOLD_OR_METADATA_ONLY",
+      "effective_window_decision": "DEFERRED_TO_WP2",
+      "active_runtime_source": false
+    },
+    {
+      "source_id": "LAW-ND-399-2026-MAIN",
+      "sha256": "760fbabf43a9ffddf7b80cbcc93cc03787a23c755a34bfb228fb76e14f3a380e",
+      "source_decision": "PENDING_EFFECTIVE_DATE_2027",
+      "usage_rights_decision": "HOLD_OR_METADATA_ONLY",
+      "effective_window_decision": "PENDING_EFFECTIVE_DATE_2027",
+      "active_runtime_source": false
+    },
+    {
+      "source_id": "LAW-ND-399-2026-ANNEX",
+      "sha256": "21725e63f8588c3e517713aa3a254faa5f0f99c4f435c5f4813a54280fa18205",
+      "source_decision": "PENDING_EFFECTIVE_DATE_2027",
+      "usage_rights_decision": "HOLD_OR_METADATA_ONLY",
+      "effective_window_decision": "PENDING_EFFECTIVE_DATE_2027",
+      "active_runtime_source": false
+    },
+    {
+      "source_id": "LAW-TT-10-2020",
+      "sha256": "b2b7e891bec31090825b93cd4e3d582cb4c779d34aca5e32e5234d9023efc853",
+      "source_decision": "HOLD_OR_METADATA_ONLY",
+      "usage_rights_decision": "HOLD_OR_METADATA_ONLY",
+      "effective_window_decision": "HOLD_OR_METADATA_ONLY",
+      "active_runtime_source": false
+    }
+  ],
+  "limitations": [
+    "No cryptographic signature or independent identity authentication claimed.",
+    "Machine scan status is not changed by human approval.",
+    "No whole-document or all-21-risk-label coverage claim.",
+    "No private contract text, Gold, raw law text or source PDF in this metadata packet."
+  ]
+}

@@ -1,0 +1,48 @@
+name: Data quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  data-quality:
+    name: Data quality (${{ matrix.os }}, Python 3.10)
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    env:
+      PYTHONUTF8: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - name: Check out the PR merge result or pushed commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Python 3.10
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.10"
+      - name: Install CI dependencies
+        run: python -m pip install --requirement requirements-ci.txt
+      - name: Check whitespace in the change
+        env:
+          CI_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: >-
+          python -c "import os, subprocess; base = os.environ.get('CI_BASE_SHA', ''); args = ['git', 'diff', '--check', base, 'HEAD'] if base and set(base) != {'0'} else ['git', 'show', '--check', '--format=', 'HEAD']; subprocess.run(args, check=True)"
+      - name: Lint maintained Python scripts and tests
+        run: python -m ruff check scripts tests
+      - name: Run the complete public Data test suite
+        run: python -m pytest -q -rs
