@@ -10,7 +10,7 @@ The restricted 15/11 worksheet covers 250 D2 segmentation Gold spans, with 34 ex
 
 The CSV schema remains unchanged. For a genuinely reviewed row, put the single real Owner identifier in legacy `reviewer_n1`, leave `reviewer_n2` empty, and fill `adjudicated_labels`, `reviewed_on` and `decision` only after the Owner decision. The same Owner identifier must be used across all rows/documents. The flag makes these legacy columns unambiguous; never fill a second person or AI name. The converter rejects AI/placeholder identifiers, a nonempty second-reviewer field in this mode, mixed Owner identifiers, incomplete decisions, invalid labels, source/hash/span changes, duplicate/unknown refs and incomplete segmentation coverage. Keep `suggested_labels` as trace evidence.
 
-The default `DUAL_HUMAN_REVIEW_V1` remains available for legacy callers and still requires two distinct valid reviewers. Selecting a mode does not approve the rows.
+The default `DUAL_HUMAN_REVIEW_V1` remains available for legacy callers and still requires two distinct valid reviewers. Selecting a mode does not approve the rows. The identifier filter rejects known AI/placeholder patterns, including punctuation and model-version suffixes; it is not independent identity authentication or proof that a human actually performed the review.
 
 ## Conversion steps (restricted local files only)
 
