@@ -1,5 +1,7 @@
 # Corpus v2: kiểm toán và phạm vi đề nghị — 14/11/2026
 
+> Historical snapshot as of 14/11/2026. For current RC01 counts, Owner-only governance and remaining gates, read [WP1 RC01 status](CORPUS_V2_WP1_RC01_STATUS_2026-11-21.md). Historical reviewer-role and open-PR statements below are not current requirements or PR status.
+
 **Trạng thái:** gói duyệt phạm vi, chưa phê duyệt provision hoặc kích hoạt runtime. Chỉ xét hợp đồng lao động. Nguồn số liệu là checkout Pipeline tại `c955a7ab` và Data `a4a3b12`; đối chiếu lại khi PR tích hợp Pipeline đổi HEAD. Không dùng nội dung hay dự đoán T1/T2 để chọn luật, cạnh, trọng số hoặc prompt.
 
 ## 1. Kết luận kiểm toán v1 và metric
