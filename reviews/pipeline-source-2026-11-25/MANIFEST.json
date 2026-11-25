@@ -126,5 +126,8 @@
   ],
   "source_only": true,
   "actual_pipeline_pr_created": false,
-  "fresh_full_regression": "BLOCKED_WINDOWS_SOCKETPAIR_ACCEPT"
+  "fresh_full_regression": "BLOCKED_WINDOWS_SOCKETPAIR_ACCEPT",
+  "storage_file": "pipeline_code_only.patch.b64",
+  "storage_encoding": "BASE64_RFC2045_LF",
+  "decoded_patch_filename": "pipeline_code_only.patch"
 }

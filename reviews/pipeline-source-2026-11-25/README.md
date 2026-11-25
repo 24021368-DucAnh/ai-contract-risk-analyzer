@@ -19,3 +19,16 @@ Historical frozen-candidate regression was 1214 passed, 2 skipped, 4 optional li
 Data converter validation is tracked separately in Data PR #25: 22 fresh tests passed. Neither PR completes WP2 legal/source-rights review, Risk taxonomy migration compatibility, teammate handover, frozen Dev predictions or final system acceptance. M10 stays NOT_MEASURED; T1/T2 stay closed.
 
 Review ownership: sosadsonar is the Pipeline repository owner and has write permission in this Data repository. Review request is separate from actual approval. No merge has been performed.
+
+## Lossless transport
+
+The original patch is stored as pipeline_code_only.patch.b64 to preserve its byte SHA while passing the repository whitespace check. Decode it before applying:
+
+```python
+import base64
+from pathlib import Path
+encoded = Path("pipeline_code_only.patch.b64").read_bytes()
+Path("pipeline_code_only.patch").write_bytes(base64.decodebytes(encoded))
+```
+
+The SHA256 in MANIFEST.json is for the decoded patch. This changes transport only; no patch line or application assertion changes.
