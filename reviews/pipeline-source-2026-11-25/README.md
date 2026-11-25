@@ -32,3 +32,7 @@ Path("pipeline_code_only.patch").write_bytes(base64.decodebytes(encoded))
 ```
 
 The SHA256 in MANIFEST.json is for the decoded patch. This changes transport only; no patch line or application assertion changes.
+
+## Current role routing
+
+Start with [OWNERSHIP.md](OWNERSHIP.md) for exact file ownership and readable per-role diff previews. N4 (ghoulixia) coordinates host validation and actual Pipeline integration; N1 (sosadsonar) reviews Clause/provider, N3 (AnhTuHoangPahm) reviews Risk, N2 (24021368-DucAnh) owns data/corpus/harness, and N5 (ckpsang06) owns X-10 intake and relevant highlight checks. These requests are not completed reviews. Tasks #27–#31 track the evidence and acceptance criteria.

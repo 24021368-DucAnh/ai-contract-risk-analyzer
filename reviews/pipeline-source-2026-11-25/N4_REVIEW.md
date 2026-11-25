@@ -1,0 +1,133 @@
+# N4 review — Nguyễn Huy Minh
+
+Scope: Backend / integration / configuration / host. See OWNERSHIP.md and the role issue. Display-only preview; apply the original decoded patch, not this Markdown.
+
+## tests/unit/test_runtime_config.py
+
+````diff
+diff --git a/tests/unit/test_runtime_config.py b/tests/unit/test_runtime_config.py
+--- a/tests/unit/test_runtime_config.py
++++ b/tests/unit/test_runtime_config.py
+@@ -1,60 +1,61 @@
+-"""Deployment guards keep sample routes out of demo/eval."""
+-
+-import os
+-import subprocess
+-import sys
+-
+-import pytest
+-from app.core.config import Settings, load_settings, validate_for_env
+-
+-# sẽ cho vào conftest nếu cần
+-@pytest.fixture(autouse=True)
+-def isolated_settings(monkeypatch):
+-    monkeypatch.setitem(Settings.model_config, "env_file", None)  # không đọc .env
+-    for name in Settings.model_fields:                            # xóa biến môi trường của máy
+-        monkeypatch.delenv(name, raising=False)
+-
+-def test_dev_optional_quota_and_env_reload(monkeypatch):
+-    monkeypatch.setenv("APP_ENV", "dev")
+-    monkeypatch.delenv("DAILY_LLM_CALL_QUOTA", raising=False)
+-    assert load_settings().DAILY_LLM_CALL_QUOTA is None
+-    monkeypatch.setenv("DAILY_LLM_CALL_QUOTA", "37")
+-    assert load_settings().DAILY_LLM_CALL_QUOTA == 37
+-
+-
+-@pytest.mark.parametrize("override", [
+-    {}, {"GEMINI_API_KEY": "key", "GEMINI_MODEL_ID": "model"},
+-    {"WEB_CONCURRENCY": 2}, {"DEV_LLM_PROVIDER": "local"},
+-    {"CLAUSE_GRAPH_ENABLED": False},
+-])
+-def test_demo_rejects_missing_or_unsafe_configuration(override):
+-    complete = dict(APP_ENV="demo", GEMINI_API_KEY="key", GEMINI_MODEL_ID="model",
+-                    DAILY_LLM_CALL_QUOTA=30, SESSION_CALL_RESERVE=4, RATE_LIMIT_HMAC_SALT="test-salt")
+-    if not override or "GEMINI_API_KEY" in override:
+-        complete.pop("DAILY_LLM_CALL_QUOTA")
+-        complete.pop("SESSION_CALL_RESERVE")
+-    complete.update(override)
+-    with pytest.raises(ValueError):
+-        validate_for_env(Settings(**complete))
+-
+-
+-def test_demo_never_uses_mock_runner_with_valid_config():
+-    """X-19: demo/eval luôn chạy pipeline thật; fixture mẫu chỉ còn ở dev không có provider."""
+-    env = os.environ.copy()
+-    env.update(APP_ENV="demo", GEMINI_API_KEY="test", GEMINI_MODEL_ID="test",
+-               DAILY_LLM_CALL_QUOTA="30", SESSION_CALL_RESERVE="4",
+-               RATE_LIMIT_HMAC_SALT="test-salt", DEV_LLM_PROVIDER="gemini")
+-    code = ("import sys; sys.path.insert(0, 'backend'); from app.main import app, pipeline_enabled, settings; "
+-            "assert pipeline_enabled(settings)")
+-    result = subprocess.run([sys.executable, "-c", code], env=env, text=True, capture_output=True)
+-    assert result.returncode == 0, result.stderr
+-
+-
+-def test_demo_rejects_fake_provider():
+-    env = os.environ.copy()
+-    env.update(APP_ENV="demo", GEMINI_API_KEY="test", GEMINI_MODEL_ID="test",
+-               DAILY_LLM_CALL_QUOTA="30", SESSION_CALL_RESERVE="4",
+-               RATE_LIMIT_HMAC_SALT="test-salt", DEV_LLM_PROVIDER="fake")
+-    result = subprocess.run([sys.executable, "-c", "import sys; sys.path.insert(0, 'backend'); from app.main import app"],
+-                            env=env, text=True, capture_output=True)
+-    assert result.returncode != 0 and "only available in dev" in result.stderr
++"""Deployment guards keep sample routes out of demo/eval."""
++
++import os
++import subprocess
++import sys
++
++import pytest
++from app.core.config import Settings, load_settings, validate_for_env
++
++
++# sẽ cho vào conftest nếu cần
++@pytest.fixture(autouse=True)
++def isolated_settings(monkeypatch):
++    monkeypatch.setitem(Settings.model_config, "env_file", None)  # không đọc .env
++    for name in Settings.model_fields:                            # xóa biến môi trường của máy
++        monkeypatch.delenv(name, raising=False)
++
++def test_dev_optional_quota_and_env_reload(monkeypatch):
++    monkeypatch.setenv("APP_ENV", "dev")
++    monkeypatch.delenv("DAILY_LLM_CALL_QUOTA", raising=False)
++    assert load_settings().DAILY_LLM_CALL_QUOTA is None
++    monkeypatch.setenv("DAILY_LLM_CALL_QUOTA", "37")
++    assert load_settings().DAILY_LLM_CALL_QUOTA == 37
++
++
++@pytest.mark.parametrize("override", [
++    {}, {"GEMINI_API_KEY": "key", "GEMINI_MODEL_ID": "model"},
++    {"WEB_CONCURRENCY": 2}, {"DEV_LLM_PROVIDER": "local"},
++    {"CLAUSE_GRAPH_ENABLED": False},
++])
++def test_demo_rejects_missing_or_unsafe_configuration(override):
++    complete = dict(APP_ENV="demo", GEMINI_API_KEY="key", GEMINI_MODEL_ID="model",
++                    DAILY_LLM_CALL_QUOTA=30, SESSION_CALL_RESERVE=4, RATE_LIMIT_HMAC_SALT="test-salt")
++    if not override or "GEMINI_API_KEY" in override:
++        complete.pop("DAILY_LLM_CALL_QUOTA")
++        complete.pop("SESSION_CALL_RESERVE")
++    complete.update(override)
++    with pytest.raises(ValueError):
++        validate_for_env(Settings(**complete))
++
++
++def test_demo_never_uses_mock_runner_with_valid_config():
++    """X-19: demo/eval luôn chạy pipeline thật; fixture mẫu chỉ còn ở dev không có provider."""
++    env = os.environ.copy()
++    env.update(APP_ENV="demo", GEMINI_API_KEY="test", GEMINI_MODEL_ID="test",
++               DAILY_LLM_CALL_QUOTA="30", SESSION_CALL_RESERVE="4",
++               RATE_LIMIT_HMAC_SALT="test-salt", DEV_LLM_PROVIDER="gemini")
++    code = ("import sys; sys.path.insert(0, 'backend'); from app.main import app, pipeline_enabled, settings; "
++            "assert pipeline_enabled(settings)")
++    result = subprocess.run([sys.executable, "-c", code], env=env, text=True, capture_output=True)
++    assert result.returncode == 0, result.stderr
++
++
++def test_demo_rejects_fake_provider():
++    env = os.environ.copy()
++    env.update(APP_ENV="demo", GEMINI_API_KEY="test", GEMINI_MODEL_ID="test",
++               DAILY_LLM_CALL_QUOTA="30", SESSION_CALL_RESERVE="4",
++               RATE_LIMIT_HMAC_SALT="test-salt", DEV_LLM_PROVIDER="fake")
++    result = subprocess.run([sys.executable, "-c", "import sys; sys.path.insert(0, 'backend'); from app.main import app"],
++                            env=env, text=True, capture_output=True)
++    assert result.returncode != 0 and "only available in dev" in result.stderr
+````
