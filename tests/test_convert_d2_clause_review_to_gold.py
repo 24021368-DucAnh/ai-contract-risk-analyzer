@@ -53,6 +53,22 @@ def test_two_person_review_creates_source_pinned_gold(tmp_path):
     assert result["DOC"]["approval_governance_mode"] == "DUAL_HUMAN_REVIEW_V1"
 
 
+@pytest.mark.parametrize("labels", [
+    "JOB_INFO;LEAVE;TRAINING;WORKING_TIME", "OTHER;JOB_INFO", "JOB_INFO;OTHER",
+])
+def test_reviewed_gold_rejects_labels_that_violate_runtime_taxonomy(tmp_path, labels):
+    packet, source, gold = _fixture(tmp_path)
+    with packet.open(encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    rows[0]["adjudicated_labels"] = labels
+    with packet.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=rows[0])
+        writer.writeheader()
+        writer.writerows(rows)
+    with pytest.raises(ValueError, match="invalid or missing final label"):
+        convert_reviewed_queue(packet, {"DOC": (source, gold)})
+
+
 def test_single_owner_mode_accepts_single_owner_and_blocks_second_reviewer_or_ai(tmp_path):
     packet, source, gold = _fixture(tmp_path)
     with packet.open(encoding="utf-8", newline="") as handle:
