@@ -46,6 +46,22 @@ Tất cả12 lượt lỗi có trọng số mapping của căn cứ theo nhãn d
 theo cờ reachability đã lưu. Đây là quan sát, không đủ chứng minh một thay đổi mapping bất kỳ sẽ sửa được lỗi.
 Không tự thêm cạnh hoặc mapping để đưa căn cứ Gold vào top5.
 
+### Đã tái hiện cơ chế hồi quy của graph
+
+Sau phần đối soát báo cáo, N2 chạy lại riêng một truy vấn bằng nhãn đã lưu, code retrieval đóng băng,
+ngày12/11/2026 và ba tệp nội dung corpus có băm khớp RC02. Không gọi bộ dự đoán nhãn hoặc provider,
+không ghi toàn văn/quote truy vấn vào kết quả và không sửa runtime.
+
+Căn cứ mục tiêu có điểm baseline khoảng0,229298, ở hạng5 khi tắt graph. Khi bật graph, hai ứng viên
+`BLLD2019:art14:cl2` và `BLLD2019:art20:cl1` nhận điểm xếp hạng graph lần lượt0,53 và khoảng0,293491,
+đều cao hơn điểm của căn cứ mục tiêu. Sau3 seed cố định, hai ứng viên này đứng trước các backup,
+làm căn cứ mục tiêu xuống hạng7. Không xảy ra fallback. Cả hai thứ hạng khớp báo cáo đã lưu.
+
+Đây là bằng chứng thực thi của cơ chế chèn/xếp hạng, không phải bằng chứng rằng hai căn cứ graph vô giá trị
+về pháp lý hoặc rằng thuật toán vi phạm đặc tả. Không có thay đổi trọng số, quy tắc bảo vệ top5 hay cạnh/mapping mới.
+N2 đã hoàn tất chẩn đoán nhóm này; thay chính sách xếp hạng cần một thay đổi thiết kế được review và đánh giá Dev phù hợp.
+Trace chỉ chứa IDs, băm và điểm trong `GRAPH_LOSS_REPLAY.json` của gói nội bộ.
+
 Ở graph off, Oracle cứu4 lượt nhưng làm mất2 lượt Primary đang đúng, nên số tăng ròng chỉ2.
 Ở graph on, Oracle cứu4 lượt và không làm mất lượt đang đúng. Oracle không phải cận trên bảo đảm cho từng truy vấn.
 

@@ -78,6 +78,8 @@ Kết quả này hỗ trợ việc mô tả thay đổi trên chính Dev đã đ
 
 Phân tích ngày25/11 chỉ tái tính từ báo cáo đã lưu, không chạy model mới, không tạo lại khoảng tin cậy,
 không đổi Gold và không dùng Oracle để huấn luyện/tune Primary.
+Một truy vấn được replay riêng bằng nhãn đã lưu và code retrieval đóng băng để kiểm chứng cơ chế tụt hạng;
+đây là chạy lại retrieval có kiểm soát, không phải phép đo model hoặc lần đánh giá M8 đầy đủ mới.
 Nguồn Gold Risk của hồ sơ M8 được ghim trong `input_sha256` của chính báo cáo;
 không tự gọi hồ sơ lịch sử này là phép đo mới trên Risk Gold canonical v02 hoặc taxonomy22.
 
