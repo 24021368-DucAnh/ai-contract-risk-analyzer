@@ -1,0 +1,215 @@
+{
+  "schema": "pipeline_source_review_offline_receipt_v1",
+  "verified_on": "2026-11-27",
+  "status": "N2_TECHNICAL_SELF_REVIEW",
+  "pipeline_base": "d930e0092fa27f92cabf2ef8161d9fab86c60272",
+  "patches": [
+    {
+      "apply_order": 1,
+      "file": "pipeline_code_only.patch.b64",
+      "decoded_sha256": "0fb27f7aacbc94b90878ba869c2e359e5eff51487ff57e569efe0dc79f9d0245"
+    },
+    {
+      "apply_order": 2,
+      "file": "n2_d2_label_whitespace.patch.b64",
+      "decoded_sha256": "938930d5ba5ce64affb3727b741e197111ce9060c71253cc731592c80d9e0302"
+    },
+    {
+      "apply_order": 3,
+      "file": "n2_d1_fixture_gates.patch.b64",
+      "decoded_sha256": "d4b9ca0393830d15c0ad9ed809bb7f0ed6f304c5c0ee74561feb80dbe8021ced"
+    }
+  ],
+  "python": "3.10.11",
+  "without_data": {
+    "passed": 1196,
+    "skipped": 18,
+    "model_tests_deselected": 4
+  },
+  "d1_only": {
+    "passed": 1216,
+    "skipped": 1,
+    "model_tests_deselected": 4,
+    "fixture_source_commit": "d9b393efa7b51eef55326bf808cea352891348c5",
+    "documents": [
+      "HDLD001",
+      "HDLD002",
+      "HDLD003",
+      "HDLD004"
+    ],
+    "derived_csv_row_counts": {
+      "clauses_v04.csv": 183,
+      "clauses_v06.csv": 183
+    }
+  },
+  "original_20_skip_items": [
+    {
+      "module": "tests.integration.test_benchmark_d1_data",
+      "baseline": "test_real_d1_only_reports_measured_local_stages_and_configured_planned_calls",
+      "d1_profile": {
+        "test_real_d1_only_reports_measured_local_stages_and_configured_planned_calls": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_benchmark_d1_data",
+      "baseline": "test_rejects_changed_release_input_before_any_measurement",
+      "d1_profile": {
+        "test_rejects_changed_release_input_before_any_measurement": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_d1_clause_run",
+      "baseline": "test_offset_mapper_handles_deletions_and_nfc",
+      "d1_profile": {
+        "test_offset_mapper_handles_deletions_and_nfc": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_d1_clause_run",
+      "baseline": "test_d1_gold_spans_map_inside_canonical_and_are_ordered",
+      "d1_profile": {
+        "test_d1_gold_spans_map_inside_canonical_and_are_ordered": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_d1_clause_run",
+      "baseline": "test_t1_contract_is_refused",
+      "d1_profile": {
+        "test_t1_contract_is_refused": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_d1_clause_run",
+      "baseline": "test_smoke_run_covers_all_d1_contracts_and_graph_inv",
+      "d1_profile": {
+        "test_smoke_run_covers_all_d1_contracts_and_graph_inv": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_d1_clause_run",
+      "baseline": "test_measured_flag_produces_m7_block_with_pins",
+      "d1_profile": {
+        "test_measured_flag_produces_m7_block_with_pins": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_d1_offset_mapping",
+      "baseline": "test_d1_exact_spans_keep_content_after_mapping",
+      "d1_profile": {
+        "test_d1_exact_spans_keep_content_after_mapping": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_d1_offset_mapping",
+      "baseline": "test_mapper_is_monotonic_on_every_d1_contract",
+      "d1_profile": {
+        "test_mapper_is_monotonic_on_every_d1_contract": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_p1_real_d1",
+      "baseline": "test_real_d1_base_documents_have_no_pii_before_insertion",
+      "d1_profile": {
+        "test_real_d1_base_documents_have_no_pii_before_insertion": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_p1_real_d1",
+      "baseline": "test_real_d1_generation_keeps_invariants_at_default_sizes",
+      "d1_profile": {
+        "test_real_d1_generation_keeps_invariants_at_default_sizes": "passed"
+      }
+    },
+    {
+      "module": "tests.integration.test_segmenter_real_contracts",
+      "baseline": "test_invariants_hold_on_real_contract[NOTSET]",
+      "d1_profile": {
+        "test_invariants_hold_on_real_contract[HDLD001]": "passed",
+        "test_invariants_hold_on_real_contract[HDLD002]": "passed",
+        "test_invariants_hold_on_real_contract[HDLD003]": "passed",
+        "test_invariants_hold_on_real_contract[HDLD004]": "passed"
+      }
+    },
+    {
+      "module": "tests.test_data_lead_review.ContextAuditTests",
+      "baseline": "test_audit_covers_all_nine_without_exact_gold_or_legal_labels",
+      "d1_profile": {
+        "test_audit_covers_all_nine_without_exact_gold_or_legal_labels": "passed"
+      }
+    },
+    {
+      "module": "tests.test_data_lead_review.ContextAuditTests",
+      "baseline": "test_context_without_audit_note_is_rejected",
+      "d1_profile": {
+        "test_context_without_audit_note_is_rejected": "passed"
+      }
+    },
+    {
+      "module": "tests.test_data_lead_review.ContextAuditTests",
+      "baseline": "test_in_bounds_unrelated_context_is_rejected_against_reviewed_anchor",
+      "d1_profile": {
+        "test_in_bounds_unrelated_context_is_rejected_against_reviewed_anchor": "passed"
+      }
+    },
+    {
+      "module": "tests.test_data_lead_review.ContextAuditTests",
+      "baseline": "test_out_of_bounds_reference_is_rejected",
+      "d1_profile": {
+        "test_out_of_bounds_reference_is_rejected": "passed"
+      }
+    },
+    {
+      "module": "tests.test_data_lead_review.ContextAuditTests",
+      "baseline": "test_promoting_context_to_exact_rejects_the_nonmatching_reference",
+      "d1_profile": {
+        "test_promoting_context_to_exact_rejects_the_nonmatching_reference": "passed"
+      }
+    },
+    {
+      "module": "tests.unit.test_pii_draft",
+      "baseline": "test_blank_contract_templates_have_no_pii_spans[HDLD001]",
+      "d1_profile": {
+        "test_blank_contract_templates_have_no_pii_spans[HDLD001]": "passed"
+      }
+    },
+    {
+      "module": "tests.unit.test_pii_draft",
+      "baseline": "test_blank_contract_templates_have_no_pii_spans[HDLD003]",
+      "d1_profile": {
+        "test_blank_contract_templates_have_no_pii_spans[HDLD003]": "passed"
+      }
+    },
+    {
+      "module": "tests.unit.test_pii_draft",
+      "baseline": "test_blank_contract_templates_have_no_pii_spans[HDLD005]",
+      "d1_profile": {
+        "test_blank_contract_templates_have_no_pii_spans[HDLD005]": "skipped"
+      }
+    }
+  ],
+  "d1_module_without_data_before": {
+    "passed": 0,
+    "skipped": 5
+  },
+  "d1_module_without_data_after": {
+    "passed": 2,
+    "skipped": 3
+  },
+  "d2_reviewed_dev": {
+    "rows_verified": 250,
+    "documents": 4,
+    "manifest_schema": "d2_clause_label_gold_manifest_v2"
+  },
+  "ruff_passed": true,
+  "fake_provider_smoke": {
+    "clauses": 4,
+    "risks": 2,
+    "citations": 2,
+    "fake_calls": 2,
+    "schema_errors": 0
+  },
+  "held_out_documents_used": false,
+  "real_model_calls": 0,
+  "data_gitlink_changed": false,
+  "runtime_defaults_changed": false
+}

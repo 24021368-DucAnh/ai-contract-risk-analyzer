@@ -1,0 +1,333 @@
+{
+  "schema_version": "data_lead_role_routing_v1",
+  "status": "COORDINATED_NOT_TEAM_SIGNOFF",
+  "source_main": {
+    "pipeline": "d930e0092fa27f92cabf2ef8161d9fab86c60272",
+    "data": "1ba1a8d511968297f60849808e5cc96ee5d583a1"
+  },
+  "patch_sha256": "0fb27f7aacbc94b90878ba869c2e359e5eff51487ff57e569efe0dc79f9d0245",
+  "roles": {
+    "N1": {
+      "name": "Ngô Hoàng Nhật",
+      "login": "sosadsonar",
+      "workstream": "Clause AI / provider / Clause Graph",
+      "issue": 27
+    },
+    "N2": {
+      "name": "Đức Anh",
+      "login": "24021368-DucAnh",
+      "workstream": "Data / corpus / Gold / retrieval / harness",
+      "issue": 31
+    },
+    "N3": {
+      "name": "Hoàng Phạm Anh Tú",
+      "login": "AnhTuHoangPahm",
+      "workstream": "Risk AI / privacy / taxonomy / citation",
+      "issue": 28
+    },
+    "N4": {
+      "name": "Nguyễn Huy Minh",
+      "login": "ghoulixia",
+      "workstream": "Backend / integration / configuration / host",
+      "issue": 29
+    },
+    "N5": {
+      "name": "Cao Khắc Phan Sang",
+      "login": "ckpsang06",
+      "workstream": "Frontend / highlight / X-10 intake",
+      "issue": 30
+    }
+  },
+  "files": [
+    {
+      "path": "ai_pipeline/evaluation/d2_clause_gold.py",
+      "before_sha256": null,
+      "after_sha256": "b5c278f207c214f271cf75c4f679c36ec5a9e3cf6dca39d605d079fdf12b9c8f",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "backend/app/ai/dev_local_client.py",
+      "before_sha256": "c1a280f8aa590d780bc79801b650f4ca5e65aad5e5a3560bf44d54fa6d15bbda",
+      "after_sha256": "4e6d62e57bc3e8eefae2b7c0d7fe68edb5c775ea011c536252761e3996e4654c",
+      "primary_role": "N1",
+      "primary_login": "sosadsonar",
+      "consult_roles": [
+        "N2"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "backend/app/ai/risk_adapter.py",
+      "before_sha256": "4a11e6bcdd0b460f753f89095f0f265b2ab43828031cd145aeee21586f586fe7",
+      "after_sha256": "7b7bdeea1975114264361b4656921460e2fc75fb176fa6272183d7474e20d335",
+      "primary_role": "N3",
+      "primary_login": "AnhTuHoangPahm",
+      "consult_roles": [
+        "N2"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "backend/app/clause/dev_tfidf_baseline.py",
+      "before_sha256": "b8cc136a1645eebf16e97f586bb1725ee1b32e4317533839c3ab5fc75e94c87d",
+      "after_sha256": "4603c6fbb6c4511fdbc08119e6a50ebc844fa9b504252c63abbd9762e14b93cc",
+      "primary_role": "N1",
+      "primary_login": "sosadsonar",
+      "consult_roles": [
+        "N2"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "backend/app/legal/corpus_loader.py",
+      "before_sha256": "a7995127530e81b75a5238df276a1b0a4c51cb90ed5eace05fe5dc7ec1fa857b",
+      "after_sha256": "fccf06796a2c1324c9aff7507445d262edba5c1fa618b6942d3a4286008ad8c9",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N3",
+        "N4"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-24-owner-d2-full-oracle.md",
+      "before_sha256": null,
+      "after_sha256": "c2249ae97e13390d1f2fa7bca9663bd78418fc25d27ae051199db83c30ccd189",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "scripts/align_d2_source_labels.py",
+      "before_sha256": null,
+      "after_sha256": "5cd97be71d313fe869a36ef4a24a792c94248b9244d8a0ee76f9775bebbadfad",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "scripts/audit_data_lead.py",
+      "before_sha256": "db387d9c792fc36f93c5234b8de0a5b62c8365c0b69d427f84a89f561ce14a8d",
+      "after_sha256": "0db57033a415aea825eb53c4436aac1933ce7f5daa6c68fb744b770e909b9a80",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "scripts/audit_dev_risk_support.py",
+      "before_sha256": null,
+      "after_sha256": "c434fbaa821f505a857b8ded6d3e317041cfa44baa49258b856a8a2fa42a44af",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "scripts/generate_receipts_after_human_signoff.py",
+      "before_sha256": null,
+      "after_sha256": "b03d6b77558d966aa8905656e9f8a717f3f824cd34103497fc034f5abcc8a099",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "scripts/install_approved_corpus.py",
+      "before_sha256": null,
+      "after_sha256": "18dc4fccc0e4b2971399b4032accc0a86c84fdcb15e92342ed5d0194251c1894",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N3",
+        "N4"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "scripts/measure_m8_dev.py",
+      "before_sha256": "38c9a76c3911c54a0775c4a7545dc19bfc7e3b37a1e866d73aa45890258b7f49",
+      "after_sha256": "301a79c640839cd7374b342db8ff3d86e117f00d3e5728b58a49d3507b5444c2",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "scripts/prepare_wp2_scope_candidate.py",
+      "before_sha256": null,
+      "after_sha256": "f6d414786e3d01e6ed65e73b82b93685e4053d6faaff1b19ce306cce9fa978be",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_d2_oracle_gold.py",
+      "before_sha256": null,
+      "after_sha256": "f7d1c20728a5873c89a5b48c7f754490f2bb983717f39e6b642930bdb99ad348",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_d2_source_alignment.py",
+      "before_sha256": null,
+      "after_sha256": "6e0fdddf2844a8c4af425003b890c74aa446859a1208c9ad552c28ac02ae63ad",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_dev_local_client_oi05.py",
+      "before_sha256": null,
+      "after_sha256": "403de4f889b8850992f429575318aac76b9025e0d2cdbdf330e8a6bef311f6ba",
+      "primary_role": "N1",
+      "primary_login": "sosadsonar",
+      "consult_roles": [
+        "N2"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_dev_risk_support_audit.py",
+      "before_sha256": null,
+      "after_sha256": "960cf2b28a568b2cb6be8ffcfbaea597c33ab98c682ff25ac998070b3ca66d46",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_dev_tfidf_baseline.py",
+      "before_sha256": "d629786f1ae92db5db6f1538a1a2d57adfa2d6c67469fb926f74fb452f2cd779",
+      "after_sha256": "507e53c27975e4d3694dd7809a22749a491e606f9b59e9845a0a4df9a392409c",
+      "primary_role": "N1",
+      "primary_login": "sosadsonar",
+      "consult_roles": [
+        "N2"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_install_approved_corpus.py",
+      "before_sha256": null,
+      "after_sha256": "81a9b29b0de8714a07e7f2948a8912f855be0e1290e79f30f6de7a842ff14923",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N3",
+        "N4"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_legal_corpus_v2_release.py",
+      "before_sha256": "11c4a76fb009ab91139516911647a78440f943d26bb7a6e5a672aac213b70f6b",
+      "after_sha256": "229102276be25809c96292a673d8eb51eede151453d698cdd6b4058b4970a0ee",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_m8_source_clusters.py",
+      "before_sha256": null,
+      "after_sha256": "aacbb74053afcaef1ded5c99571658ae0d17110f4900e05de228730ed47d46af",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_native_bounded_risk_schema.py",
+      "before_sha256": null,
+      "after_sha256": "7174dee6c16ebcb573f22375683af5fcd3ad003e4f0d1155fb8ce073017e73ef",
+      "primary_role": "N3",
+      "primary_login": "AnhTuHoangPahm",
+      "consult_roles": [
+        "N2"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_runtime_config.py",
+      "before_sha256": "ffd81f1793486b5e5a033d9652240b4c1b97b89e9209394103a6e06158b17c69",
+      "after_sha256": "1a16c09e773e5b6dbd917b3575a620c3ab40decd4c4f1cc779553a1084494347",
+      "primary_role": "N4",
+      "primary_login": "ghoulixia",
+      "consult_roles": [
+        "N2"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    },
+    {
+      "path": "tests/unit/test_wp2_scope_controls.py",
+      "before_sha256": null,
+      "after_sha256": "ed774ebf8f60884aae0dd368d60cb0fed0fff57555928cec71958b053fffd133",
+      "primary_role": "N2",
+      "primary_login": "24021368-DucAnh",
+      "consult_roles": [
+        "N1",
+        "N3"
+      ],
+      "decision": "PENDING_ACTUAL_REVIEW"
+    }
+  ],
+  "source_role_table_is_proposal": true,
+  "OI04_closed": false,
+  "PR25_reviewers": [
+    "N1",
+    "N3"
+  ],
+  "PR25_code_owner": "N2",
+  "PR26_integration_owner": "N4",
+  "no_new_N5_frontend_code_review_required": true
+}
