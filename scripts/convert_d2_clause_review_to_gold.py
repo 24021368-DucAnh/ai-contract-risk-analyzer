@@ -136,7 +136,9 @@ def convert_reviewed_queue(
                     raise ValueError(f"inconsistent owner_approver across D2 rows: {sorted(seen_owner_approvers)}")
             _date(row["reviewed_on"])
             labels = [label.strip() for label in row["adjudicated_labels"].split(";")]
-            if not labels or any(label not in LABELS for label in labels) or len(labels) != len(set(labels)):
+            # Match Pipeline v05's MAX_LABELS_PER_CLAUSE in backend/app/clause/taxonomy.py.
+            if (not 1 <= len(labels) <= 3 or any(label not in LABELS for label in labels)
+                    or len(labels) != len(set(labels)) or ("OTHER" in labels and len(labels) != 1)):
                 raise ValueError(f"invalid or missing final label: {doc_id}/{ref}")
             matched[ref] = labels
         if set(matched) != set(segments):
@@ -189,6 +191,8 @@ def main() -> None:
             json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
         )
     (output / "manifest.json").write_text(json.dumps({
+        "schema_version": "d2_clause_label_gold_manifest_v2",
+        "dataset_version": output.name,
         "status": "GOLD_ADJUDICATED",
         "approval_governance_mode": args.approval_mode,
         "taxonomy_version": "clause_taxonomy_v03",
@@ -197,6 +201,10 @@ def main() -> None:
         "packet_sha256": hashlib.sha256(args.packet.read_bytes()).hexdigest(),
         "d2_sources_sha256": {doc_id: hashlib.sha256(source.read_bytes()).hexdigest()
                                for doc_id, (source, _) in docs.items()},
+        "d2_segmentation_sha256": {doc_id: hashlib.sha256(geometry.read_bytes()).hexdigest()
+                                    for doc_id, (_, geometry) in docs.items()},
+        "gold_files_sha256": {f"{doc_id}.gold_clause_labels.json": hashlib.sha256(
+            (output / f"{doc_id}.gold_clause_labels.json").read_bytes()).hexdigest() for doc_id in docs},
     }, indent=2) + "\n", encoding="utf-8")
 
 
