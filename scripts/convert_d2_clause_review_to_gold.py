@@ -136,6 +136,7 @@ def convert_reviewed_queue(
                     raise ValueError(f"inconsistent owner_approver across D2 rows: {sorted(seen_owner_approvers)}")
             _date(row["reviewed_on"])
             labels = [label.strip() for label in row["adjudicated_labels"].split(";")]
+            # Match Pipeline v05's MAX_LABELS_PER_CLAUSE in backend/app/clause/taxonomy.py.
             if (not 1 <= len(labels) <= 3 or any(label not in LABELS for label in labels)
                     or len(labels) != len(set(labels)) or ("OTHER" in labels and len(labels) != 1)):
                 raise ValueError(f"invalid or missing final label: {doc_id}/{ref}")

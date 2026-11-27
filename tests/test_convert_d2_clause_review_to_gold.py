@@ -11,7 +11,7 @@ from scripts.build_d2_clause_label_review_queue import FIELDS
 from scripts.convert_d2_clause_review_to_gold import convert_reviewed_queue
 
 
-def _fixture(tmp_path):
+def _fixture(tmp_path, first_label="JOB_INFO"):
     source = tmp_path / "DOC.txt"
     source.write_text("Alpha. Beta.", encoding="utf-8")
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
@@ -25,7 +25,7 @@ def _fixture(tmp_path):
     packet = tmp_path / "review.csv"
     rows = []
     for ref, start, end, span, label in [
-        ("d2seg_0001", 0, 6, "Alpha.", "JOB_INFO"),
+        ("d2seg_0001", 0, 6, "Alpha.", first_label),
         ("d2seg_0002", 7, 12, "Beta.", "OTHER"),
     ]:
         row = dict.fromkeys(FIELDS, "")
@@ -45,10 +45,15 @@ def _fixture(tmp_path):
     return packet, source, gold
 
 
-def test_two_person_review_creates_source_pinned_gold(tmp_path):
-    packet, source, gold = _fixture(tmp_path)
+@pytest.mark.parametrize("expected_labels", [
+    pytest.param(["JOB_INFO"], id="single-label"),
+    pytest.param(["TRAINING", "JOB_INFO", "LEAVE"], id="three-labels-in-review-order"),
+    pytest.param(["OTHER"], id="other-alone"),
+])
+def test_two_person_review_creates_source_pinned_gold(tmp_path, expected_labels):
+    packet, source, gold = _fixture(tmp_path, ";".join(expected_labels))
     result = convert_reviewed_queue(packet, {"DOC": (source, gold)})
-    assert [item["labels"] for item in result["DOC"]["items"]] == [["JOB_INFO"], ["OTHER"]]
+    assert [item["labels"] for item in result["DOC"]["items"]] == [expected_labels, ["OTHER"]]
     assert result["DOC"]["status"] == "GOLD_ADJUDICATED"
     assert result["DOC"]["approval_governance_mode"] == "DUAL_HUMAN_REVIEW_V1"
 
